@@ -6,8 +6,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<properties>
+	    <picketlinkVersion>2.1.5.Final</picketlinkVersion>
+	    <log4jVersion>1.2.17</log4jVersion>	    
+	</properties>
 	<modules>
 		<module>simple-servlet-service</module>
+		<module>ejb-weather-service</module>
 	</modules>
     
     <!-- Common pom for whole project, we are only defining dependency/plugin management here -->
@@ -20,12 +25,14 @@
 				<artifactId>jboss-javaee-6.0</artifactId>
 				<version>3.0.0.Final</version>
 				<type>pom</type>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>xalan</groupId>
 				<artifactId>xalan</artifactId>
 				<version>2.7.1</version>
+				<scope>provided</scope>
 			</dependency>
 			
 			<!-- JBoss Java EE 6 Components -->
@@ -34,6 +41,45 @@
 				<groupId>org.jboss.spec.javax.servlet</groupId>
 				<artifactId>jboss-servlet-api_3.0_spec</artifactId>
 				<version>1.0.1.Final</version>
+				<scope>provided</scope>
+			</dependency>
+			
+			<dependency>
+	    		<groupId>org.jboss.spec.javax.ejb</groupId>
+	    		<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+	    		<version>1.0.2.Final</version>
+				<scope>provided</scope>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.jboss.spec.javax.annotation</groupId>
+			    <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+			    <version>1.0.1.Final</version>
+				<scope>provided</scope>
+			</dependency>
+			
+			<!-- Picketlink dependencies -->
+		    
+		    <dependency>
+				<groupId>org.picketlink</groupId>
+				<artifactId>picketlink-core</artifactId>
+				<version>${picketlinkVersion}</version>
+				<scope>provided</scope>
+	      	</dependency>
+	      	
+			<dependency>
+				<groupId>org.picketlink.distribution</groupId>
+				<artifactId>picketlink-jbas7</artifactId>
+				<version>${picketlinkVersion}</version>
+				<scope>provided</scope>          
+      		</dependency>
+		    
+		    <!-- logging -->
+			
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4jVersion}</version>
 			</dependency>
 			
 			<!-- Test dependencies -->

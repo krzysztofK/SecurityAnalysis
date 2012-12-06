@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jboss-app>
+	<security-domain>ejb-service</security-domain>
+</jboss-app>
