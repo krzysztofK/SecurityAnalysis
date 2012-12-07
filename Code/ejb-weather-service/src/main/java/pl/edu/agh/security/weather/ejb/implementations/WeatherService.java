@@ -8,12 +8,12 @@ import javax.ejb.Stateless;
 import pl.edu.agh.security.weather.ejb.interfaces.IWeatherService;
 
 @Stateless
-@RolesAllowed({WeatherService.MAGISTER_STRING})
+@RolesAllowed({"magister"})
 public class WeatherService implements IWeatherService {
 
 	public static final String MAGISTER_STRING = "magister";
 	
-	@RolesAllowed(MAGISTER_STRING)
+	@RolesAllowed({"magister"})
 	@Override
 	public String invokeWeatherServiceForMagister() {
 		return "W okolicy magistra temperatura wyniesie -5 stopni";

@@ -17,7 +17,7 @@
 	    	<groupId>org.jboss.spec.javax.ejb</groupId>
 	    	<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
         <groupId>jboss</groupId>
         <artifactId>jboss-common-client</artifactId>
         <version>3.2.3</version>
@@ -25,8 +25,15 @@
             <dependency>
         <groupId>jboss</groupId>
         <artifactId>jbossall-client</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.3</version>
       </dependency>
+ -->      
+              <dependency>
+      <groupId>org.jboss.as</groupId>
+      <artifactId>jboss-as-ejb-client-bom</artifactId>
+      <version>7.1.1.Final</version>
+      <type>pom</type>
+  </dependency>
 	</dependencies>
 
 </project>

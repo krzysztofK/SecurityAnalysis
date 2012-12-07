@@ -11,6 +11,7 @@ import org.jboss.security.client.SecurityClient;
 import org.jboss.security.client.SecurityClientFactory;
 import org.picketlink.identity.federation.api.wstrust.WSTrustClient;
 import org.picketlink.identity.federation.api.wstrust.WSTrustClient.SecurityInfo;
+import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
 import org.picketlink.identity.federation.core.wstrust.SamlCredential;
 import org.picketlink.identity.federation.core.wstrust.WSTrustException;
 import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
@@ -25,18 +26,26 @@ public class ClientMain {
 	public static void main(String[] args) throws Exception {
 		initSAMLEJB3IntegrationTest();
 		testSAMLEJB3Integration("magister", "inzynier");
-		// test.testSAMLEJB3Integration("UserB", "PassB");
-		// test.testSAMLEJB3Integration("UserC", "PassC");
+//		testSAMLEJB3Integration("doktor", "inzynier");
+
 	}
 
 	public static void initSAMLEJB3IntegrationTest() {
 		// initialize the JNDI env that will be used to lookup the test EJB.
 		env = new Hashtable<String, Object>();
-		env.put("java.naming.factory.initial",
-				"org.jnp.interfaces.NamingContextFactory");
-		env.put("java.naming.factory.url.pkgs",
-				"org.jboss.naming:org.jnp.interfaces");
-		env.put("java.naming.provider.url", "localhost:1099");
+//		env.put("java.naming.factory.initial",
+//				"org.jnp.interfaces.NamingContextFactory");
+//		env.put("java.naming.factory.url.pkgs",
+//				"org.jboss.naming:org.jnp.interfaces");
+//		env.put("java.naming.provider.url", "localhost:1099");
+		
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+		env.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+		env.put(InitialContext.PROVIDER_URL, "remote://localhost:4447");
+		env.put(Context.SECURITY_PRINCIPAL, "ejbuser");
+        env.put(Context.SECURITY_CREDENTIALS, "password");
+        env.put("jboss.naming.client.ejb.context", true);
+		
 	}
 
 	public static void testSAMLEJB3Integration(String username, String password)
@@ -70,11 +79,12 @@ public class ClientMain {
 		securityClient.setSimple(username, new SamlCredential(assertion));
 		securityClient.login();
 
+		
 		// invoke the EJB3 bean - the assertion will be propagated with the
 		// security context.
 		System.out.println(username + " invoking secure EJB3 session bean");
 		Context context = new InitialContext(env);
-		Object object = context.lookup("WeatherService/remote");
+		Object object = context.lookup("ejb:/ejb-weather-service-0.0.1-SNAPSHOT//WeatherService!pl.edu.agh.security.weather.ejb.interfaces.IWeatherService");
 		IWeatherService weatherService = (IWeatherService) PortableRemoteObject
 				.narrow(object, IWeatherService.class);
 
