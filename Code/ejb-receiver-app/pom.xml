@@ -5,35 +5,24 @@
     <artifactId>security-analysis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>ejb-weather-client</artifactId>
-  <packaging>war</packaging>
-  
+  <artifactId>ejb-receiver-app</artifactId>
 	<dependencies>
-		<dependency>
-			<groupId>org.picketlink</groupId>
-			<artifactId>picketlink-core</artifactId>
-		</dependency>
-		<dependency>
+	    <dependency>
 	    	<groupId>org.jboss.spec.javax.ejb</groupId>
 	    	<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 		</dependency>
-<!-- 		<dependency>
-        <groupId>jboss</groupId>
-        <artifactId>jboss-common-client</artifactId>
-        <version>3.2.3</version>
-      </dependency>
-            <dependency>
-        <groupId>jboss</groupId>
-        <artifactId>jbossall-client</artifactId>
-        <version>3.2.3</version>
-      </dependency>
-      
- -->		<dependency>
+		<dependency>
 			<groupId>org.jboss.as</groupId>
 			<artifactId>jboss-as-ejb-client-bom</artifactId>
 			<version>7.1.1.Final</version>
 			<type>pom</type>
 		</dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-jms-client-bom</artifactId>
+			<version>7.1.1.Final</version>
+            <type>pom</type>
+        </dependency>
 	</dependencies>
-
+	
 </project>

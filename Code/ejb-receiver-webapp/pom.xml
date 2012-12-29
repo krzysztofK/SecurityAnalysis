@@ -5,17 +5,33 @@
     <artifactId>security-analysis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>ejb-weather-service</artifactId>
-  <name>ejb-weather-service</name>
-  	<dependencies>
+  <artifactId>ejb-receiver-webapp</artifactId>
+  <packaging>war</packaging>
+	<dependencies>
+
+	<dependency>
+		<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
+		</dependency>
+		
 		<dependency>
 		    <groupId>org.jboss.spec.javax.ejb</groupId>
 		    <artifactId>jboss-ejb-api_3.1_spec</artifactId>
 		</dependency>
+	
+		<!-- Test dependencies -->
+		
 		<dependency>
-			<groupId>org.jboss.spec.javax.annotation</groupId>
-			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>pl.edu.agh.security</groupId>
+		    <artifactId>ejb-provider-app</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+				
 	</dependencies>
-  
 </project>
