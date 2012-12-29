@@ -19,6 +19,18 @@
 		    <artifactId>jboss-ejb-api_3.1_spec</artifactId>
 		</dependency>
 	
+		<dependency>
+			<groupId>org.jboss.ejb3</groupId>
+			<artifactId>jboss-ejb3-ext-api</artifactId>
+		</dependency>
+		
+		
+		<dependency>
+		    <groupId>pl.edu.agh.security</groupId>
+		    <artifactId>ejb-provider-app</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 		<!-- Test dependencies -->
 		
 		<dependency>
@@ -26,12 +38,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<dependency>
-		    <groupId>pl.edu.agh.security</groupId>
-		    <artifactId>ejb-provider-app</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
-		</dependency>
-				
+						
 	</dependencies>
 </project>

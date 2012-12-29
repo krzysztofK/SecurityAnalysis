@@ -17,12 +17,13 @@
 			<version>7.1.1.Final</version>
 			<type>pom</type>
 		</dependency>
+
         <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-jms-client-bom</artifactId>
-			<version>7.1.1.Final</version>
-            <type>pom</type>
-        </dependency>
-	</dependencies>
+		    <groupId>pl.edu.agh.security</groupId>
+		    <artifactId>ejb-provider-app</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+     </dependencies>
 	
 </project>

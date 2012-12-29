@@ -7,10 +7,9 @@ import javax.ejb.Stateless;
 import pl.edu.agh.security.provider.ejb.interfaces.IProvider;
 import pl.edu.agh.security.receiver.ejb.interfaces.IReceiver;
 
-
 @Stateless
 @Remote(IReceiver.class)
-public class Receiver implements IReceiver{
+public class Receiver implements IReceiver {
 
 	@EJB
 	private IProvider provider;
@@ -24,5 +23,15 @@ public class Receiver implements IReceiver{
 	public String receiveUnprotected() {
 		return provider.provideForAll();
 	}
-	
+
+	@Override
+	public String receiveForOtherRole() {
+		return provider.provideForOtherRole();
+	}
+
+	@Override
+	public String receiveForbiddenMessage() {
+		return provider.provideDenyForAll();
+	}
+
 }

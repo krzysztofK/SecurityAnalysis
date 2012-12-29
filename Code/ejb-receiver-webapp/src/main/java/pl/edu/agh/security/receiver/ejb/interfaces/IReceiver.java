@@ -6,4 +6,7 @@ public interface IReceiver {
 
 	public String receiveUnprotected();
 
+	public String receiveForOtherRole();
+	
+	public String receiveForbiddenMessage();
 }

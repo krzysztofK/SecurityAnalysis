@@ -58,6 +58,13 @@
 				<scope>provided</scope>
 			</dependency>
 			
+			<dependency>
+				<groupId>org.jboss.ejb3</groupId>
+				<artifactId>jboss-ejb3-ext-api</artifactId>
+				<version>1.0.0</version>
+				<scope>provided</scope>
+			</dependency>
+			
 			<!-- Picketlink dependencies -->
 		    
 		    <dependency>

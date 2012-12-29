@@ -89,5 +89,26 @@ public class ReceiverMain {
 			System.out.println(username
 					+ " is not authorized to call unprotected method!");
 		}
+
+		// invoke method that requires other role
+		try {
+			System.out.println(provider.provideForOtherRole());
+		} catch (EJBAccessException eae) {
+			// this should never happen as long as the user has successfully
+			// authenticated.
+			System.out.println(username
+					+ " is not authorized to call method for other role!");
+		}
+
+		// invoke method that dynies all roles
+		try {
+			System.out.println(provider.provideDenyForAll());
+		} catch (EJBAccessException eae) {
+			// this should never happen as long as the user has successfully
+			// authenticated.
+			System.out.println(username
+					+ " is not authorized to call forbidden method!");
+		}
+
 	}
 }
