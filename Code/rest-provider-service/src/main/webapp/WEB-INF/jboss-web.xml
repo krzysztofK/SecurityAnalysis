@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<jboss-web>
+	<security-domain>idp-ldap</security-domain>
+	<context-root>rest-provider</context-root>
+</jboss-web>
