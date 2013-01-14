@@ -12,7 +12,14 @@
 	</properties>
 	<modules>
 		<module>simple-servlet-service</module>
+		
 		<module>ejb-weather-service</module>
+		<module>weather-service</module>
+		<module>ejb-weather-client</module>
+		
+		<module>idp-ldap</module>
+		<module>music-service</module>
+		<module>security-token-service</module>
 	</modules>
     
     <!-- Common pom for whole project, we are only defining dependency/plugin management here -->
@@ -71,14 +78,12 @@
 				<groupId>org.picketlink</groupId>
 				<artifactId>picketlink-core</artifactId>
 				<version>${picketlinkVersion}</version>
-				<scope>provided</scope>
 	      	</dependency>
 	      	
 			<dependency>
 				<groupId>org.picketlink.distribution</groupId>
 				<artifactId>picketlink-jbas7</artifactId>
-				<version>${picketlinkVersion}</version>
-				<scope>provided</scope>          
+				<version>${picketlinkVersion}</version>        
       		</dependency>
 		    
 		    <!-- logging -->
