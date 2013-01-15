@@ -12,7 +12,7 @@ import org.jboss.ejb3.annotation.SecurityDomain;
 import pl.edu.agh.security.provider.ejb.interfaces.IProvider;
 
 @Stateless
-@SecurityDomain("ejb-ldap")
+@SecurityDomain("ejb-ldap-saml")
 @Remote(IProvider.class)
 @RolesAllowed({ "magister" })
 @DeclareRoles({ "magister" })
