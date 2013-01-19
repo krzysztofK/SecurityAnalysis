@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <jboss-web>
-	<security-domain>idp-ldap</security-domain>
+	<security-domain>ejb-ldap-saml</security-domain>
 	<context-root>rest-provider</context-root>
 </jboss-web>
