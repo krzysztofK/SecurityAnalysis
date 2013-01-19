@@ -114,35 +114,31 @@ public class ReceiverMain {
 		// UsernamePasswordHandler(username,
 		// new SamlCredential(assertion))).login();
 		/****************************************/
-		// Properties clientProp = new Properties();
-		// clientProp
-		// .put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED",
-		// "false");
-		// clientProp.put("remote.connections", "default");
-		// clientProp.put("remote.connection.default.port", "4447");
-		// clientProp.put("remote.connection.default.host", "localhost");
-		// clientProp.put("remote.connection.default.username", username);
-		// clientProp.put("remote.connection.default.password",
-		// DocumentUtil.getNodeAsString(assertion));
-		// clientProp
-		// .put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS",
-		// "false");
-		// // clientProp
-		// //
-		// .put("remote.connection.default.connect.options.org.xnio.Options.SASL_DISALLOWED_MECHANISMS",
-		// // "JBOSS-LOCAL-USER");
-		// clientProp
-		// .put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT",
-		// "false");
-		//
-		// EJBClientConfiguration cc = new
-		// PropertiesBasedEJBClientConfiguration(
-		// clientProp);
-		// ContextSelector<EJBClientContext> selector = new
-		// ConfigBasedEJBClientContextSelector(
-		// cc);
-		// EJBClientContext.setSelector(selector);
-
+//		Properties clientProp = new Properties();
+//		clientProp
+//				.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED",
+//						"false");
+//		clientProp.put("remote.connections", "default");
+//		clientProp.put("remote.connection.default.port", "4447");
+//		clientProp.put("remote.connection.default.host", "localhost");
+//		clientProp.put("remote.connection.default.username", username);
+//		clientProp.put("remote.connection.default.password",
+//				/*DocumentUtil.getNodeAsString(assertion)*/new SamlCredential(assertion));
+//		clientProp
+//				.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS",
+//						"false");
+//		clientProp
+//
+//				.put("remote.connection.default.connect.options.org.xnio.Options.SASL_DISALLOWED_MECHANISMS",
+//						"JBOSS-LOCAL-USER");
+//		clientProp
+//				.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT",
+//						"false");
+//		EJBClientConfiguration cc = new PropertiesBasedEJBClientConfiguration(
+//				clientProp);
+//		ContextSelector<EJBClientContext> selector = new ConfigBasedEJBClientContextSelector(
+//				cc);
+//		EJBClientContext.setSelector(selector);
 		/****************************************/
 		env.put(Context.SECURITY_CREDENTIALS, new SamlCredential(assertion));
 		// DocumentUtil.getNodeAsString(assertion)
