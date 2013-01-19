@@ -13,7 +13,7 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>PicketLinkSTSService</web-resource-name>
+			<web-resource-name>PicketLinkSTS</web-resource-name>
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
@@ -24,7 +24,7 @@
 
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>PicketLinkSTSRealm</realm-name>
+		<realm-name>picketlink-sts</realm-name>
 	</login-config>
 
 	<security-role>
