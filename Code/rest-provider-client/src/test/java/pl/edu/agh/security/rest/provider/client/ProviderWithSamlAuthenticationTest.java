@@ -47,21 +47,20 @@ public class ProviderWithSamlAuthenticationTest extends IProviderClientTest {
 			ParsingException {
 		// authentication information
 		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+		String assertion = DocumentUtil.getNodeAsString(retrieveSamlAssertion(
+				userName, password));
+		final String encodedAssertion = Base64
+				.encodeBytes(assertion.getBytes()).replaceAll("\n", "");
 		defaultHttpClient.getCredentialsProvider().setCredentials(
 				new AuthScope(HOST, PORT),
-				new UsernamePasswordCredentials(userName, password));
-		final String assertion = DocumentUtil
-				.getNodeAsString(retrieveSamlAssertion(userName, password));
+				new UsernamePasswordCredentials(userName, assertion));
 		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
 				defaultHttpClient) {
 
 			@Override
 			public ClientResponse execute(ClientRequest request)
 					throws Exception {
-				request.header(
-						"samlAssertion",
-						Base64.encodeBytes(assertion.getBytes()).replaceAll(
-								"\n", ""));
+				request.header("samlAssertion", encodedAssertion);
 				return super.execute(request);
 			}
 		};
