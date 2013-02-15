@@ -56,7 +56,7 @@ public class ProviderWithSamlAuthenticationTest extends IProviderClientTest {
 				new UsernamePasswordCredentials(userName, assertion));
 		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
 				defaultHttpClient) {
-
+			
 			@Override
 			public ClientResponse execute(ClientRequest request)
 					throws Exception {
