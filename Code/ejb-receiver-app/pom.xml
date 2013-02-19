@@ -1,15 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>pl.edu.agh.security</groupId>
-    <artifactId>security-analysis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>ejb-receiver-app</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>pl.edu.agh.security</groupId>
+		<artifactId>security-analysis</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>ejb-receiver-app</artifactId>
 	<dependencies>
-	    <dependency>
-	    	<groupId>org.jboss.spec.javax.ejb</groupId>
-	    	<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.picketlink</groupId>
+			<artifactId>picketlink-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.as</groupId>
@@ -18,12 +23,12 @@
 			<type>pom</type>
 		</dependency>
 
-        <dependency>
-		    <groupId>pl.edu.agh.security</groupId>
-		    <artifactId>ejb-provider-app</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
+		<dependency>
+			<groupId>pl.edu.agh.security</groupId>
+			<artifactId>ejb-provider-app</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
-     </dependencies>
-	
+
+	</dependencies>
+
 </project>

@@ -10,7 +10,7 @@
   <assembly-descriptor>
     <s:security>
       <ejb-name>*</ejb-name>
-      <s:security-domain>ejb-ldap</s:security-domain>
+      <s:security-domain>ejb-ldap-saml</s:security-domain>
     </s:security>
   </assembly-descriptor>
 

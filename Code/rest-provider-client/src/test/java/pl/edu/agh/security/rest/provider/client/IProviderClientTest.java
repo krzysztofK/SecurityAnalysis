@@ -5,39 +5,28 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Collection;
 
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.jboss.resteasy.client.ClientResponseFailure;
-import org.jboss.resteasy.client.ProxyFactory;
-import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
-import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
-import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class IProviderClientTest {
+public abstract class IProviderClientTest {
 
-	private static final String REQUEST_PATH = "http://localhost:8080/rest-provider/provider";
-	private static final String HOST = "localhost";
-	private static final int PORT = 8080;
-	private static final String USER_NAME = "magister";
-	private static final String PASSWORD = "inzynier";
+	protected static final String REQUEST_PATH = "http://localhost:8080/rest-provider/provider";
+	protected static final String HOST = "localhost";
+	protected static final int PORT = 8080;
+	protected static final String USER_NAME = "magister";
+	protected static final String PASSWORD = "inzynier";
 
 	private static final String USER_NAME2 = "doktor";
 	private static final String PASSWORD2 = "habilitowany";
 
 	private static final String UNAUTHORIZED_ACCESS_MESSAGE = "Error status 401 Unauthorized returned";
 
-	static IProviderClient client;
+	protected IProviderClient client;
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
-
-	static {
-		prepareClient(USER_NAME, PASSWORD);
-	}
 
 	@Test
 	public void testGetProducts() {
@@ -95,21 +84,6 @@ public class IProviderClientTest {
 		expectedException.expectMessage(UNAUTHORIZED_ACCESS_MESSAGE);
 		testGetProduct();
 	}
-
-	private static final void prepareClient(String user, String password) {
-		// authentication information
-		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-		defaultHttpClient.getCredentialsProvider().setCredentials(
-				new AuthScope(HOST, PORT),
-				new UsernamePasswordCredentials(user, password));
-		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
-				defaultHttpClient);
-
-		// This initialization only needs to be done once per VM
-		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
-
-		client = ProxyFactory.create(IProviderClient.class, REQUEST_PATH,
-				executor);
-
-	}
+	
+	protected abstract void prepareClient(String userName, String password);
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <jboss-web>
-	<security-domain>idp-ldap</security-domain>
+	<!-- SAML Authentication -->
+	<security-domain>ejb-ldap-saml</security-domain>
+
+	<!-- User password authentication -->
+	<!-- <security-domain>idp-ldap</security-domain> -->
 	<context-root>rest-provider</context-root>
 </jboss-web>
