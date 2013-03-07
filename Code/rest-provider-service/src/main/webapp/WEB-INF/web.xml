@@ -27,7 +27,7 @@
 
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>idp-ldap</realm-name>
+		<realm-name>ws-ldap-saml</realm-name>
 	</login-config>
 
 	<security-role>
