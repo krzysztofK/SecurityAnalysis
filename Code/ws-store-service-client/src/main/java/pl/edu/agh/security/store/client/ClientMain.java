@@ -35,6 +35,7 @@ public class ClientMain {
 
 	public static StoreManager getStoreManagerWithSAMLAuthentication() {
 		StoreManager storeManager = getStoreManager();
+
 		try {
 			BindingProvider bindingProvider = (BindingProvider) storeManager;
 			Map<String, List<String>> headers = new HashMap<String, List<String>>();
@@ -45,8 +46,7 @@ public class ClientMain {
 			bindingProvider.getRequestContext().put(
 					MessageContext.HTTP_REQUEST_HEADERS, headers);
 
-		} catch (ParsingException e) {
-			// TODO Auto-generated catch block
+		} catch (ParsingException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ConfigurationException e) {
 			// TODO Auto-generated catch block
