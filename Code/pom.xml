@@ -12,8 +12,16 @@
 		<resteasyVersion>2.3.4.Final</resteasyVersion>
 	</properties>
 	<modules>
-		<module>simple-servlet-service</module>
+		<module>ejb-provider-app</module>
+		<module>ejb-receiver-app</module>
+		<module>ejb-receiver-webapp</module>
+		<module>ejb-weather-client</module>
 		<module>ejb-weather-service</module>
+		<module>idp-ldap</module>
+		<module>music-service</module>
+		<module>security-token-service</module>
+		<module>simple-servlet-service</module>
+		<module>weather-service</module>
 	</modules>
 
 	<!-- Common pom for whole project, we are only defining dependency/plugin 
