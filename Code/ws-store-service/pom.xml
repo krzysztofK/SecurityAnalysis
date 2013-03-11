@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<packaging>war</packaging>
-	<parent>
+<!-- 	<packaging>war</packaging>
+ -->	<parent>
 		<groupId>pl.edu.agh.security</groupId>
 		<artifactId>security-analysis</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
@@ -16,6 +16,11 @@
 		<dependency>
 			<groupId>org.jboss.ejb3</groupId>
 			<artifactId>jboss-ejb3-ext-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.ws.cxf</groupId>
+			<artifactId>jbossws-cxf-client</artifactId>
+			<version>4.1.1.Final</version>
 		</dependency>
 
 	</dependencies>
