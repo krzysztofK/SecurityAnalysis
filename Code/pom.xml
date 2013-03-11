@@ -10,6 +10,7 @@
 		<picketlinkVersion>2.1.6.Final</picketlinkVersion>
 		<log4jVersion>1.2.17</log4jVersion>
 		<resteasyVersion>2.3.4.Final</resteasyVersion>
+		<jbosswsVersion>4.1.1.Final</jbosswsVersion>
 	</properties>
 	<modules>
 		<module>simple-servlet-service</module>
@@ -79,7 +80,13 @@
 				<artifactId>resteasy-mobile</artifactId>
 				<version>1.0.0</version>
 			</dependency>
-			
+
+			<dependency>
+				<groupId>org.jboss.ws.cxf</groupId>
+				<artifactId>jbossws-cxf-client</artifactId>
+				<version>${jbosswsVersion}</version>
+			</dependency>
+
 			<!-- Picketlink dependencies -->
 
 			<dependency>

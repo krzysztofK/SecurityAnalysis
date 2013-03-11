@@ -25,9 +25,9 @@ import pl.edu.agh.security.store.service.StoreManagerService;
 import pl.edu.agh.security.store.service.StoreStateRequest;
 
 public class ClientMain {
-	private static final String USER_NAME = "magister";
+	private static final String USER_NAME = "doktor";
 
-	private static final String PASSWORD = "inzynier";
+	private static final String PASSWORD = "habilitowany";
 
 	public static void main(String[] args) {
 		StoreManager storeManager = getStoreManagerWithSAMLAuthentication();
@@ -57,8 +57,6 @@ public class ClientMain {
 					.getHandlerChain();
 			handlers.add(new SAML2Handler());
 			bindingProvider.getBinding().setHandlerChain(handlers);
-			// bindingProvider.getBinding().getHandlerChain()
-			// .add(new SAML2Handler());
 
 		} catch (ParsingException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
