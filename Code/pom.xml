@@ -20,9 +20,13 @@
 		<module>ejb-weather-service</module>
 		<module>idp-ldap</module>
 		<module>music-service</module>
+		<module>rest-provider-client</module>
+		<module>rest-provider-service</module>
 		<module>security-token-service</module>
 		<module>simple-servlet-service</module>
 		<module>weather-service</module>
+		<module>ws-store-service</module>
+		<module>ws-store-service-client</module>
 	</modules>
 
 	<!-- Common pom for whole project, we are only defining dependency/plugin 
