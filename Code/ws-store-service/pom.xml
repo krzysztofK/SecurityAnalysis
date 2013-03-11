@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<packaging>war</packaging>
+	<!-- <packaging>war</packaging> -->
 	<parent>
 		<groupId>pl.edu.agh.security</groupId>
 		<artifactId>security-analysis</artifactId>
@@ -17,6 +17,5 @@
 			<groupId>org.jboss.ejb3</groupId>
 			<artifactId>jboss-ejb3-ext-api</artifactId>
 		</dependency>
-
 	</dependencies>
 </project>

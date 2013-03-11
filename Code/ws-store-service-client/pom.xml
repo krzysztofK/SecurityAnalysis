@@ -11,11 +11,14 @@
 		<dependency>
 			<groupId>org.jboss.ws.cxf</groupId>
 			<artifactId>jbossws-cxf-client</artifactId>
-			<version>4.1.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.picketlink</groupId>
 			<artifactId>picketlink-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.picketlink.distribution</groupId>
+			<artifactId>picketlink-jbas7</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
@@ -26,10 +29,7 @@
 				<version>1.1.0.GA</version>
 				<configuration>
 					<wsdls>
-						<!-- <wsdl>http://localhost:8080/ws-store-service-0.0.1-SNAPSHOT/StoreManagerService/StoreManager?wsdl</wsdl> -->
-						<wsdl>ws-store-service-0.0.1-SNAPSHOT.wsdl</wsdl>
-
-						<!-- <wsdl>http://localhost:8080/ws-store-service-0.0.1-SNAPSHOT?wsdl</wsdl> -->
+						<wsdl>http://localhost:8080/ws-store-service-0.0.1-SNAPSHOT/StoreManagerService/StoreManager?wsdl</wsdl>
 					</wsdls>
 				</configuration>
 				<executions>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.MessageContext;
 
 import org.picketlink.identity.federation.api.wstrust.WSTrustClient;
@@ -16,6 +17,7 @@ import org.picketlink.identity.federation.core.exceptions.ProcessingException;
 import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
 import org.picketlink.identity.federation.core.wstrust.WSTrustException;
 import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
+import org.picketlink.trust.jbossws.handler.SAML2Handler;
 import org.w3c.dom.Element;
 
 import pl.edu.agh.security.store.service.StoreManager;
@@ -23,9 +25,9 @@ import pl.edu.agh.security.store.service.StoreManagerService;
 import pl.edu.agh.security.store.service.StoreStateRequest;
 
 public class ClientMain {
-	private static final String USER_NAME = "magister";
+	private static final String USER_NAME = "doktor";
 
-	private static final String PASSWORD = "inzynier";
+	private static final String PASSWORD = "habilitowany";
 
 	public static void main(String[] args) {
 		StoreManager storeManager = getStoreManagerWithSAMLAuthentication();
@@ -45,6 +47,16 @@ public class ClientMain {
 									PASSWORD))));
 			bindingProvider.getRequestContext().put(
 					MessageContext.HTTP_REQUEST_HEADERS, headers);
+
+			bindingProvider
+					.getRequestContext()
+					.put(org.picketlink.trust.jbossws.SAML2Constants.SAML2_ASSERTION_PROPERTY,
+							retrieveSamlAssertion(USER_NAME, PASSWORD));
+
+			List<Handler> handlers = bindingProvider.getBinding()
+					.getHandlerChain();
+			handlers.add(new SAML2Handler());
+			bindingProvider.getBinding().setHandlerChain(handlers);
 
 		} catch (ParsingException e) { // TODO Auto-generated catch block
 			e.printStackTrace();

@@ -17,7 +17,6 @@ import org.picketlink.identity.federation.core.exceptions.ConfigurationException
 import org.picketlink.identity.federation.core.exceptions.ParsingException;
 import org.picketlink.identity.federation.core.exceptions.ProcessingException;
 import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
-import org.picketlink.identity.federation.core.util.Base64;
 import org.picketlink.identity.federation.core.wstrust.WSTrustException;
 import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
 import org.w3c.dom.Element;
@@ -49,8 +48,7 @@ public class ProviderWithSamlAuthenticationTest extends IProviderClientTest {
 		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
 		String assertion = DocumentUtil.getNodeAsString(retrieveSamlAssertion(
 				userName, password));
-		final String encodedAssertion = Base64
-				.encodeBytes(assertion.getBytes()).replaceAll("\n", "");
+		final String encodedAssertion = assertion; //Base64.encodeBytes(assertion.getBytes()).replaceAll("\n", "");
 		defaultHttpClient.getCredentialsProvider().setCredentials(
 				new AuthScope(HOST, PORT),
 				new UsernamePasswordCredentials(userName, assertion));
