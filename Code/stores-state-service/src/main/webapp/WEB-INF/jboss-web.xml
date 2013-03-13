@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<jboss-web>
+	<!-- SAML Authentication -->
+	<!-- <security-domain>ws-ldap-saml</security-domain> -->
+	<!-- User password authentication -->
+	<!-- <security-domain>idp-ldap</security-domain> -->
+	<context-root>stores-state-service</context-root>
+</jboss-web>

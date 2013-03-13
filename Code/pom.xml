@@ -11,6 +11,7 @@
 		<log4jVersion>1.2.17</log4jVersion>
 		<resteasyVersion>2.3.4.Final</resteasyVersion>
 		<jbosswsVersion>4.1.1.Final</jbosswsVersion>
+		<hibernateVersion>4.0.1.Final</hibernateVersion>
 	</properties>
 	<modules>
 		<module>ejb-provider-app</module>
@@ -24,6 +25,7 @@
 		<module>rest-provider-service</module>
 		<module>security-token-service</module>
 		<module>simple-servlet-service</module>
+		<module>stores-state-service</module>
 		<module>weather-service</module>
 		<module>ws-store-service</module>
 		<module>ws-store-service-client</module>
@@ -97,6 +99,29 @@
 				<groupId>org.jboss.ws.cxf</groupId>
 				<artifactId>jbossws-cxf-client</artifactId>
 				<version>${jbosswsVersion}</version>
+			</dependency>
+
+			<!-- Hibernate -->
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernateVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernateVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-infinispan</artifactId>
+				<version>${hibernateVersion}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- Picketlink dependencies -->
