@@ -17,5 +17,9 @@
 			<artifactId>security-analysis-common</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.picketlink</groupId>
+			<artifactId>picketlink-core</artifactId>
+		</dependency>
 	</dependencies>
 </project>

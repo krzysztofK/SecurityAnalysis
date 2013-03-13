@@ -1,5 +1,7 @@
 package pl.edu.agh.security.store.state.service;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -16,6 +18,8 @@ import pl.edu.agh.security.store.state.objects.Store;
 @Path("/state")
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
+@RolesAllowed({ "magister", "doktor" })
+@DeclareRoles({ "magister", "doktor" })
 public class StoreState {
 
 	@EJB
@@ -23,6 +27,7 @@ public class StoreState {
 
 	@GET
 	@Path("/store/{name}")
+	@RolesAllowed({ "magister" })
 	public Store getStore(@PathParam("name") String productName,
 			@QueryParam("count") int count) {
 		return storeDAO.findStoreByRequestedProduct(productName, count);

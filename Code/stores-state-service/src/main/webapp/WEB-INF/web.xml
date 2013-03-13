@@ -14,7 +14,7 @@
 	</servlet-mapping>
 
 
-<!-- 	<security-constraint>
+	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Store state service</web-resource-name>
 			<url-pattern>/*</url-pattern>
@@ -36,5 +36,5 @@
 	<security-role>
 		<role-name>doktor</role-name>
 	</security-role>
- -->
+
 </web-app>
