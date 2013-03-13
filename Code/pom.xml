@@ -23,7 +23,9 @@
 		<module>music-service</module>
 		<module>rest-provider-client</module>
 		<module>rest-provider-service</module>
+		<module>security-analysis-common</module>
 		<module>security-token-service</module>
+		<module>simple-order-process</module>
 		<module>simple-servlet-service</module>
 		<module>stores-state-service</module>
 		<module>weather-service</module>
