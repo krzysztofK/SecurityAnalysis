@@ -6,6 +6,11 @@ import javax.persistence.PersistenceContext;
 
 import pl.edu.agh.security.store.state.objects.Product;
 
+/**
+ * 
+ * @author Krzysztof
+ *
+ */
 @Stateless
 public class ProductDAO {
 

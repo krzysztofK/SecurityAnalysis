@@ -14,6 +14,11 @@ import javax.ws.rs.QueryParam;
 import pl.edu.agh.security.store.state.dao.StoreDAO;
 import pl.edu.agh.security.store.state.objects.Store;
 
+/**
+ * 
+ * @author Krzysztof
+ * 
+ */
 @Stateless
 @Path("/state")
 @Consumes({ "application/json" })

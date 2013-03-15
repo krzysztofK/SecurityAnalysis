@@ -8,6 +8,11 @@ import javax.persistence.PersistenceContext;
 
 import pl.edu.agh.security.store.state.objects.Store;
 
+/**
+ * 
+ * @author Krzysztof
+ *
+ */
 @Stateless
 public class StoreDAO {
 

@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Krzysztof
+ *
+ */
 @Entity
 @Table(name = "STORES")
 public class Store {

@@ -7,6 +7,11 @@ import javax.persistence.Embeddable;
 import pl.edu.agh.security.store.state.objects.Product;
 import pl.edu.agh.security.store.state.objects.Store;
 
+/**
+ * 
+ * @author Krzysztof
+ *
+ */
 @Embeddable
 public class ProductCountInStoreId implements Serializable {
 

@@ -12,6 +12,11 @@ import javax.persistence.Table;
 
 import pl.edu.agh.security.store.state.objects.id.ProductCountInStoreId;
 
+/**
+ * 
+ * @author Krzysztof
+ *
+ */
 @Entity
 @IdClass(ProductCountInStoreId.class)
 @Table(name = "PRODUCTCOUNTSINSTORE")
