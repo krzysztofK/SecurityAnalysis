@@ -37,8 +37,8 @@ import pl.edu.agh.security.store.state.service.client.Store;
 
 public class OrderProcess {
 
-	private static final String REQUEST_PATH = "http://localhost:8080/stores-state-service/state";
-	private static final String HOST = "localhost";
+	private static final String REQUEST_PATH = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
+	private static final String HOST = "stores-states.security.agh.edu.pl";
 	private static final int PORT = 8080;
 
 	private Element samlAssertion;
