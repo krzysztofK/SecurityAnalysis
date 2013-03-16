@@ -29,7 +29,8 @@
 				<version>1.1.0.GA</version>
 				<configuration>
 					<wsdls>
-						<wsdl>http://localhost:8080/ws-store-service-0.0.1-SNAPSHOT/StoreManagerService/StoreManager?wsdl</wsdl>
+						<!--<wsdl>  http://localhost:8080/ws-store-service-0.0.1-SNAPSHOT/StoreManagerService/StoreManager?wsdl</wsdl>-->
+						<wsdl>${basedir}/../ws-store-service/target/wsprovide/resources/StoreManagerService.wsdl</wsdl>
 					</wsdls>
 				</configuration>
 				<executions>

@@ -17,5 +17,30 @@
 			<groupId>org.jboss.ejb3</groupId>
 			<artifactId>jboss-ejb3-ext-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.ws.native</groupId>
+			<artifactId>jbossws-native-client</artifactId>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.ws.plugins</groupId>
+				<artifactId>maven-jaxws-tools-plugin</artifactId>
+				<version>1.1.0.GA</version>
+				<configuration>
+					<verbose>true</verbose>
+					<endpointClass>pl.edu.agh.security.store.service.StoreManagerBean</endpointClass>
+					<generateWsdl>true</generateWsdl>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsprovide</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
