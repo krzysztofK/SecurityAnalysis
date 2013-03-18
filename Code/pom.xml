@@ -19,6 +19,7 @@
 		<module>ejb-receiver-webapp</module>
 		<module>ejb-weather-client</module>
 		<module>ejb-weather-service</module>
+		<module>financial-dep-service</module>
 		<module>idp-ldap</module>
 		<module>music-service</module>
 		<module>rest-provider-client</module>
@@ -183,6 +184,38 @@
 					<configuration>
 						<source>1.6</source>
 						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<!-- Needed for m2eclipse - I still do not know why... -->
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.jboss.ws.plugins
+										</groupId>
+										<artifactId>
+											maven-jaxws-tools-plugin
+										</artifactId>
+										<versionRange>
+											[1.1.0.GA,)
+										</versionRange>
+										<goals>
+											<goal>wsprovide</goal>
+											<goal>wsconsume</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
 			</plugins>
