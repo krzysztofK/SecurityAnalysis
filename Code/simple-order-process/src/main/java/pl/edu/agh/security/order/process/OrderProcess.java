@@ -32,7 +32,6 @@ import pl.edu.agh.security.common.services.DeliveryState;
 import pl.edu.agh.security.common.services.IDeliveryService;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
-ort pl.edu.agh.security.store.state.service.client.Store;
 
 public class OrderProcess {
 
@@ -41,6 +40,9 @@ public class OrderProcess {
     private static final String STORES_HOST = "stores-states.security.agh.edu.pl";
     private static final String DELIVERY_HOST = "delivery.security.agh.edu.pl";
 	private static final int PORT = 8080;
+	private static final String STS_SERVICE_NAME = "PicketLinkSTS";
+	private static final String STS_PORT = "PicketLinkSTSPort";
+	private static final String STS_ENDPOINT_URI = "http://localhost:8080/picketlink-sts/PicketLinkSTS";
 
 	private Element samlAssertion;
 	private String samlAssertionString;
@@ -109,7 +111,8 @@ public class OrderProcess {
 
 	public void authenticate() throws ConfigurationException,
 			ProcessingException, ParsingException {
-		samlAssertion = Utils.retrieveSamlAssertion(userName, password);
+		samlAssertion = Utils.retrieveSamlAssertion(STS_SERVICE_NAME, STS_PORT,
+				STS_ENDPOINT_URI, userName, password);
 		samlAssertionString = DocumentUtil.getNodeAsString(samlAssertion);
 	}
 
