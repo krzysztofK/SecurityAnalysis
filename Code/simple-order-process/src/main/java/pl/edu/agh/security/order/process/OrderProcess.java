@@ -27,27 +27,28 @@ import org.picketlink.trust.jbossws.handler.SAML2Handler;
 import org.w3c.dom.Element;
 
 import pl.edu.agh.security.common.Utils;
-import pl.edu.agh.security.deps.financial.service.FinancialOperations;
-import pl.edu.agh.security.deps.financial.service.FinancialOperationsService;
-import pl.edu.agh.security.deps.financial.service.Product;
-import pl.edu.agh.security.deps.financial.service.TransactionRequest;
-import pl.edu.agh.security.deps.financial.service.TransactionResponse;
+import pl.edu.agh.security.common.services.Delivery;
+import pl.edu.agh.security.common.services.DeliveryState;
+import pl.edu.agh.security.common.services.IDeliveryService;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
+ort pl.edu.agh.security.store.state.service.client.Store;
 
 public class OrderProcess {
 
-	private static final String REQUEST_PATH = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
-	private static final String HOST = "stores-states.security.agh.edu.pl";
+    private static final String STORES_REQUEST_PATH = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
+    private static final String DELIVERY_REQUEST_PATH = "http://delivery.security.agh.edu.pl:8080/delivery";
+    private static final String STORES_HOST = "stores-states.security.agh.edu.pl";
+    private static final String DELIVERY_HOST = "delivery.security.agh.edu.pl";
 	private static final int PORT = 8080;
 
 	private Element samlAssertion;
 	private String samlAssertionString;
-	private String userName;
-	private String password;
-	private String orderedProduct;
-	private int count;
-	private boolean invoiceRequested;
+	private final String userName;
+	private final String password;
+	private final String orderedProduct;
+	private final int count;
+	private final boolean invoiceRequested;
 
 	public OrderProcess(String userName, String password,
 			String orderedProduct, int count, boolean invoiceRequested) {
@@ -73,6 +74,13 @@ public class OrderProcess {
 				count);
 		if (store != null) {
 			// TODO: store service + shipments
+
+            Delivery delivery = new Delivery();
+            delivery.setDestination("Middle of nowhere");
+            delivery.setSource(store.getLocation());
+            delivery.setWeight(1.0);
+            DeliveryState deliveryState = prepareDeliveryServiceClient().putDelivery(delivery);
+            System.out.println(deliveryState);
 
 			/**
 			 * Financial service execution
@@ -110,7 +118,7 @@ public class OrderProcess {
 			ParsingException {
 		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
 		defaultHttpClient.getCredentialsProvider().setCredentials(
-				new AuthScope(HOST, PORT),
+new AuthScope(STORES_HOST, PORT),
 				new UsernamePasswordCredentials(userName, samlAssertionString));
 		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
 				defaultHttpClient) {
@@ -127,8 +135,29 @@ public class OrderProcess {
 		// This initialization only needs to be done once per VM
 		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
 
-		return ProxyFactory.create(IStoreState.class, REQUEST_PATH, executor);
+        return ProxyFactory.create(IStoreState.class, STORES_REQUEST_PATH, executor);
 	}
+
+    public IDeliveryService prepareDeliveryServiceClient() throws ConfigurationException, ProcessingException,
+            ParsingException {
+        DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+        defaultHttpClient.getCredentialsProvider().setCredentials(new AuthScope(DELIVERY_HOST, PORT),
+                new UsernamePasswordCredentials(userName, samlAssertionString));
+        ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(defaultHttpClient) {
+
+            @SuppressWarnings("rawtypes")
+            @Override
+            public ClientResponse execute(ClientRequest request) throws Exception {
+                request.header("samlAssertion", samlAssertionString);
+                return super.execute(request);
+            }
+        };
+
+        // This initialization only needs to be done once per VM
+        RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
+
+        return ProxyFactory.create(IDeliveryService.class, DELIVERY_REQUEST_PATH, executor);
+    }
 
 	public FinancialOperations prepareFinancialServiceClient() {
 		FinancialOperations financialOperations = new FinancialOperationsService()
