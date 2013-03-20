@@ -27,11 +27,6 @@ import org.picketlink.trust.jbossws.handler.SAML2Handler;
 import org.w3c.dom.Element;
 
 import pl.edu.agh.security.common.Utils;
-import pl.edu.agh.security.deps.financial.service.FinancialOperations;
-import pl.edu.agh.security.deps.financial.service.FinancialOperationsService;
-import pl.edu.agh.security.deps.financial.service.Product;
-import pl.edu.agh.security.deps.financial.service.TransactionRequest;
-import pl.edu.agh.security.deps.financial.service.TransactionResponse;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
 
@@ -40,6 +35,9 @@ public class OrderProcess {
 	private static final String REQUEST_PATH = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
 	private static final String HOST = "stores-states.security.agh.edu.pl";
 	private static final int PORT = 8080;
+	private static final String STS_SERVICE_NAME = "PicketLinkSTS";
+	private static final String STS_PORT = "PicketLinkSTSPort";
+	private static final String STS_ENDPOINT_URI = "http://localhost:8080/picketlink-sts/PicketLinkSTS";
 
 	private Element samlAssertion;
 	private String samlAssertionString;
@@ -101,7 +99,8 @@ public class OrderProcess {
 
 	public void authenticate() throws ConfigurationException,
 			ProcessingException, ParsingException {
-		samlAssertion = Utils.retrieveSamlAssertion(userName, password);
+		samlAssertion = Utils.retrieveSamlAssertion(STS_SERVICE_NAME, STS_PORT,
+				STS_ENDPOINT_URI, userName, password);
 		samlAssertionString = DocumentUtil.getNodeAsString(samlAssertion);
 	}
 

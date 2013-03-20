@@ -8,12 +8,11 @@ import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
 import org.w3c.dom.Element;
 
 public class Utils {
-	public static Element retrieveSamlAssertion(String userName, String password)
+	public static Element retrieveSamlAssertion(String serviceName,
+			String port, String endpointURI, String userName, String password)
 			throws ParsingException {
-		WSTrustClient client = new WSTrustClient("PicketLinkSTS",
-				"PicketLinkSTSPort",
-				"http://localhost:8080/picketlink-sts/PicketLinkSTS",
-				new SecurityInfo(userName, password));
+		WSTrustClient client = new WSTrustClient(serviceName, port,
+				endpointURI, new SecurityInfo(userName, password));
 
 		// // issue a SAML assertion using the client API.
 		Element assertion = null;
