@@ -27,7 +27,6 @@ import org.picketlink.trust.jbossws.handler.SAML2Handler;
 import org.w3c.dom.Element;
 
 import pl.edu.agh.security.common.Utils;
-import pl.edu.agh.security.common.services.Delivery;
 import pl.edu.agh.security.common.services.DeliveryState;
 import pl.edu.agh.security.common.services.IDeliveryService;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
@@ -77,11 +76,8 @@ public class OrderProcess {
 		if (store != null) {
 			// TODO: store service + shipments
 
-            Delivery delivery = new Delivery();
-            delivery.setDestination("Middle of nowhere");
-            delivery.setSource(store.getLocation());
-            delivery.setWeight(1.0);
-            DeliveryState deliveryState = prepareDeliveryServiceClient().putDelivery(delivery);
+            DeliveryState deliveryState = prepareDeliveryServiceClient().putDelivery("Middle of nowhere",
+                    store.getLocation(), 1.0);
             System.out.println(deliveryState);
 
 			/**
