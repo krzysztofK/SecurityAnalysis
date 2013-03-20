@@ -39,8 +39,9 @@
 				<configuration>
 					<wsdls>
 						<wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</wsdl>
-						<!-- <wsdl>http://stores-states.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</wsdl> -->
-                        <wsdl>${basedir}/../warehouse-service/target/wsprovide/resources/WarehouseService.wsdl</wsdl>
+						<wsdl>http://warehouse-service.security.agh.edu.pl:8080/warehouse-service-0.0.1-SNAPSHOT/WarehouseService/Warehouse?wsdl</wsdl>
+						<!-- <wsdl>http://stores-states.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</wsdl>
+                        <wsdl>${basedir}/../warehouse-service/target/wsprovide/resources/WarehouseService.wsdl</wsdl>  -->
 					</wsdls>
 				</configuration>
 				<executions>

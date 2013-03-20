@@ -30,7 +30,7 @@
 	</dependencies>
     
     <build>
-        <plugins>
+        <!--  <plugins>
             <plugin>
                 <groupId>org.jboss.ws.plugins</groupId>
                 <artifactId>maven-jaxws-tools-plugin</artifactId>
@@ -42,13 +42,13 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>generate-resources</phase>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>wsprovide</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+        </plugins>-->
     </build>
 </project>
