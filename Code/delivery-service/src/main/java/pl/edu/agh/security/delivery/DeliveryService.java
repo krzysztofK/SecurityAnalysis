@@ -10,7 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import pl.edu.agh.security.common.services.Delivery;
 import pl.edu.agh.security.common.services.DeliveryState;
 import pl.edu.agh.security.common.services.IDeliveryService;
 
@@ -23,11 +22,12 @@ public class DeliveryService implements IDeliveryService {
 
 	@Override
 	@PUT
-    public DeliveryState putDelivery(@QueryParam("body") Delivery body) {
+    public DeliveryState putDelivery(@QueryParam("source") String source,
+            @QueryParam("destination") String destination, @QueryParam("weight") double weight) {
 		DeliveryState deliveryState = new DeliveryState();
         deliveryState.setId(Long.toHexString(random.nextLong()));
 		deliveryState.setEta(Calendar.getInstance().getTime());
-		deliveryState.setPrice(new BigDecimal(body.getWeight() * 5.0));
+        deliveryState.setPrice(new BigDecimal(weight * 5.0));
 		return deliveryState;
 	}
 }

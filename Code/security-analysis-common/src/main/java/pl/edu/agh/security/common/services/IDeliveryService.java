@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 public interface IDeliveryService {
 
 	@PUT
-    DeliveryState putDelivery(@QueryParam("body") Delivery body);
+    DeliveryState putDelivery(@QueryParam("source") String source, @QueryParam("destination") String destination,
+            @QueryParam("weight") double weight);
 	
 }
