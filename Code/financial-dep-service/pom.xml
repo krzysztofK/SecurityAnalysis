@@ -17,7 +17,7 @@
 			<artifactId>jboss-ejb3-ext-api</artifactId>
 		</dependency>
 	</dependencies>
-    <build>
+<!--    <build>
     <plugins>
             <plugin>
                 <groupId>org.jboss.ws.plugins</groupId>
@@ -37,5 +37,5 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build> -->
 </project>
