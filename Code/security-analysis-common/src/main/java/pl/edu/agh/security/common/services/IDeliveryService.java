@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 @Path("/delivery")
 @Consumes({ "application/json" })
@@ -11,6 +12,6 @@ import javax.ws.rs.Produces;
 public interface IDeliveryService {
 
 	@PUT
-	DeliveryState putDelivery(Delivery body);
+    DeliveryState putDelivery(@QueryParam("body") Delivery body);
 	
 }
