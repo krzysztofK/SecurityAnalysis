@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.edu.agh.security</groupId>
 	<artifactId>security-analysis</artifactId>
@@ -32,7 +32,10 @@
 		<module>weather-service</module>
 		<module>ws-store-service</module>
 		<module>ws-store-service-client</module>
-	</modules>
+    <module>warehouse-service</module>
+    <module>delivery-service</module>
+    <module>test-client</module>
+  </modules>
 
 	<!-- Common pom for whole project, we are only defining dependency/plugin 
 		management here -->
@@ -211,7 +214,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute />
+										<execute/>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
