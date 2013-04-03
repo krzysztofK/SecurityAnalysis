@@ -1,0 +1,3 @@
+{ "product" : { "name" : "skarpetki" },
+ "count" : 4,
+ "invoiceRequested" : true }
