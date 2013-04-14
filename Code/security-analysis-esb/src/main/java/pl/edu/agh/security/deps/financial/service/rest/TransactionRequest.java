@@ -1,6 +1,13 @@
-package pl.edu.agh.secutiy.deps.financial.service.rest;
+package pl.edu.agh.security.deps.financial.service.rest;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlRootElement
+@XmlType(name ="transactionRequest")
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class TransactionRequest {
 
 	private Product product;
@@ -10,9 +17,8 @@ public class TransactionRequest {
 	private boolean isInvoiceRequested;
 
 	public TransactionRequest() {
-		System.out.println("jazda");
 	}
-	
+
 	public boolean isInvoiceRequested() {
 		return isInvoiceRequested;
 	}

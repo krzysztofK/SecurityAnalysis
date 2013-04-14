@@ -1,4 +1,4 @@
-package pl.edu.agh.secutiy.deps.financial.service.rest;
+package pl.edu.agh.security.deps.financial.service.rest;
 
 public class Product {
 

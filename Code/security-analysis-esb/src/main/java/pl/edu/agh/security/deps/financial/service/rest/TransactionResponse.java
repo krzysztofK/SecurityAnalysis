@@ -1,7 +1,13 @@
-package pl.edu.agh.secutiy.deps.financial.service.rest;
+package pl.edu.agh.security.deps.financial.service.rest;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class TransactionResponse {
 
 	private String invoiceIdentifier;
@@ -9,7 +15,6 @@ public class TransactionResponse {
 	private Date dueDate;
 
 	public TransactionResponse() {
-		System.out.println("jazda");
 	}
 
 	public String getInvoiceIdentifier() {

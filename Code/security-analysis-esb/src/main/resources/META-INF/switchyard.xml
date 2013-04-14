@@ -2,13 +2,14 @@
 <switchyard xmlns="urn:switchyard-config:switchyard:1.0"
 	xmlns:rest="urn:switchyard-component-resteasy:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:bean="urn:switchyard-component-bean:config:1.0" xmlns:soap="urn:switchyard-component-soap:config:1.0"
-	xmlns:camel="urn:switchyard-component-camel:config:1.0">
+	xmlns:camel="urn:switchyard-component-camel:config:1.0"
+	xmlns:xform="urn:switchyard-config:transform:1.0">
 
 
 	<sca:composite name="orders" targetNamespace="urn:security-analysis:orders:0.1.0">
 		<sca:service name="RestOrderService" promote="RestOrderService">
 			<rest:binding.rest>
-				<rest:interfaces>pl.edu.agh.secutiy.deps.financial.service.rest.IFinancialService</rest:interfaces>
+				<rest:interfaces>pl.edu.agh.security.deps.financial.service.rest.IFinancialService</rest:interfaces>
 				<rest:contextPath>rest-binding</rest:contextPath>
 			</rest:binding.rest>
 		</sca:service>
@@ -16,24 +17,39 @@
 		<sca:reference name="OrderService" promote="RestOrderService/OrderService"
 			multiplicity="0..1">
 			<soap:binding.soap>
-				<soap:contextMapper />
+				<soap:contextMapper/>
 				<soap:wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</soap:wsdl>
-				<soap:endpointAddress>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService</soap:endpointAddress>
-			</soap:binding.soap>
+				<soap:endpointAddress>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</soap:endpointAddress>
+  			</soap:binding.soap>
 		</sca:reference>
 
 		<sca:component name="RestOrderService">
-			<camel:implementation.camel>
+<!-- 			<camel:implementation.camel>
 				<camel:xml path="META-INF/route.xml" />
 			</camel:implementation.camel>
-			<sca:service name="RestOrderService">
+ -->
+			<implementation.camel xmlns="urn:switchyard-component-camel:config:1.0">
+				<java class="pl.edu.agh.security.deps.financial.service.rest.MessageRouteBuilder" />
+			</implementation.camel>
+ 			<sca:service name="RestOrderService">
 				<sca:interface.java
-					interface="pl.edu.agh.secutiy.deps.financial.service.rest.IFinancialService" />
+					interface="pl.edu.agh.security.deps.financial.service.rest.IFinancialService" />
 			</sca:service>
 			<sca:reference name="OrderService">
 				<sca:interface.wsdl
 					interface="http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl#wsdl.porttype(FinancialOperations)" />
 			</sca:reference>
 		</sca:component>
+
 	</sca:composite>
+	<transforms>
+		<transform.jaxb
+			from="java:pl.edu.agh.security.deps.financial.service.rest.TransactionRequest"
+			to="{http://service.financial.deps.security.agh.edu.pl/}transactionRequest"
+			contextPath="pl.edu.agh.security.deps.financial.service.rest" />
+		<transform.jaxb
+			from="{http://service.financial.deps.security.agh.edu.pl/}transactionResponse"
+			to="java:pl.edu.agh.security.deps.financial.service.rest.TransactionResponse"
+			contextPath="pl.edu.agh.security.deps.financial.service.rest" />
+	</transforms>
 </switchyard>

@@ -1,0 +1,11 @@
+<jboss-deployment-structure>
+
+	<deployment>
+		<dependencies>
+			<module name="org.switchyard" />
+			<module name="org.apache.camel.jaxb" />
+			<module name="org.apache.camel.soap" />
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>
+
