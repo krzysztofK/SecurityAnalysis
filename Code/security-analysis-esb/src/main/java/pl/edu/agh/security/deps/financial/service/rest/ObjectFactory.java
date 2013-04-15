@@ -10,12 +10,12 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-	private final static QName _TransactionRequest_QNAME = new QName(
+	public final static QName _TransactionRequest_QNAME = new QName(
 			"http://service.financial.deps.security.agh.edu.pl/",
-			"transactionRequest");
-	private final static QName _TransactionResponse_QNAME = new QName(
+			"registerTransaction");
+	public final static QName _TransactionResponse_QNAME = new QName(
 			"http://service.financial.deps.security.agh.edu.pl/",
-			"transactionResponse");
+			"registerTransactionResponse");
 
 	/**
 	 * Create a new ObjectFactory that can be used to create new instances of
@@ -47,7 +47,7 @@ public class ObjectFactory {
 	 * {@code >}
 	 * 
 	 */
-	@XmlElementDecl(namespace = "http://service.financial.deps.security.agh.edu.pl/", name = "transactionRequest")
+	@XmlElementDecl(namespace = "http://service.financial.deps.security.agh.edu.pl/", name = "registerTransaction")
 	public JAXBElement<TransactionRequest> createTransactionRequest(
 			TransactionRequest value) {
 		return new JAXBElement<TransactionRequest>(_TransactionRequest_QNAME,
@@ -58,11 +58,10 @@ public class ObjectFactory {
 	 * Create an instance of {@link JAXBElement }{@code <}{@link Order }{@code >}
 	 * 
 	 */
-	@XmlElementDecl(namespace = "http://service.financial.deps.security.agh.edu.pl/", name = "transactionResponse")
+	@XmlElementDecl(namespace = "http://service.financial.deps.security.agh.edu.pl/", name = "registerTransactionResponse")
 	public JAXBElement<TransactionResponse> createTransactionResponse(
 			TransactionResponse value) {
 		return new JAXBElement<TransactionResponse>(_TransactionResponse_QNAME,
 				TransactionResponse.class, null, value);
 	}
-
 }

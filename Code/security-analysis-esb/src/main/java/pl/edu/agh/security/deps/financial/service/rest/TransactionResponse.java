@@ -2,12 +2,11 @@ package pl.edu.agh.security.deps.financial.service.rest;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "registerTransactionResponse")
+@XmlType(name = "registerTransactionResponse", namespace = "http://service.financial.deps.security.agh.edu.pl/")
 public class TransactionResponse {
 
 	private String invoiceIdentifier;

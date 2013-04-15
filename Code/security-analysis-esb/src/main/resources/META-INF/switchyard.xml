@@ -19,8 +19,8 @@
 			<soap:binding.soap>
 				<soap:contextMapper/>
 				<soap:wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</soap:wsdl>
-				<soap:endpointAddress>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</soap:endpointAddress>
-  			</soap:binding.soap>
+<!-- 				<soap:endpointAddress>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</soap:endpointAddress>
+ -->  			</soap:binding.soap>
 		</sca:reference>
 
 		<sca:component name="RestOrderService">
@@ -42,7 +42,7 @@
 		</sca:component>
 
 	</sca:composite>
-	<transforms>
+<!-- 	<transforms>
 		<transform.jaxb
 			from="java:pl.edu.agh.security.deps.financial.service.rest.TransactionRequest"
 			to="{http://service.financial.deps.security.agh.edu.pl/}transactionRequest"
@@ -52,4 +52,4 @@
 			to="java:pl.edu.agh.security.deps.financial.service.rest.TransactionResponse"
 			contextPath="pl.edu.agh.security.deps.financial.service.rest" />
 	</transforms>
-</switchyard>
+ --></switchyard>

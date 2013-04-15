@@ -1,13 +1,10 @@
 package pl.edu.agh.security.deps.financial.service.rest;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
-@XmlType(name ="transactionRequest")
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="registerTransaction")
+@XmlType(name = "registerTransaction", namespace = "http://service.financial.deps.security.agh.edu.pl/")
 public class TransactionRequest {
 
 	private Product product;
