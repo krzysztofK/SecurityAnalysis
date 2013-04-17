@@ -9,6 +9,7 @@
 	<sca:composite name="orders" targetNamespace="urn:security-analysis:orders:0.1.0">
 		<sca:service name="RestOrderService" promote="RestOrderService">
 			<rest:binding.rest>
+				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes=".*"/>
 				<rest:interfaces>pl.edu.agh.security.deps.financial.service.rest.IFinancialService</rest:interfaces>
 				<rest:contextPath>rest-binding</rest:contextPath>
 			</rest:binding.rest>
@@ -17,10 +18,10 @@
 		<sca:reference name="OrderService" promote="RestOrderService/OrderService"
 			multiplicity="0..1">
 			<soap:binding.soap>
-				<soap:contextMapper/>
+				<soap:contextMapper class="org.switchyard.component.soap.composer.SOAPContextMapper" includes=".*" soapHeadersType="XML"/>
+				<soap:contextMapper class="org.switchyard.component.http.composer.HttpContextMapper"/>
 				<soap:wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</soap:wsdl>
-<!-- 				<soap:endpointAddress>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</soap:endpointAddress>
- -->  			</soap:binding.soap>
+  			</soap:binding.soap>
 		</sca:reference>
 
 		<sca:component name="RestOrderService">
@@ -42,14 +43,14 @@
 		</sca:component>
 
 	</sca:composite>
-<!-- 	<transforms>
+	<transforms>
 		<transform.jaxb
 			from="java:pl.edu.agh.security.deps.financial.service.rest.TransactionRequest"
-			to="{http://service.financial.deps.security.agh.edu.pl/}transactionRequest"
+			to="{http://service.financial.deps.security.agh.edu.pl/}registerTransaction"
 			contextPath="pl.edu.agh.security.deps.financial.service.rest" />
 		<transform.jaxb
-			from="{http://service.financial.deps.security.agh.edu.pl/}transactionResponse"
+			from="{http://service.financial.deps.security.agh.edu.pl/}registerTransactionResponse"
 			to="java:pl.edu.agh.security.deps.financial.service.rest.TransactionResponse"
 			contextPath="pl.edu.agh.security.deps.financial.service.rest" />
 	</transforms>
- --></switchyard>
+</switchyard>

@@ -2,7 +2,6 @@ package pl.edu.agh.security.deps.financial.service.rest;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
-import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
 
 public class MessageRouteBuilder extends RouteBuilder {
 
@@ -12,11 +11,11 @@ public class MessageRouteBuilder extends RouteBuilder {
 		JaxbDataFormat jaxb = new JaxbDataFormat(
 				"pl.edu.agh.security.deps.financial.service.rest");
 
-		SoapJaxbDataFormat soap = new SoapJaxbDataFormat(
-				"pl.edu.agh.security.deps.financial.service.rest");
-		from("switchyard://RestOrderService").log("Message received: ${body}")
-				.marshal(jaxb).log("Message received: ${body}")
-				.to("switchyard://OrderService")
-				.log("Message received: ${body}").unmarshal(jaxb).log("Message received: ${body}"); //.to("switchyard://RestOrderService");
+		from("switchyard://RestOrderService")
+				.setProperty("{urn:oasis:names:tc:SAML:2.0:assertion}Assertion")
+				.simple("${header.samlassertion}").setHeader("samlAssertion")
+				.simple("${header.samlassertion}").marshal(jaxb)
+				.log("Message received: ${body}").beanRef("messageProcessor")
+				.to("switchyard://OrderService").unmarshal(jaxb);
 	}
 }
