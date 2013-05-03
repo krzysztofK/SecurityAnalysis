@@ -19,18 +19,10 @@ Jednym z głównych czynników wpływających na skuteczność wdrażanych mecha
 
 Niniejsza praca dotyka problemu jednokrotnego uwierzytelniania dla korzystania z wielu aplikacji. Dla tego typu zastosowań analizowane jest użycie różnych technik i metodologii pozwalających na gromadzenie i wymianę informacji na temat użytkownika pomiędzy aplikacjami. W wyniku wymiany tych informacji powinno być możliwe wdrożenie koncepcji jednokrotnego uwierzytelniania użytkownika.
 
-Najprostszym przypadkiem zastosowania koncepcji jednokrotnego uwierzytelniania jest implementacja mechanizmu jednokrotnego logowania i wylogowywania użytkownika w różnych aplikacjach udostępnianych w przeglądarce internetowej. Najbardziej interesującym przypadkiem z punktu widzenia tematu pracy jest uwierzytelnienie klienta usług webowych.
+Najprostszym przypadkiem zastosowania koncepcji jednokrotnego uwierzytelniania jest implementacja mechanizmu jednokrotnego logowania i wylogowywania użytkownika w różnych aplikacjach udostępnianych w przeglądarce internetowej. Najbardziej interesującym przypadkiem z punktu widzenia tematu pracy jest przeniesienie koncepcji jednokrotnego uwierzytelniania znanych ze standardowych aplikacji webowych na proces uwierzytelnienia klientów usług webowych.
 
-Głównym zadaniem pracy jest analiza zarządzania mechanizmami bezpieczeństwa w architekturze zorientowanej na usługi(SOA)....
+Głównym zadaniem pracy jest analiza mechanizmów zarządzania danymi utwierzytelniającymi w architekturze zorientowanej na usługi(SOA - Service-oriented Architecture). Systemy realizowane w paradygmacie SOA składają się ze zbioru różnorodnych usług, które można ze sobą łączyć w celu osiagnięcia określonego celu. Każda z usług może posiadać własne mechanizmy uwierzytelniania i autoryzacji. Ustandaryzowanie tych mechanizmów znacznie ułatwi proces integracji pomiędzy usługami. Szczególnie duże znaczenie ma to to w procesie komunikacji pomiędzy usługami różnych dostawców. 
 
+Istnieje kilka koncepcji związanych ze standaryzacją uwierzytelniania użytkowników systemów informatycznych. Niniejsza praca kładzie główny nacisk na rozwiązania określane jako cyfrowe zarządzanie tożsamościami(Digital Identity Management). Koncepcja ta opiera się na oddelegowaniu odpowiedzialności związanych z uwierzytelnianiem użytkwoników do usługi typu IdP(Identity Provider). Rozwiązanie to ułatwia ujednolicenie procesów uwierzytelniających w obrębie złożonego systemu.
 
-
-
-
-
-
-
-
-
-
-
+Koncepcje te zrealizowano poprzez implementację przykładowego systemu(Prove of Concept) obsługi zamówień sklepu internetowego. Na system ten składa się kilka usług odpowiedzialnych za poszczególne etapy obsługi zlecenia. Poszczególny komponenty systemu powinny pracować w różnych domenach a integracja pomiędzy nimi powinna uwzględniać aspekty związane z bezpieczeństwem komunikacji pomiędzy usługami w oparciu o mechanizmy jednokrotnego uwierzytelniania.
