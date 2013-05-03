@@ -9,4 +9,5 @@
   <artifactId>music-service</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <name>Security-Analysis :: music-service</name>
 </project>

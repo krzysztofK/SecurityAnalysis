@@ -1,43 +1,45 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>pl.edu.agh.security</groupId>
-    <artifactId>security-analysis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>ejb-receiver-webapp</artifactId>
-  <packaging>war</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>pl.edu.agh.security</groupId>
+		<artifactId>security-analysis</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>ejb-receiver-webapp</artifactId>
+	<packaging>war</packaging>
+	<name>Security-Analysis :: ejb-receiver-webapp</name>
 	<dependencies>
 
-	<dependency>
-		<groupId>org.jboss.spec.javax.servlet</groupId>
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
 			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.jboss.spec.javax.ejb</groupId>
-		    <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.jboss.ejb3</groupId>
 			<artifactId>jboss-ejb3-ext-api</artifactId>
 		</dependency>
-		
-		
+
+
 		<dependency>
-		    <groupId>pl.edu.agh.security</groupId>
-		    <artifactId>ejb-provider-app</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
+			<groupId>pl.edu.agh.security</groupId>
+			<artifactId>ejb-provider-app</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<!-- Test dependencies -->
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-						
+
 	</dependencies>
 </project>

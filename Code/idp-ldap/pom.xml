@@ -7,4 +7,5 @@
   </parent>
   <artifactId>idp-ldap</artifactId>
   <packaging>war</packaging>
+  <name>Security-Analysis :: idp-ldap</name>
 </project>

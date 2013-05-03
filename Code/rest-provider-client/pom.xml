@@ -7,6 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>rest-provider-client</artifactId>
+	<name>Security-Analysis :: rest-provider-client</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.resteasy.mobile</groupId>

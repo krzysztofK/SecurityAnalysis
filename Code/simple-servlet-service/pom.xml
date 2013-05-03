@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>simple-servlet-service</artifactId>
 	<packaging>war</packaging>
-	<name>simple-servlet-service</name>
+	<name>Security-Analysis :: simple-servlet-service</name>
 
 	<dependencies>
 

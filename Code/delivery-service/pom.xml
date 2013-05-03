@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>delivery-service</artifactId>
-  <name>delivery-service</name>
+  <name>Security-Analysis :: delivery-service</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

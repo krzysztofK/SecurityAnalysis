@@ -7,6 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>simple-order-process</artifactId>
+	<name>Security-Analysis :: simple-order-process</name>
 	<properties>
 
 		<!-- JBoss dependency versions -->
@@ -96,8 +97,6 @@
 						</goals>
 						<configuration>
 							<wsdls>
-								<!-- <wsdl>${basedir}/src/main/resources/wsdl-local/FinancialOperations.wsdl</wsdl>
-								<wsdl>${basedir}/src/main/resources/wsdl-local/Warehouse.wsdl</wsdl> -->
 								<wsdl>${basedir}/../financial-dep-service/target/wsprovide/resources/FinancialOperationsService.wsdl</wsdl>
 								<wsdl>${basedir}/../warehouse-service/target/wsprovide/resources/WarehouseService.wsdl</wsdl>
 							</wsdls>

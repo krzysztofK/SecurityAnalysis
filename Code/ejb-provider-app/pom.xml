@@ -7,6 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ejb-provider-app</artifactId>
+	<name>Security-Analysis :: ejb-provider-app</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>

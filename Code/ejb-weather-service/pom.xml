@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>ejb-weather-service</artifactId>
-  <name>ejb-weather-service</name>
+  <name>Security-Analysis :: ejb-weather-service</name>
   	<dependencies>
 		<dependency>
 		    <groupId>org.jboss.spec.javax.ejb</groupId>

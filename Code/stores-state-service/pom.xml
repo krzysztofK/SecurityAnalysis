@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>stores-state-service</artifactId>
 	<packaging>war</packaging>
+	<name>Security-Analysis :: stores-state-service</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate</groupId>

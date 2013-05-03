@@ -7,4 +7,5 @@
   </parent>
   <artifactId>weather-service</artifactId>
   <packaging>war</packaging>
+  <name>Security-Analysis :: weather-service</name>
 </project>
