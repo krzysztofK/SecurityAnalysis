@@ -9,6 +9,7 @@
 	<artifactId>rest-provider-service</artifactId>
 	<packaging>war</packaging>
 	<name>Security-Analysis :: rest-provider-service</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>

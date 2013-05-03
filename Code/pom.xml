@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.edu.agh.security</groupId>
 	<artifactId>security-analysis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Security-Analysis</name>
+	
 	<properties>
 		<picketlinkVersion>2.1.6.Final</picketlinkVersion>
 		<log4jVersion>1.2.17</log4jVersion>
 		<resteasyVersion>2.3.4.Final</resteasyVersion>
 		<jbosswsVersion>4.1.1.Final</jbosswsVersion>
 		<hibernateVersion>4.0.1.Final</hibernateVersion>
+		<version.org.jboss.spec.jboss.javaee.6.0>3.0.0.Final</version.org.jboss.spec.jboss.javaee.6.0>
+		<version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
 	<modules>
 		<module>ejb-provider-app</module>
 		<module>ejb-receiver-app</module>
@@ -32,13 +38,11 @@
 		<module>weather-service</module>
 		<module>ws-store-service</module>
 		<module>ws-store-service-client</module>
-    <module>warehouse-service</module>
-    <module>delivery-service</module>
-    <module>test-client</module>
-  </modules>
+		<module>warehouse-service</module>
+		<module>delivery-service</module>
+		<module>test-client</module>
+	</modules>
 
-	<!-- Common pom for whole project, we are only defining dependency/plugin 
-		management here -->
 	<dependencyManagement>
 		<dependencies>
 
@@ -46,9 +50,9 @@
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-6.0</artifactId>
-				<version>3.0.0.Final</version>
+				<version>${version.org.jboss.spec.jboss.javaee.6.0}</version>
 				<type>pom</type>
-				<scope>provided</scope>
+				<scope>import</scope>
 			</dependency>
 
 			<dependency>
@@ -135,6 +139,7 @@
 				<version>${hibernateVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			
 			<!-- Picketlink dependencies -->
 
 			<dependency>
@@ -177,6 +182,7 @@
 
 		</dependencies>
 	</dependencyManagement>
+	
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -187,6 +193,19 @@
 					<configuration>
 						<source>1.6</source>
 						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.jboss.as.plugins</groupId>
+					<artifactId>jboss-as-maven-plugin</artifactId>
+					<version>${version.org.jboss.as.plugins.maven.plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.jboss.ws.plugins</groupId>
+					<artifactId>maven-jaxws-tools-plugin</artifactId>
+					<version>1.1.1.Final</version>
+					<configuration>
+						<verbose>false</verbose>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -214,7 +233,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute/>
+										<execute />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

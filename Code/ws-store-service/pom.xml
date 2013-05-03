@@ -10,38 +10,6 @@
 	<artifactId>ws-store-service</artifactId>
 	<name>Security-Analysis :: ws-store-service</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-
-		<!-- JBoss dependency versions -->
-		<version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
-		<version.org.jboss.spec.jboss.javaee.6.0>3.0.0.Final</version.org.jboss.spec.jboss.javaee.6.0>
-
-		<!-- other plugin versions -->
-		<version.compiler.plugin>2.3.1</version.compiler.plugin>
-	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any 
-				dependencies from org.jboss.spec will have their version defined by this 
-				BOM -->
-			<!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
-				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-				of artifacts. We use this here so that we always get the correct versions 
-				of artifacts. Here we use the jboss-javaee-6.0 stack (you can read this as 
-				the JBoss stack of the Java EE 6 APIs). You can actually use this stack with 
-				any version of JBoss AS that implements Java EE 6, not just JBoss AS 7! -->
-			<dependency>
-				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-6.0</artifactId>
-				<version>${version.org.jboss.spec.jboss.javaee.6.0}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>
@@ -54,24 +22,15 @@
 		<dependency>
 			<groupId>org.jboss.ws.cxf</groupId>
 			<artifactId>jbossws-cxf-client</artifactId>
-			<version>4.1.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>${version.org.jboss.as.plugins.maven.plugin}</version>
-			</plugin>
-			<plugin>
 				<groupId>org.jboss.ws.plugins</groupId>
 				<artifactId>maven-jaxws-tools-plugin</artifactId>
-				<version>1.1.1.Final</version>
-				<configuration>
-					<verbose>true</verbose>
-				</configuration>
 				<executions>
 					<execution>
 						<id>ws-store-service wsprovide</id>

@@ -12,19 +12,16 @@
 	<name>Security-Analysis :: simple-servlet-service</name>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
 			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
 		</dependency>
-		
+
 		<!-- Test dependencies -->
-		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 </project>

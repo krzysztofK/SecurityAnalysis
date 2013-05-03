@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>security-analysis-common</artifactId>
 	<name>Security-Analysis :: security-analysis-common</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.picketlink</groupId>

@@ -9,24 +9,20 @@
 	<artifactId>ejb-receiver-webapp</artifactId>
 	<packaging>war</packaging>
 	<name>Security-Analysis :: ejb-receiver-webapp</name>
-	<dependencies>
 
+	<dependencies>
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
 			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>
 			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.jboss.ejb3</groupId>
 			<artifactId>jboss-ejb3-ext-api</artifactId>
 		</dependency>
-
-
 		<dependency>
 			<groupId>pl.edu.agh.security</groupId>
 			<artifactId>ejb-provider-app</artifactId>
@@ -34,12 +30,10 @@
 		</dependency>
 
 		<!-- Test dependencies -->
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 </project>

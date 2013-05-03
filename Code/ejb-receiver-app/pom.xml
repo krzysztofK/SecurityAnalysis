@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>ejb-receiver-app</artifactId>
 	<name>Security-Analysis :: ejb-receiver-app</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>
@@ -23,13 +24,11 @@
 			<version>7.1.1.Final</version>
 			<type>pom</type>
 		</dependency>
-
 		<dependency>
 			<groupId>pl.edu.agh.security</groupId>
 			<artifactId>ejb-provider-app</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 	</dependencies>
 
 </project>

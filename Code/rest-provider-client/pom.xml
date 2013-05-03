@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>rest-provider-client</artifactId>
 	<name>Security-Analysis :: rest-provider-client</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.resteasy.mobile</groupId>
@@ -17,12 +18,10 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.picketlink</groupId>
 			<artifactId>picketlink-core</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
