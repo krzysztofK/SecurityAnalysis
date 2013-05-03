@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Security-Analysis</name>
-	
+
 	<properties>
 		<picketlinkVersion>2.1.6.Final</picketlinkVersion>
 		<log4jVersion>1.2.17</log4jVersion>
@@ -18,7 +18,7 @@
 		<version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<modules>
 		<module>ejb-provider-app</module>
 		<module>ejb-receiver-app</module>
@@ -139,7 +139,7 @@
 				<version>${hibernateVersion}</version>
 				<scope>provided</scope>
 			</dependency>
-			
+
 			<!-- Picketlink dependencies -->
 
 			<dependency>
@@ -182,7 +182,7 @@
 
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -196,9 +196,16 @@
 					</configuration>
 				</plugin>
 				<plugin>
+					<!-- Enables deployment to jboss with: mvn jboss-as:deploy -->
 					<groupId>org.jboss.as.plugins</groupId>
 					<artifactId>jboss-as-maven-plugin</artifactId>
 					<version>${version.org.jboss.as.plugins.maven.plugin}</version>
+					<configuration>
+						<username>admin</username>
+						<password>ala123</password>
+						<force>true</force>
+						<skip>true</skip>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.jboss.ws.plugins</groupId>
@@ -242,5 +249,11 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 </project>
