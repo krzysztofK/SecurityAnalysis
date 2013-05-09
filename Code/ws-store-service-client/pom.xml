@@ -7,10 +7,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ws-store-service-client</artifactId>
+	<name>Security-Analysis :: ws-store-service-client</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.ws.cxf</groupId>
 			<artifactId>jbossws-cxf-client</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.picketlink</groupId>
@@ -21,23 +24,23 @@
 			<artifactId>picketlink-jbas7</artifactId>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.jboss.ws.plugins</groupId>
 				<artifactId>maven-jaxws-tools-plugin</artifactId>
-				<version>1.1.0.GA</version>
-				<configuration>
-					<wsdls>
-						<!--<wsdl>  http://localhost:8080/ws-store-service-0.0.1-SNAPSHOT/StoreManagerService/StoreManager?wsdl</wsdl>-->
-						<wsdl>${basedir}/../ws-store-service/target/wsprovide/resources/StoreManagerService.wsdl</wsdl>
-					</wsdls>
-				</configuration>
 				<executions>
 					<execution>
+						<id>ws-store-service-client wsprovide</id>
 						<goals>
 							<goal>wsconsume</goal>
 						</goals>
+						<configuration>
+							<wsdls>
+								<wsdl>${basedir}/../ws-store-service/target/wsprovide/resources/StoreManagerService.wsdl</wsdl>
+							</wsdls>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

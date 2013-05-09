@@ -7,7 +7,21 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>simple-order-process</artifactId>
+	<name>Security-Analysis :: simple-order-process</name>
+
 	<dependencies>
+		<!-- WSDL files need to be generated first -->
+		<dependency>
+			<groupId>pl.edu.agh.security</groupId>
+			<artifactId>financial-dep-service</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pl.edu.agh.security</groupId>
+			<artifactId>warehouse-service</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.jboss.resteasy.mobile</groupId>
 			<artifactId>resteasy-mobile</artifactId>
@@ -24,31 +38,32 @@
 		<dependency>
 			<groupId>org.jboss.ws.cxf</groupId>
 			<artifactId>jbossws-cxf-client</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.picketlink.distribution</groupId>
 			<artifactId>picketlink-jbas7</artifactId>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.jboss.ws.plugins</groupId>
 				<artifactId>maven-jaxws-tools-plugin</artifactId>
-				<version>1.1.0.GA</version>
-				<configuration>
-					<wsdls>
-						<wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</wsdl>
-						<wsdl>http://warehouse-service.security.agh.edu.pl:8080/warehouse-service-0.0.1-SNAPSHOT/WarehouseService/Warehouse?wsdl</wsdl>
-						<!-- <wsdl>http://stores-states.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</wsdl>
-                        <wsdl>${basedir}/../warehouse-service/target/wsprovide/resources/WarehouseService.wsdl</wsdl>  -->
-					</wsdls>
-				</configuration>
 				<executions>
 					<execution>
+						<id>simple-order-process wsconsume</id>
 						<goals>
 							<goal>wsconsume</goal>
 						</goals>
+						<configuration>
+							<wsdls>
+								<wsdl>${basedir}/../financial-dep-service/target/wsprovide/resources/FinancialOperationsService.wsdl</wsdl>
+								<wsdl>${basedir}/../warehouse-service/target/wsprovide/resources/WarehouseService.wsdl</wsdl>
+							</wsdls>
+							<targetPackage>pl.edu.agh.security.order.process</targetPackage>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

@@ -7,6 +7,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>financial-dep-service</artifactId>
+	<name>Security-Analysis :: ejb-weather-service</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>
@@ -16,26 +18,37 @@
 			<groupId>org.jboss.ejb3</groupId>
 			<artifactId>jboss-ejb3-ext-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.ws.cxf</groupId>
+			<artifactId>jbossws-cxf-client</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
-<!--    <build>
-    <plugins>
-            <plugin>
-                <groupId>org.jboss.ws.plugins</groupId>
-                <artifactId>maven-jaxws-tools-plugin</artifactId>
-                <version>1.1.0.GA</version>
-                <configuration>
-					<verbose>true</verbose>
-					<endpointClass>pl.edu.agh.security.deps.financial.service.FinancialOperationsBean</endpointClass>
-					<generateWsdl>true</generateWsdl>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.ws.plugins</groupId>
+				<artifactId>maven-jaxws-tools-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>financial-dep-service wsprovide</id>
+						<goals>
+							<goal>wsprovide</goal>
+						</goals>
+						<configuration>
+							<endpointClass>pl.edu.agh.security.deps.financial.service.FinancialOperationsBean</endpointClass>
+							<generateWsdl>true</generateWsdl>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
 				</configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsprovide</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build> -->
+			</plugin>
+		</plugins>
+	</build>
 </project>

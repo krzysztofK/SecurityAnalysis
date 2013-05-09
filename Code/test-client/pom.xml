@@ -8,19 +8,13 @@
 		<artifactId>security-analysis</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>pl.edu.agh.security</groupId>
 	<artifactId>test-client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>test-client</name>
-	<url>http://maven.apache.org</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<name>Security-Analysis :: test-client</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
-			<version>2.3.4.Final</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
