@@ -1,14 +1,5 @@
 package pl.edu.agh.security.order.process;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.MessageContext;
-
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -22,27 +13,26 @@ import org.picketlink.identity.federation.core.exceptions.ConfigurationException
 import org.picketlink.identity.federation.core.exceptions.ParsingException;
 import org.picketlink.identity.federation.core.exceptions.ProcessingException;
 import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
-import org.picketlink.trust.jbossws.SAML2Constants;
-import org.picketlink.trust.jbossws.handler.SAML2Handler;
 import org.w3c.dom.Element;
 
 import pl.edu.agh.security.common.Utils;
 import pl.edu.agh.security.common.services.IDeliveryService;
-import pl.edu.agh.security.deps.financial.service.FinancialOperations;
-import pl.edu.agh.security.deps.financial.service.FinancialOperationsService;
-import pl.edu.agh.security.deps.financial.service.Product;
-import pl.edu.agh.security.deps.financial.service.TransactionRequest;
-import pl.edu.agh.security.deps.financial.service.TransactionResponse;
+import pl.edu.agh.security.financial.dep.service.client.IFinancialService;
+import pl.edu.agh.security.financial.dep.service.client.Product;
+import pl.edu.agh.security.financial.dep.service.client.TransactionRequest;
+import pl.edu.agh.security.financial.dep.service.client.TransactionResponse;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
 import pl.edu.agh.security.store.state.service.client.StoreStateRequest;
 
-public class OrderProcess {
+public class OrderProcessWithESB {
+	private static final String STORES_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-store-binding/state";
+	private static final String DELIVERY_REQUEST_PATH = "http://delivery.security.agh.edu.pl:8080/rest-provider/delivery";
+	private static final String FINANCE_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-binding/financial-service";
 
-	private static final String STORES_REQUEST_PATH = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
-	private static final String DELIVERY_REQUEST_PATH = "http://delivery.security.agh.edu.pl:8080/delivery";
-	private static final String STORES_HOST = "stores-states.security.agh.edu.pl";
+	private static final String ESB_HOST = "esb.security.agh.edu.pl";
 	private static final String DELIVERY_HOST = "delivery.security.agh.edu.pl";
+
 	private static final int PORT = 8080;
 	private static final String STS_SERVICE_NAME = "PicketLinkSTS";
 	private static final String STS_PORT = "PicketLinkSTSPort";
@@ -56,7 +46,7 @@ public class OrderProcess {
 	private final int count;
 	private final boolean invoiceRequested;
 
-	public OrderProcess(String userName, String password,
+	public OrderProcessWithESB(String userName, String password,
 			String orderedProduct, int count, boolean invoiceRequested) {
 		super();
 		this.userName = userName;
@@ -80,19 +70,18 @@ public class OrderProcess {
 		 * Looks for store with requested count of the product
 		 */
 		Store store = prepareStoreStateServiceClient().getStore(stateRequest);
-
 		if (store != null) {
 			// TODO: store service + shipments
 
-			// DeliveryState deliveryState =
-			// prepareDeliveryServiceClient().putDelivery("Middle of nowhere",
-			// store.getLocation(), 1.0);
+			// DeliveryState deliveryState = prepareDeliveryServiceClient()
+			// .putDelivery("Middle of nowhere", store.getLocation(), 1.0);
 			// System.out.println(deliveryState);
 
 			/**
 			 * Financial service execution
 			 */
-			FinancialOperations financialOperations = prepareFinancialServiceClient();
+			IFinancialService financialOperations = prepareFinancialServiceClient();
+
 			TransactionRequest transactionRequest = new TransactionRequest();
 			transactionRequest.setCount(count);
 			Product product = new Product();
@@ -148,6 +137,9 @@ public class OrderProcess {
 			throws ConfigurationException, ProcessingException,
 			ParsingException {
 		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+		defaultHttpClient.getCredentialsProvider().setCredentials(
+				new AuthScope(DELIVERY_HOST, PORT),
+				new UsernamePasswordCredentials(userName, samlAssertionString));
 		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
 				defaultHttpClient) {
 
@@ -162,32 +154,33 @@ public class OrderProcess {
 
 		// This initialization only needs to be done once per VM
 		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
-		defaultHttpClient.getCredentialsProvider().setCredentials(
-				new AuthScope(DELIVERY_HOST, PORT),
-				new UsernamePasswordCredentials(userName, samlAssertionString));
 
 		return ProxyFactory.create(IDeliveryService.class,
 				DELIVERY_REQUEST_PATH, executor);
 	}
 
-	public FinancialOperations prepareFinancialServiceClient() {
-		FinancialOperations financialOperations = new FinancialOperationsService()
-				.getFinancialOperationsPort();
+	public IFinancialService prepareFinancialServiceClient() {
+		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+		defaultHttpClient.getCredentialsProvider().setCredentials(
+				new AuthScope(ESB_HOST, PORT),
+				new UsernamePasswordCredentials(userName, samlAssertionString));
+		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
+				defaultHttpClient) {
 
-		BindingProvider bindingProvider = (BindingProvider) financialOperations;
-		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		headers.put("samlAssertion",
-				Collections.singletonList(samlAssertionString));
-		bindingProvider.getRequestContext().put(
-				MessageContext.HTTP_REQUEST_HEADERS, headers);
+			@SuppressWarnings("rawtypes")
+			@Override
+			public ClientResponse execute(ClientRequest request)
+					throws Exception {
+				request.header("samlAssertion", samlAssertionString);
+				return super.execute(request);
+			}
+		};
 
-		bindingProvider.getRequestContext().put(
-				SAML2Constants.SAML2_ASSERTION_PROPERTY, samlAssertion);
+		// This initialization only needs to be done once per VM
+		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
 
-		List<Handler> handlers = bindingProvider.getBinding().getHandlerChain();
-		handlers.add(new SAML2Handler());
-		bindingProvider.getBinding().setHandlerChain(handlers);
-		return financialOperations;
+		return ProxyFactory.create(IFinancialService.class,
+				FINANCE_REQUEST_PATH, executor);
 	}
 
 }
