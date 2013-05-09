@@ -2,14 +2,14 @@
 <switchyard xmlns="urn:switchyard-config:switchyard:1.0"
 	xmlns:rest="urn:switchyard-component-resteasy:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:bean="urn:switchyard-component-bean:config:1.0" xmlns:soap="urn:switchyard-component-soap:config:1.0"
-	xmlns:camel="urn:switchyard-component-camel:config:1.0"
+	xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:http="urn:switchyard-component-http:config:1.0"
 	xmlns:xform="urn:switchyard-config:transform:1.0">
 
 
 	<sca:composite name="orders" targetNamespace="urn:security-analysis:orders:0.1.0">
 		<sca:service name="RestOrderService" promote="RestOrderService">
 			<rest:binding.rest>
-				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes=".*"/>
+				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes="saml.*"/>
 				<rest:interfaces>pl.edu.agh.security.deps.financial.service.rest.IFinancialService</rest:interfaces>
 				<rest:contextPath>rest-binding</rest:contextPath>
 			</rest:binding.rest>
@@ -18,17 +18,52 @@
 		<sca:reference name="OrderService" promote="RestOrderService/OrderService"
 			multiplicity="0..1">
 			<soap:binding.soap>
-				<soap:contextMapper class="org.switchyard.component.soap.composer.SOAPContextMapper" includes=".*" soapHeadersType="XML"/>
-				<soap:contextMapper class="org.switchyard.component.http.composer.HttpContextMapper"/>
+				<soap:contextMapper class="org.switchyard.component.soap.composer.SOAPContextMapper" includes=".*Assertion.*" soapHeadersType="XML"/>
 				<soap:wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</soap:wsdl>
-  			</soap:binding.soap>
+			</soap:binding.soap>
+  		</sca:reference>
+
+		<sca:service name="RestStoreServiceProxy" promote="RestStoreServiceProxy">
+			<rest:binding.rest>
+				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes="saml.*"/>
+				<rest:interfaces>pl.edu.agh.security.esb.store.state.IStoreState</rest:interfaces>
+				<rest:contextPath>rest-store-binding</rest:contextPath>
+			</rest:binding.rest>
+		</sca:service>
+		
+		<sca:reference name="RestStoreService" promote="RestStoreServiceProxy/RestStoreService" multiplicity="0..1">
+		    <rest:binding.rest>
+				<rest:contextMapper class="pl.edu.agh.security.esb.context.mappers.RESTInScopeHeadersMapper" includes="saml.*"/>
+		        <rest:interfaces>pl.edu.agh.security.esb.store.state.IStoreState</rest:interfaces> 
+		        <rest:address>http://stores-states.security.agh.edu.pl:8080</rest:address>
+		        <rest:contextPath>stores-state-service</rest:contextPath>
+		    </rest:binding.rest>
 		</sca:reference>
 
-		<sca:component name="RestOrderService">
-<!-- 			<camel:implementation.camel>
-				<camel:xml path="META-INF/route.xml" />
-			</camel:implementation.camel>
+<!-- 		<sca:reference name="RestStoreService" promote="RestStoreServiceProxy/RestStoreService" multiplicity="1..1">
+		    <http:binding.http>
+		        <http:address>http://stores-states.security.agh.edu.pl:8080/stores-state-service</http:address>
+		        <http:method>GET</http:method>
+		        <http:contentType>application/json</http:contentType>
+		    </http:binding.http>
+		</sca:reference>
  -->
+		<sca:component name="RestStoreServiceProxy">
+
+			<implementation.camel xmlns="urn:switchyard-component-camel:config:1.0">
+				<java class="pl.edu.agh.security.esb.routes.StoreServiceRoute" />
+			</implementation.camel>
+ 			<sca:service name="RestStoreServiceProxy">
+				<sca:interface.java
+					interface="pl.edu.agh.security.esb.store.state.IStoreState" />
+			</sca:service>
+ 			<sca:reference name="RestStoreService">
+ 				<sca:interface.java
+					interface="pl.edu.agh.security.esb.store.state.IStoreState" />
+			</sca:reference>
+		</sca:component>
+
+		<sca:component name="RestOrderService">
 			<implementation.camel xmlns="urn:switchyard-component-camel:config:1.0">
 				<java class="pl.edu.agh.security.deps.financial.service.rest.MessageRouteBuilder" />
 			</implementation.camel>
@@ -43,7 +78,8 @@
 		</sca:component>
 
 	</sca:composite>
-	<transforms>
+
+<!-- 	<transforms>
 		<transform.jaxb
 			from="java:pl.edu.agh.security.deps.financial.service.rest.TransactionRequest"
 			to="{http://service.financial.deps.security.agh.edu.pl/}registerTransaction"
@@ -53,4 +89,4 @@
 			to="java:pl.edu.agh.security.deps.financial.service.rest.TransactionResponse"
 			contextPath="pl.edu.agh.security.deps.financial.service.rest" />
 	</transforms>
-</switchyard>
+ --></switchyard>

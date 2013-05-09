@@ -6,7 +6,6 @@ import javax.inject.Named;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.switchyard.Context;
-import org.switchyard.Scope;
 
 @Named("messageProcessor")
 public class MessageProcessor implements Processor {
@@ -19,8 +18,10 @@ public class MessageProcessor implements Processor {
 
 	@Override
 	public void process(Exchange arg0) throws Exception {
-        //context.setProperty("Assertion", "", Scope.EXCHANGE);
 		System.out.println(arg0.getIn().getBody());
+		arg0.getOut().setBody(arg0.getIn().getBody());
+		arg0.getIn().setBody(null);
+		arg0.getOut().setHeaders(arg0.getIn().getHeaders());		
 	}
 
 }

@@ -21,31 +21,37 @@
 		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-camel</artifactId>
-			<version>0.7.0.Final</version>
+			<version>0.8.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-camel-core</artifactId>
-			<version>0.7.0.Final</version>
+			<version>0.8.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-bean</artifactId>
-			<version>0.7.0.Final</version>
+			<version>0.8.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-soap</artifactId>
-			<version>0.7.0.Final</version>
+			<version>0.8.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-http</artifactId>
-			<version>0.7.0.Final</version>
+			<version>0.8.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.switchyard.components</groupId>
+			<artifactId>switchyard-component-resteasy</artifactId>
+			<version>0.8.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

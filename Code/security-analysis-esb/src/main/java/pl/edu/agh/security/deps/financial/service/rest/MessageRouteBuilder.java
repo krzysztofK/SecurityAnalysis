@@ -5,6 +5,8 @@ import org.apache.camel.converter.jaxb.JaxbDataFormat;
 
 public class MessageRouteBuilder extends RouteBuilder {
 
+	private static final String SOAP_ASSERTION_HEADER = "{urn:oasis:names:tc:SAML:2.0:assertion}Assertion";
+
 	@Override
 	public void configure() throws Exception {
 
@@ -12,10 +14,9 @@ public class MessageRouteBuilder extends RouteBuilder {
 				"pl.edu.agh.security.deps.financial.service.rest");
 
 		from("switchyard://RestOrderService")
-				.setProperty("{urn:oasis:names:tc:SAML:2.0:assertion}Assertion")
-				.simple("${header.samlassertion}").setHeader("samlAssertion")
+				.setProperty(SOAP_ASSERTION_HEADER)
 				.simple("${header.samlassertion}").marshal(jaxb)
-				.log("Message received: ${body}").beanRef("messageProcessor")
+				.setHeader("samlAssertion").simple("${header.samlassertion}")
 				.to("switchyard://OrderService").unmarshal(jaxb);
 	}
 }
