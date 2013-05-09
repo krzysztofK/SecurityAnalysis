@@ -3,18 +3,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-	<context-param>
+<!-- 	<context-param>
 		<param-name>resteasy.role.based.security</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
+ -->
+   
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
 
-	<security-constraint>
+<!-- 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Store state service</web-resource-name>
 			<url-pattern>/*</url-pattern>
@@ -36,5 +37,5 @@
 	<security-role>
 		<role-name>doktor</role-name>
 	</security-role>
-
+ -->
 </web-app>
