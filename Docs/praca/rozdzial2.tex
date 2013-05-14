@@ -6,7 +6,16 @@
 \section{Koncepcja cyfrowego zarzadzania tozsamosciami(IdM)}
 \label{sec:konceptcjaIdM}
 
-Koncepcja cyfrowego zarzadzania tozsamosciami(IdM)
+Zarządzanie tożsamościami(Identity Management) jest podejściem do zagadnienia zapewnienia bezpieczeństwa dostępu do aplikacji w oparciu o dane identyfikujące użytkownika(Identity). Pojęcie danych identyfikujących może być zdefiniowane jako [3] (ITU-T Y.2720 Recommendation - numeracja z książki o IdM) "informacje o jednostce pozwalające na identyfikację tej jednostki dla pewnej dziedziny zastosowań". W kontekście systemów zarządzania cyfrowymi tożsamościami dane identyfikujące mogą dotyczyć nie tylko osób ale również na przykład komponentów programowych[książka o IdM]. Zgodnie z rekomendacją Y.2720 w skład danych identyfikujących wchodzą identyfikator jednostki, dane uwierzytelniające jednostkę oraz atrybuty opisujące jednostkę.
+Elisa Bertino i Kenji Takahashi w książce "Identity Management" definiują cele zarządzania tożsamościami jako "utrzymanie integralności danych identyfikujących w trakcie ich użytkowania w celu udostępniania tych danych i powiązanych z nimi informacji w sposób bezpieczny i chroniący prywatność użytkowników". 
+
+Role w koncepcji systemów zarządzania tożsamościami
+
+Systemy zarządzania tożsamościami charakteryzują się rozdzieleniem odpowiedzialności związanych z dostarczaniem funkcjonalności oraz zadań związanych z zapewnieniem bezpieczeństwa dostępu do aplikacji. Usługi uwierzytelniania i autoryzacji oraz funkcjonalności systemów dostarczane są dla jednostek - składowych systemu zarządzania tożsamościami - zazwyczaj użytkowników.
+
+Dane identyfikacyjne jednostek są gromadzone i wykorzystywane w trakcie korzystania z aplikacji. Dane osobowe mogą obejmować informacje związane z dokumentami tożsamości(numery dowodu osobistego, paszportu), dane bankowe, biometryczne oraz informacje związane z przebiegiem interakcji jednostki z systemem. Dane identyfikacyjne jednostek powinny być przetwarzane i gromadzone w sposób zapewniający  ochronę przed niewłaściwym użyciem. Nadużycia danych osobowych jednostek mogą prowadzić do istotnych strat użytkowników aplikacji.
+
+Elementem przeprowadzającym weryfikację tożsamości jednostek jest usługa "Identity Provider". Usługa ta odpowiedzialna jest za przyporządkowywanie jednostkom atrybutów opisujących tożsamość, tworzenie powiązań pomiędzy różnymi atrybutami jednostki oraz tworzenie asercji zawierających informacje o atrybutach jednostek. 
 
 %---------------------------------------------------------------------------
 
