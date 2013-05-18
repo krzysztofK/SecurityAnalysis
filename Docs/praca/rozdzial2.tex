@@ -30,7 +30,24 @@ Często stosowanym modelem jest infrastruktura złożona z jednej usługi typu "
 
 Najczęściej użytkownicy korzystają nie z jednej usługi lecz z szerokiej gamy różnych usług. Każda z usług korzysta z własnych danych uwierzytelniających. Podejście "Federated Identity Management" umożliwia tworzenie powiązań pomiędzy tożsamościami użytkownika w ramach różnych usług dzięki czemu dane uwierzytelniające każdej z sfederowanych usług mogą być wykorzystane w procesie uwierzytelniania dowolnej z usług.
 
+\subsection{Cykl życia tożsamości}
 
+Jednym z głównych zadań systemów zarządzania tożsamościami jest kontrola nad cyklem życia tożsamości. Autorzy książki "Identity Management: Concepts, Technologies and Systems" opisują 4 etapy cyklu życiu tożsamości: tworzenie, użytkowanie, aktualizacja oraz wycofanie z użycia.
+
+Proces tworzenia cyfrowej tożsamości składa się z kilku kroków. Pierwszym z nich może być weryfikacja przedstawionych atrybutów tożsamości, wymagająca udowodnia przez jednostkę prawdziwości wprowadzanych danych. Następnie tworzone są dane uwierzytelniające. Ostatnim krokiem jest utworzenie tożsamości na podstawie otrzymanych danych oraz nadanie jednostce identyfikatora.
+
+Utworzona tożsamość może być wykorzystywana w różnych celach, np. zapewnienia wiarygodnej komunikacji lub w procesie jednokrotnego uwierzytelniania(ang. Single Sign-On).
+
+\subsubsection{Jednokrotne uwierzytelnianie}
+
+Książka "Identity Management: Concepts, Technologies and Systems" definiuje jednokrotne uwierzytelnianie(ang. Single Sign-On) jako proces uwierzytelniania, w którym jednostka może wykorzystać wynik pojedynczego uwierzytelniania dla uzyskania dostępu do wielu niezależnych usług z ochroną dostępu. 
+
+Podstawą funkcjonowania mechanizmów jednokrotnego uwierzytelniania jest nawiązanie relacji zaufania pomiędzy dostawcami usług oraz serwisami typu "Identity Provider". Usługi korzystające z mechanizmu jednokrotnego uwierzytelniania powinny otrzymywać informacje kontekstowe o przebiegu procesu uwierzytelniania takie jak: wykorzystywane metody uwierzytelniania oraz sposób ochrony danych uwierzytelniających. Informacje te pozwalają na ocenę stopnia wiarygodności przeprowadzonego procesu uwierzytelniania.
+
+
+Update
+
+Revocation
 %---------------------------------------------------------------------------
 
 \section{Service-Oriented Architecture}
