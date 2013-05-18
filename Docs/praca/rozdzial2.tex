@@ -7,15 +7,29 @@
 \label{sec:konceptcjaIdM}
 
 Zarządzanie tożsamościami(Identity Management) jest podejściem do zagadnienia zapewnienia bezpieczeństwa dostępu do aplikacji w oparciu o dane identyfikujące użytkownika(Identity). Pojęcie danych identyfikujących może być zdefiniowane jako [3] (ITU-T Y.2720 Recommendation - numeracja z książki o IdM) "informacje o jednostce pozwalające na identyfikację tej jednostki dla pewnej dziedziny zastosowań". W kontekście systemów zarządzania cyfrowymi tożsamościami dane identyfikujące mogą dotyczyć nie tylko osób ale również na przykład komponentów programowych[książka o IdM]. Zgodnie z rekomendacją Y.2720 w skład danych identyfikujących wchodzą identyfikator jednostki, dane uwierzytelniające jednostkę oraz atrybuty opisujące jednostkę.
-Elisa Bertino i Kenji Takahashi w książce "Identity Management" definiują cele zarządzania tożsamościami jako "utrzymanie integralności danych identyfikujących w trakcie ich użytkowania w celu udostępniania tych danych i powiązanych z nimi informacji w sposób bezpieczny i chroniący prywatność użytkowników". 
 
-Role w koncepcji systemów zarządzania tożsamościami
+Elisa Bertino i Kenji Takahashi w książce "Identity Management" definiują cele zarządzania tożsamościami jako "utrzymanie integralności danych identyfikujących w trakcie ich użytkowania w celu udostępniania tych danych i powiązanych z nimi informacji w sposób bezpieczny i chroniący prywatność użytkowników".
+ 
+\subsection{Role w koncepcji systemów zarządzania tożsamościami}
 
 Systemy zarządzania tożsamościami charakteryzują się rozdzieleniem odpowiedzialności związanych z dostarczaniem funkcjonalności oraz zadań związanych z zapewnieniem bezpieczeństwa dostępu do aplikacji. Usługi uwierzytelniania i autoryzacji oraz funkcjonalności systemów dostarczane są dla jednostek - składowych systemu zarządzania tożsamościami - zazwyczaj użytkowników.
-
 Dane identyfikacyjne jednostek są gromadzone i wykorzystywane w trakcie korzystania z aplikacji. Dane osobowe mogą obejmować informacje związane z dokumentami tożsamości(numery dowodu osobistego, paszportu), dane bankowe, biometryczne oraz informacje związane z przebiegiem interakcji jednostki z systemem. Dane identyfikacyjne jednostek powinny być przetwarzane i gromadzone w sposób zapewniający  ochronę przed niewłaściwym użyciem. Nadużycia danych osobowych jednostek mogą prowadzić do istotnych strat użytkowników aplikacji.
+Elementem przeprowadzającym weryfikację tożsamości jednostek jest usługa "Identity Provider"(IdP). Usługa ta odpowiedzialna jest za przyporządkowywanie jednostkom atrybutów opisujących tożsamość, tworzenie powiązań pomiędzy różnymi atrybutami jednostki oraz tworzenie asercji zawierających informacje o atrybutach jednostek. 
 
-Elementem przeprowadzającym weryfikację tożsamości jednostek jest usługa "Identity Provider". Usługa ta odpowiedzialna jest za przyporządkowywanie jednostkom atrybutów opisujących tożsamość, tworzenie powiązań pomiędzy różnymi atrybutami jednostki oraz tworzenie asercji zawierających informacje o atrybutach jednostek. 
+Usługa 'Identity Provider' może współpracować z innymi usługami tego typu dołączając do danych uwierzytelniających informacje udostępniane przez inne zaufane usługi IdP. Wykorzystanie danych uwierzytelniających dostarczanych przez inne usługi uwierzytelniające wymaga wprowadzenia procesu zapewnienia wiarygodności otrzymywanych danych. Proces ten może opierać się na przypisywaniu miary wiarygodności do atrybutów uwierzytelniających. Wyznaczenie wartości tej miary może być na przykład oparte o ocenę stopnia zaawansowania mechanizmów weryfikacji danych uwierzytelniających wykorzystywanych przez usługę dostarczająca dany atrybut tożsamości.
+
+Dostawcy usług wykorzystujący infrastrukturę systemów zarządzania tożsamościami przed zezwoleniem na dostęp do swoich zasobów zlecają usługom typu IdP przeprowadzenie procesu uwierzytelniania klienta na podstawie otrzymanych danych uwierzytelniających. Dostawcy usług powinni mieć możliwość deklaracji poziomu skuteczności zabezpieczeń wykorzystywanych w procesie autoryzacji dostępu do określonych zasobów. Poziom ten może być różny w zależności od rodzaju zasobu.
+
+Przedstawiona w książce .... terminologia wprowadza również pojęcie jednostki nadzorującej. Jest to najczęściej instytucja upoważniona prawnie do nadzoru nad procesami przetwarzania i przechowania danych osobowych lub wglądu  w informacje o charakterze poufnym.
+
+\subsection{Relacje miedzy rolami w systemach zarządzania tożsamościami}
+
+Często stosowanym modelem jest infrastruktura złożona z jednej usługi typu "Identity Provider" oraz wielu usług funkcjonalnych opierających na niej swoje mechanizmy zabezpieczeń. Dzięki takiemu rozwiązaniu dostawcy usług mogą skoncentrować się na tworzeniu funkcjonalności stanowiących istotę aplikacji - odpowiedzialności związane z zapewnieniem bezpieczeństwa dostępu delegowane są do usługi IdP. Specjalizowana usługa uwierzytelniania może dostarczać bardziej zaawansowanych zabezpieczeń. Dzięki realizacji tego modelu użytkownicy nie muszą zarządzać wieloma danymi uwierzytelniającymi dla różnych usług - dostęp do wielu serwisów gwarantowany jest przy użyciu tych samych danych. Wprowadza to jednak zagrożenia związane z centralizacja dostępu do różnych usług.
+
+\subsection{Federated Identity Management}
+
+Najczęściej użytkownicy korzystają nie z jednej usługi lecz z szerokiej gamy różnych usług. Każda z usług korzysta z własnych danych uwierzytelniających. Podejście "Federated Identity Management" umożliwia tworzenie powiązań pomiędzy tożsamościami użytkownika w ramach różnych usług dzięki czemu dane uwierzytelniające każdej z sfederowanych usług mogą być wykorzystane w procesie uwierzytelniania dowolnej z usług.
+
 
 %---------------------------------------------------------------------------
 
