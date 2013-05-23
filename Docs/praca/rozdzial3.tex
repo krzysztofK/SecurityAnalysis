@@ -53,12 +53,26 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 				  \item deklaracja autoryzacji - stwierdza, że jednostce opisanej w asercji przyznano lub odmówiono praw dostępu do zasobów pod określonymi warunkami
 				 \end{itemize}
 
-		\paragraph{Protokoły} 
+		\paragraph{Protokoły}\mbox{}\\ 
 
-		\paragraph{Mapowania dla protokołów komunikacyjnych}
+			Protokoły SAML definiują format wiadomości żądań i odpowiedzi pozwalających na komunikację pomiędzy elementami systemu zarządzania tożsamościami przy pomocy technologii SAML. Specyfikacja SAML określa protokoły:
 
-		\paragraph{Profile}
+			\begin{itemize}
+			  \item protokół odpytywania usługi "Identity Provider" o asercje
+			  \item protokół żądania uwierzytelniania jednostki
+			  \item protokół rejestrowania identyfikatorów jednostek
+			  \item protokół żądania wygaśnięcia identyfikatora jednostki
+			  \item protokół żądania jednokrotnego wylogowania z wielu aplikacji
+			  \item protokół żądania odzwierciedlenia pomiędzy różnymi identyfikatorami jednostki
+			\end{itemize}
 
+		\paragraph{Mapowania dla protokołów komunikacyjnych}\mbox{}\\
+
+			Mapowania SAML do protokołów komunikacyjnych określają w jaki sposób wiadomości protokołów SAML powinny być przekazywane przy pomocy standardowych protokołów komunikacyjnych.  Mapowania mogą np. definiować sposób przesyłania wiadomości SAML przy pomocy protokołów HTTP lub SOAP.
+
+		\paragraph{Profile}\mbox{}\\
+
+			Profile SAML definiują zbiór funkcjonalności jakie można uzyskać przy użyciu elementów niższych warstw(asercji, protokołów i mapowań) oraz sposób w jaki te funkcjonalności mogą być osiągnięte. Przykładem mogą być profile jednokrotnego uwierzytelniania specyfikujące sposób komunikacji pomiędzy dostawcami usług i serwisami "Identity Provider" w celu dostarczenia mechanizmów SSO lub profile zapytania o asercję dla jednostki.
 
 \subsection{OpenID}
 
