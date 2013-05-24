@@ -74,6 +74,19 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 
 			Profile SAML definiują zbiór funkcjonalności jakie można uzyskać przy użyciu elementów niższych warstw(asercji, protokołów i mapowań) oraz sposób w jaki te funkcjonalności mogą być osiągnięte. Przykładem mogą być profile jednokrotnego uwierzytelniania specyfikujące sposób komunikacji pomiędzy dostawcami usług i serwisami "Identity Provider" w celu dostarczenia mechanizmów SSO lub profile zapytania o asercję dla jednostki.
 
+	\subsubsection{Mechanizmy jednokrotnego uwierzytelniania przy użyciu SAML}
+
+		\paragraph{Schemat funkcjonowania mechanizmów SSO w oparciu o technologię SAML}\mbox{}\\
+
+			\begin{figure}[h]
+				\centering
+					\includegraphics[width=15cm,height=2.5cm]{img/samlSSO.jpg}
+				\caption{Schemat funkcjonowania mechanizmu jednokrotnego uwierzytelniania w SAML}
+				\label{Schemat funkcjonowania mechanizmu jednokrotnego uwierzytelniania w SAML}
+			\end{figure}
+
+			Aby istniała możliwość korzystania z mechanizmu jednokrotnego uwierzytelniania konieczne jest utworzenie federacji pomiędzy tożsamościami jednostki. Po utworzeniu powiązań pomiędzy różnymi tożsamościami użytkownik po poprawnym uwierzytelnieniu względem jednej z usług może korzystać z innych sfederowanych serwisów. Wylogowanie się wykonane dla którejś z aplikacji powoduje zamknięcie dostępu do wszystkich sfederowanych usług. Procedura jednokrotnego uwierzytelniania może być wykorzystywana do momentu usunięcia federacji pomiędzy tożsamościami użytkownika.
+	
 \subsection{OpenID}
 
 %---------------------------------------------------------------------------
