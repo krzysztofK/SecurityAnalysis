@@ -28,11 +28,6 @@ import org.w3c.dom.Element;
 
 import pl.edu.agh.security.common.Utils;
 import pl.edu.agh.security.common.services.IDeliveryService;
-import pl.edu.agh.security.deps.financial.service.FinancialOperations;
-import pl.edu.agh.security.deps.financial.service.FinancialOperationsService;
-import pl.edu.agh.security.deps.financial.service.Product;
-import pl.edu.agh.security.deps.financial.service.TransactionRequest;
-import pl.edu.agh.security.deps.financial.service.TransactionResponse;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
 import pl.edu.agh.security.store.state.service.client.StoreStateRequest;
