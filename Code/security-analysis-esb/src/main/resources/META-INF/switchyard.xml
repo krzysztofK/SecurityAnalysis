@@ -18,11 +18,11 @@
 		<sca:reference name="OrderService" promote="RestOrderService/OrderService"
 			multiplicity="0..1">
 			<soap:binding.soap>
-				<soap:contextMapper class="org.switchyard.component.soap.composer.SOAPContextMapper" includes=".*Assertion.*" soapHeadersType="XML"/>
+				<soap:contextMapper class="pl.edu.agh.security.esb.context.mappers.SOAPInScopeHeadersMapper" includes=".*Assertion.*" soapHeadersType="XML"/>
 				<soap:wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</soap:wsdl>
 			</soap:binding.soap>
-  		</sca:reference>
-
+ 		</sca:reference>
+ 
 		<sca:service name="RestStoreServiceProxy" promote="RestStoreServiceProxy">
 			<rest:binding.rest>
 				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes="saml.*"/>
@@ -40,14 +40,6 @@
 		    </rest:binding.rest>
 		</sca:reference>
 
-<!-- 		<sca:reference name="RestStoreService" promote="RestStoreServiceProxy/RestStoreService" multiplicity="1..1">
-		    <http:binding.http>
-		        <http:address>http://stores-states.security.agh.edu.pl:8080/stores-state-service</http:address>
-		        <http:method>GET</http:method>
-		        <http:contentType>application/json</http:contentType>
-		    </http:binding.http>
-		</sca:reference>
- -->
 		<sca:component name="RestStoreServiceProxy">
 
 			<implementation.camel xmlns="urn:switchyard-component-camel:config:1.0">
@@ -65,7 +57,7 @@
 
 		<sca:component name="RestOrderService">
 			<implementation.camel xmlns="urn:switchyard-component-camel:config:1.0">
-				<java class="pl.edu.agh.security.deps.financial.service.rest.MessageRouteBuilder" />
+				<java class="pl.edu.agh.security.esb.routes.FinancialServiceRoute" />
 			</implementation.camel>
  			<sca:service name="RestOrderService">
 				<sca:interface.java
