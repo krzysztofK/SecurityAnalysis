@@ -86,8 +86,20 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 			\end{figure}
 
 			Aby istniała możliwość korzystania z mechanizmu jednokrotnego uwierzytelniania konieczne jest utworzenie federacji pomiędzy tożsamościami jednostki. Po utworzeniu powiązań pomiędzy różnymi tożsamościami użytkownik po poprawnym uwierzytelnieniu względem jednej z usług może korzystać z innych sfederowanych serwisów. Wylogowanie się wykonane dla którejś z aplikacji powoduje zamknięcie dostępu do wszystkich sfederowanych usług. Procedura jednokrotnego uwierzytelniania może być wykorzystywana do momentu usunięcia federacji pomiędzy tożsamościami użytkownika.
-	
+
+		\paragraph{Przebieg procesu jednokrotnego uwierzytelniania w SAML}\mbox{}\\
+
+			\begin{figure}[h]
+				\centering
+					\includegraphics[width=15cm,height=10cm]{img/ssoSteps.jpg}
+				\caption{Przebieg procesu jednokrotnego uwierzytelniania w SAML}
+				\label{Przebieg procesu jednokrotnego uwierzytelniania w SAML}
+			\end{figure}
+
+			Usługa objęta mechanizmem jednokrotnego uwierzytelniania po otrzymaniu żądania udostępnienia swoich zasobów zleca modułowi "Identity Provider" przeprowadzenie procesu uwierzytelnienia klienta serwisu. Asercja będąca wynikiem procesu uwierzytelnienia zostaje przekazana do usługi zlecającej. Usługa dokonuje weryfikacji otrzymanej asercji i akceptuje lub odrzuca żądanie dostępu do zasobów. Gdy użytkownik chce skorzystać z usług innego serwisu sfederowanego z usługą, do której otrzymał dostęp, proces uwierzytelniania przebiega podobnie. Pomijany jest jednak krok ponownego uwierzytelniania użytkownika przez usługę "Identity Provider" - usługa ta zwraca do aplikacji żądającej uwierzytelniania asercję wygenerowaną na podstawie wcześniej wykonanego procesu uwierzytelniania.	
+
 \subsection{OpenID}
+
 
 %---------------------------------------------------------------------------
 
