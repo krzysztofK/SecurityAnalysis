@@ -14,7 +14,7 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import org.jboss.ejb3.annotation.SecurityDomain;
 
 @Stateless
-@WebService(name = "FinancialOperations", serviceName = "FinancialOperationsService")
+@WebService(name = "FinancialOperations", serviceName = "FinancialOperationsService", targetNamespace = "")
 @SOAPBinding(parameterStyle = ParameterStyle.BARE)
 @SecurityDomain("ws-ldap-saml")
 @HandlerChain(file = "/META-INF/handlers.xml")
@@ -26,6 +26,7 @@ public class FinancialOperationsBean {
 	@WebMethod
 	public TransactionResponse registerTransaction(
 			TransactionRequest transactionRequest) {
+		System.out.println("testaaa");
 		TransactionResponse transactionResponse = new TransactionResponse();
 		if (transactionRequest.isInvoiceRequested()) {
 			transactionResponse.setInvoiceIdentifier(new Long(new Random()
