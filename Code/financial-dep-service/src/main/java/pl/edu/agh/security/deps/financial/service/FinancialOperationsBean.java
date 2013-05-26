@@ -26,7 +26,6 @@ public class FinancialOperationsBean {
 	@WebMethod
 	public TransactionResponse registerTransaction(
 			TransactionRequest transactionRequest) {
-		System.out.println("testaaa");
 		TransactionResponse transactionResponse = new TransactionResponse();
 		if (transactionRequest.isInvoiceRequested()) {
 			transactionResponse.setInvoiceIdentifier(new Long(new Random()

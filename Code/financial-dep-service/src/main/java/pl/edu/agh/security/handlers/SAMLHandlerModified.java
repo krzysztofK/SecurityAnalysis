@@ -1,7 +1,6 @@
-package pl.edu.agh.security.deps.financial.service;
+package pl.edu.agh.security.handlers;
 
 import java.io.StringWriter;
-import java.util.Map;
 
 import javax.security.jacc.PolicyContext;
 import javax.security.jacc.PolicyContextException;
@@ -20,6 +19,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import org.jboss.as.web.security.HttpServletRequestPolicyContextHandler;
+import org.picketlink.identity.federation.bindings.jboss.auth.SAMLTokenFromHttpRequestAbstractLoginModule;
 import org.picketlink.identity.federation.core.saml.v2.constants.JBossSAMLURIConstants;
 import org.picketlink.trust.jbossws.Util;
 import org.picketlink.trust.jbossws.handler.SAML2Handler;
@@ -34,7 +34,6 @@ public class SAMLHandlerModified extends SAML2Handler {
 				.get(MessageContext.SERVLET_REQUEST);
 
 		boolean result = super.handleInbound(msgContext);
-		System.out.println(msgContext.get(MessageContext.HTTP_REQUEST_HEADERS));
 
 		String assertionNS = JBossSAMLURIConstants.ASSERTION_NSURI.get();
 		SOAPMessageContext ctx = (SOAPMessageContext) msgContext;
@@ -43,14 +42,11 @@ public class SAMLHandlerModified extends SAML2Handler {
 		if (soapMessage == null)
 			throw logger.nullValueError("SOAP Message");
 
-		// retrieve the assertion
 		Document document = soapMessage.getSOAPPart();
 		Element soapHeader = Util.findOrCreateSoapHeader(document
 				.getDocumentElement());
 		Element assertion = Util.findElement(soapHeader, new QName(assertionNS,
 				"Assertion"));
-
-		System.out.println(assertion);
 
 		TransformerFactory transFactory = TransformerFactory.newInstance();
 		Transformer transformer;
@@ -62,10 +58,6 @@ public class SAMLHandlerModified extends SAML2Handler {
 			transformer.transform(new DOMSource(assertion), new StreamResult(
 					buffer));
 			final String str = buffer.toString();
-			System.out.println(str);
-			((Map) msgContext.get(MessageContext.HTTP_REQUEST_HEADERS)).put(
-					"samlAssertion", str);
-			getServletContext(msgContext).setAttribute("samlAssertion", str);
 
 			final HttpServletRequestWrapper httpServletRequestWrapper = new HttpServletRequestWrapper(
 					req) {
@@ -76,33 +68,25 @@ public class SAMLHandlerModified extends SAML2Handler {
 					return super.getHeader(name);
 				};
 			};
-			msgContext.put(MessageContext.SERVLET_REQUEST,
-					httpServletRequestWrapper);
-			// HttpServletRequestPolicyContextHandler
-			// SecurityContextAssociationValve
-			PolicyContext.registerHandler(
-					"javax.servlet.http.HttpServletRequest",
-					new HttpServletRequestPolicyContextHandler() {
-						@Override
-						public Object getContext(String key, Object data)
-								throws PolicyContextException {
-							// TODO Auto-generated method stub
-							if (super.getContext(key, data) != null) {
-								return httpServletRequestWrapper;
-							}
-							return null;
-						}
-					}, true);
-			System.out.println(req);
+			PolicyContext
+					.registerHandler(
+							SAMLTokenFromHttpRequestAbstractLoginModule.WEB_REQUEST_KEY,
+							new HttpServletRequestPolicyContextHandler() {
+								@Override
+								public Object getContext(String key, Object data)
+										throws PolicyContextException {
+									if (super.getContext(key, data) != null) {
+										return httpServletRequestWrapper;
+									}
+									return null;
+								}
+							}, true);
 
 		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PolicyContextException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
