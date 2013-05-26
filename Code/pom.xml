@@ -13,9 +13,12 @@
 		<log4jVersion>1.2.17</log4jVersion>
 		<resteasyVersion>2.3.4.Final</resteasyVersion>
 		<jbosswsVersion>4.1.1.Final</jbosswsVersion>
+		<jbosswsASVersion>7.1.1.Final</jbosswsASVersion>
 		<hibernateVersion>4.0.1.Final</hibernateVersion>
 		<version.org.jboss.spec.jboss.javaee.6.0>3.0.0.Final</version.org.jboss.spec.jboss.javaee.6.0>
 		<version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
+		<switchyardVersion>0.8.0.Final</switchyardVersion>
+		<camelVersion>2.10.0</camelVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -117,6 +120,14 @@
 				<version>4.0.2.GA</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.jboss.as</groupId>
+				<artifactId>jboss-as-web</artifactId>
+				<version>${jbosswsASVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+
 			<!-- Hibernate -->
 
 			<dependency>
@@ -155,6 +166,32 @@
 				<version>${picketlinkVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+
+			<!-- Switchyard dependencies -->
+
+			<dependency>
+				<groupId>org.switchyard.components</groupId>
+				<artifactId>switchyard-component-soap</artifactId>
+				<version>${switchyardVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.switchyard.components</groupId>
+				<artifactId>switchyard-component-resteasy</artifactId>
+				<version>${switchyardVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- Camel dependencies -->
+
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-soap</artifactId>
+				<version>${camelVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
 
 			<!-- logging -->
 
