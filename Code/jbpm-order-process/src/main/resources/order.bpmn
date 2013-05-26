@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_userItem" structureRef="String" />
+  <itemDefinition id="_passwordItem" structureRef="String" />
+  <itemDefinition id="_assertionItem" structureRef="String" />
+
+  <itemDefinition id="_1-userItem" structureRef="String" />
+  <itemDefinition id="_1-passwordItem" structureRef="String" />
+  <itemDefinition id="_1-assertionItem" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="pl.edu.agh.security.bpmn.order" name="Order Process" >
+
+    <!-- process variables -->
+    <property id="user" itemSubjectRef="_userItem"/>
+    <property id="password" itemSubjectRef="_passwordItem"/>
+    <property id="assertion" itemSubjectRef="_assertionItem"/>
+
+    <!-- nodes -->
+    <task id="_1" name="Authenticate" tns:taskName="Authenticate" >
+      <ioSpecification>
+        <dataInput id="_1_UserInput" name="User" />
+        <dataInput id="_1_PasswordInput" name="Password" />
+        <dataOutput id="_1_AssertionOutput" name="Assertion" />
+        <inputSet>
+          <dataInputRefs>_1_UserInput</dataInputRefs>
+          <dataInputRefs>_1_PasswordInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_1_AssertionOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>user</sourceRef>
+        <targetRef>_1_UserInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>password</sourceRef>
+        <targetRef>_1_PasswordInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_1_AssertionOutput</sourceRef>
+        <targetRef>assertion</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <startEvent id="_2" name="Start" />
+    <endEvent id="_3" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_2-_1" sourceRef="_2" targetRef="_1" />
+    <sequenceFlow id="_1-_3" sourceRef="_1" targetRef="_3" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="pl.edu.agh.security.bpmn.order" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="189" y="140" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="144" y="35" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="244" y="260" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_2-_1" >
+        <di:waypoint x="168" y="59" />
+        <di:waypoint x="239" y="164" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_3" >
+        <di:waypoint x="239" y="164" />
+        <di:waypoint x="268" y="284" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
