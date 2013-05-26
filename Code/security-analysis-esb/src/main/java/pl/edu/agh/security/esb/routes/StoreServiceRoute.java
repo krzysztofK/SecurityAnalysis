@@ -9,7 +9,6 @@ public class StoreServiceRoute extends RouteBuilder {
 
 		from("switchyard://RestStoreServiceProxy").setHeader("samlAssertion")
 				.simple("${header.samlassertion}")
-				.log("header:${header.samlassertion}")
-				.to("switchyard://RestStoreService").log("Returned: ${body}");
+				.to("switchyard://RestStoreService");
 	}
 }

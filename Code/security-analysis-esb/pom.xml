@@ -13,92 +13,16 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core</artifactId>
-			<version>2.10.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.switchyard.components</groupId>
-			<artifactId>switchyard-component-camel</artifactId>
-			<version>0.8.0.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.switchyard.components</groupId>
-			<artifactId>switchyard-component-camel-core</artifactId>
-			<version>0.8.0.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.switchyard.components</groupId>
-			<artifactId>switchyard-component-bean</artifactId>
-			<version>0.8.0.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-soap</artifactId>
-			<version>0.8.0.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.switchyard.components</groupId>
-			<artifactId>switchyard-component-http</artifactId>
-			<version>0.8.0.Final</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-resteasy</artifactId>
-			<version>0.8.0.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jaxb</artifactId>
-			<version>2.10.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-soap</artifactId>
-			<version>2.10.0</version>
-			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>2.4.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-core</artifactId>
-			<version>2.4.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-api</artifactId>
-			<version>2.4.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-bindings-soap</artifactId>
-			<version>2.4.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.picketlink</groupId>
-			<artifactId>picketlink-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.picketlink.distribution</groupId>
-			<artifactId>picketlink-jbas7</artifactId>
-		</dependency>
-
 	</dependencies>
-	<!-- <build> <plugins> <plugin> <artifactId>maven-assembly-plugin</artifactId> 
-		<version>2.2.2</version> <configuration> <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> 
-		</descriptorRefs> </configuration> <executions> <execution> <id>make-assembly</id> 
-		<phase>package</phase> <goals> <goal>single</goal> </goals> </execution> 
-		</executions> </plugin> </plugins> </build> -->
 </project>
