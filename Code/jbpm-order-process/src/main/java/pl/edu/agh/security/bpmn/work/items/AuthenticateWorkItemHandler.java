@@ -18,6 +18,7 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 
 	private static final String USER_PARAMETER = "User";
 	private static final String PASSWORD_PARAMETER = "Password";
+	public static final String ASSERTION_PARAMETER = "Assertion";
 
 	private static final String STS_SERVICE_NAME = "PicketLinkSTS";
 	private static final String STS_PORT = "PicketLinkSTSPort";
@@ -42,7 +43,7 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 			String samlAssertionString = DocumentUtil
 					.getNodeAsString(samlAssertion);
 			Map<String, Object> results = new HashMap<String, Object>();
-			results.put("Assertion", samlAssertionString);
+			results.put(ASSERTION_PARAMETER, samlAssertionString);
 			System.out.println(samlAssertionString);
 			workItemManager.completeWorkItem(workItem.getId(), results);
 		} catch (ParsingException e) {

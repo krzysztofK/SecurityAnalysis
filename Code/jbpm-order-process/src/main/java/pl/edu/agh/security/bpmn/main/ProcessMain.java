@@ -17,6 +17,8 @@ import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 
 import pl.edu.agh.security.bpmn.work.items.AuthenticateWorkItemHandler;
+import pl.edu.agh.security.bpmn.work.items.RegisterFinancialTransactionWorkItemHandler;
+import pl.edu.agh.security.bpmn.work.items.StoreStateRequestWorkItemHandler;
 
 /**
  * This is a sample file to launch a process.
@@ -29,6 +31,11 @@ public class ProcessMain {
 		StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
 		ksession.getWorkItemManager().registerWorkItemHandler("Authenticate",
 				new AuthenticateWorkItemHandler());
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"StoresStateRequest", new StoreStateRequestWorkItemHandler());
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"RegisterFinancialTransaction",
+				new RegisterFinancialTransactionWorkItemHandler());
 		// start a new process instance
 		ksession.addEventListener(new ProcessEventListener() {
 
@@ -95,6 +102,9 @@ public class ProcessMain {
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put("user", "magister");
 		values.put("password", "inzynier");
+		values.put("product", "woda");
+		values.put("count", 5);
+		values.put("invoiceRequested", true);
 		ksession.startProcess("pl.edu.agh.security.bpmn.order", values);
 	}
 

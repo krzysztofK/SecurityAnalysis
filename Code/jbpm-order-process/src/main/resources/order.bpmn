@@ -15,10 +15,38 @@
   <itemDefinition id="_userItem" structureRef="String" />
   <itemDefinition id="_passwordItem" structureRef="String" />
   <itemDefinition id="_assertionItem" structureRef="String" />
+  <itemDefinition id="_countItem" structureRef="Integer" />
+  <itemDefinition id="_productItem" structureRef="String" />
+  <itemDefinition id="_locationItem" structureRef="String" />
+  <itemDefinition id="_serviceURLItem" structureRef="String" />
+  <itemDefinition id="_invoiceRequestedItem" structureRef="Boolean" />
 
   <itemDefinition id="_1-userItem" structureRef="String" />
   <itemDefinition id="_1-passwordItem" structureRef="String" />
   <itemDefinition id="_1-assertionItem" structureRef="String" />
+  <itemDefinition id="_1-countItem" structureRef="Integer" />
+  <itemDefinition id="_1-productItem" structureRef="String" />
+  <itemDefinition id="_1-locationItem" structureRef="String" />
+  <itemDefinition id="_1-serviceURLItem" structureRef="String" />
+  <itemDefinition id="_1-invoiceRequestedItem" structureRef="Boolean" />
+
+  <itemDefinition id="_5-userItem" structureRef="String" />
+  <itemDefinition id="_5-passwordItem" structureRef="String" />
+  <itemDefinition id="_5-assertionItem" structureRef="String" />
+  <itemDefinition id="_5-countItem" structureRef="Integer" />
+  <itemDefinition id="_5-productItem" structureRef="String" />
+  <itemDefinition id="_5-locationItem" structureRef="String" />
+  <itemDefinition id="_5-serviceURLItem" structureRef="String" />
+  <itemDefinition id="_5-invoiceRequestedItem" structureRef="Boolean" />
+
+  <itemDefinition id="_7-userItem" structureRef="String" />
+  <itemDefinition id="_7-passwordItem" structureRef="String" />
+  <itemDefinition id="_7-assertionItem" structureRef="String" />
+  <itemDefinition id="_7-countItem" structureRef="Integer" />
+  <itemDefinition id="_7-productItem" structureRef="String" />
+  <itemDefinition id="_7-locationItem" structureRef="String" />
+  <itemDefinition id="_7-serviceURLItem" structureRef="String" />
+  <itemDefinition id="_7-invoiceRequestedItem" structureRef="Boolean" />
 
   <process processType="Private" isExecutable="true" id="pl.edu.agh.security.bpmn.order" name="Order Process" >
 
@@ -26,6 +54,11 @@
     <property id="user" itemSubjectRef="_userItem"/>
     <property id="password" itemSubjectRef="_passwordItem"/>
     <property id="assertion" itemSubjectRef="_assertionItem"/>
+    <property id="count" itemSubjectRef="_countItem"/>
+    <property id="product" itemSubjectRef="_productItem"/>
+    <property id="location" itemSubjectRef="_locationItem"/>
+    <property id="serviceURL" itemSubjectRef="_serviceURLItem"/>
+    <property id="invoiceRequested" itemSubjectRef="_invoiceRequestedItem"/>
 
     <!-- nodes -->
     <task id="_1" name="Authenticate" tns:taskName="Authenticate" >
@@ -58,31 +91,159 @@
     <endEvent id="_3" name="End" >
         <terminateEventDefinition/>
     </endEvent>
+    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
+    <task id="_5" name="StoresStateRequest" tns:taskName="StoresStateRequest" >
+      <ioSpecification>
+        <dataInput id="_5_AssertionInput" name="Assertion" />
+        <dataInput id="_5_CountInput" name="Count" />
+        <dataInput id="_5_ProductInput" name="Product" />
+        <dataOutput id="_5_ServiceURLOutput" name="ServiceURL" />
+        <dataOutput id="_5_LocationOutput" name="Location" />
+        <inputSet>
+          <dataInputRefs>_5_AssertionInput</dataInputRefs>
+          <dataInputRefs>_5_CountInput</dataInputRefs>
+          <dataInputRefs>_5_ProductInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_5_ServiceURLOutput</dataOutputRefs>
+          <dataOutputRefs>_5_LocationOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>assertion</sourceRef>
+        <targetRef>_5_AssertionInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>count</sourceRef>
+        <targetRef>_5_CountInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>product</sourceRef>
+        <targetRef>_5_ProductInput</targetRef>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_5_ServiceURLOutput</sourceRef>
+        <targetRef>serviceURL</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_5_LocationOutput</sourceRef>
+        <targetRef>location</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <endEvent id="_6" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <task id="_7" name="RegisterFinancialTransaction" tns:taskName="RegisterFinancialTransaction" >
+      <ioSpecification>
+        <dataInput id="_7_CountInput" name="Count" />
+        <dataInput id="_7_ProductInput" name="Product" />
+        <dataInput id="_7_InvoiceRequestedInput" name="InvoiceRequested" />
+        <inputSet>
+          <dataInputRefs>_7_CountInput</dataInputRefs>
+          <dataInputRefs>_7_ProductInput</dataInputRefs>
+          <dataInputRefs>_7_InvoiceRequestedInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>count</sourceRef>
+        <targetRef>_7_CountInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>product</sourceRef>
+        <targetRef>_7_ProductInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>invoiceRequested</sourceRef>
+        <targetRef>_7_InvoiceRequestedInput</targetRef>
+      </dataInputAssociation>
+    </task>
+    <exclusiveGateway id="_8" name="Gateway" gatewayDirection="Diverging" />
+    <endEvent id="_9" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
 
     <!-- connections -->
     <sequenceFlow id="_2-_1" sourceRef="_2" targetRef="_1" />
-    <sequenceFlow id="_1-_3" sourceRef="_1" targetRef="_3" />
+    <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" name="User not authenticated" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return assertion == null;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" name="User authenticated" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return assertion != null;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_8-_6" sourceRef="_8" targetRef="_6" name="productNotAvailable" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return serviceURL == null;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_8-_7" sourceRef="_8" targetRef="_7" name="productAvailable" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return serviceURL != null;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_5-_8" sourceRef="_5" targetRef="_8" />
+    <sequenceFlow id="_7-_9" sourceRef="_7" targetRef="_9" />
 
   </process>
 
   <bpmndi:BPMNDiagram>
     <bpmndi:BPMNPlane bpmnElement="pl.edu.agh.security.bpmn.order" >
       <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="189" y="140" width="100" height="48" />
+        <dc:Bounds x="96" y="56" width="100" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="144" y="35" width="48" height="48" />
+        <dc:Bounds x="16" y="56" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="244" y="260" width="48" height="48" />
+        <dc:Bounds x="353" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="228" y="56" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="309" y="96" width="137" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="630" y="56" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="559" y="136" width="191" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="478" y="96" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="634" y="242" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_2-_1" >
-        <di:waypoint x="168" y="59" />
-        <di:waypoint x="239" y="164" />
+        <di:waypoint x="40" y="80" />
+        <di:waypoint x="146" y="80" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_1-_3" >
-        <di:waypoint x="239" y="164" />
-        <di:waypoint x="268" y="284" />
+      <bpmndi:BPMNEdge bpmnElement="_4-_3" >
+        <di:waypoint x="252" y="80" />
+        <di:waypoint x="377" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_4" >
+        <di:waypoint x="146" y="80" />
+        <di:waypoint x="252" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="252" y="80" />
+        <di:waypoint x="377" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_6" >
+        <di:waypoint x="502" y="120" />
+        <di:waypoint x="654" y="80" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_7" >
+        <di:waypoint x="502" y="120" />
+        <di:waypoint x="654" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_8" >
+        <di:waypoint x="377" y="120" />
+        <di:waypoint x="502" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_9" >
+        <di:waypoint x="654" y="160" />
+        <di:waypoint x="658" y="266" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
