@@ -97,15 +97,26 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 			\end{figure}
 
 			Usługa objęta mechanizmem jednokrotnego uwierzytelniania po otrzymaniu żądania udostępnienia swoich zasobów zleca modułowi "Identity Provider" przeprowadzenie procesu uwierzytelnienia klienta serwisu. Asercja będąca wynikiem procesu uwierzytelnienia zostaje przekazana do usługi zlecającej. Usługa dokonuje weryfikacji otrzymanej asercji i akceptuje lub odrzuca żądanie dostępu do zasobów. Gdy użytkownik chce skorzystać z usług innego serwisu sfederowanego z usługą, do której otrzymał dostęp, proces uwierzytelniania przebiega podobnie. Pomijany jest jednak krok ponownego uwierzytelniania użytkownika przez usługę "Identity Provider" - usługa ta zwraca do aplikacji żądającej uwierzytelniania asercję wygenerowaną na podstawie wcześniej wykonanego procesu uwierzytelniania.	
-
+			
 \subsection{OpenID}
+
+OpenID
 
 \subsection{Liberty Identity Web Services Framework}
 
-	Identity Web Services Framework(ID-WSF) [http://docs.oracle.com/cd/E19575-01/820-3746/ghfgd/index.html] to zbiór specyfikacji definiujących mechanizmy dla zapewnienia bezpieczeństwa serwisów webowych, pomiędzy którymi istnieją relacje zaufania(federacje). ID-WSF określa podejście do zarządzania tożsamościami, w którym tożsamości jednostek zarządzane są przez różnych dostawców usług połączonych relacją federacji. Usługi webowe mogą wymieniać między sobą dane osobowe swoich użytkowników w celu dostarczenia funkcjonalności żądanej przez klienta usługi. Przykładem sytuacji, gdzie może być zastosowany ten model jest usługa potrzebująca dostarczenia danych adresowych swojego użytkownika. W tym celu może skorzystać z zasobów innej usługi dysponującej tymi danymi.
+	Identity Web Services Framework(ID-WSF) [http://docs.oracle.com/cd/E19575-01/820-3746/ghfgd/index.html] to zbiór specyfikacji definiujących mechanizmy dla zapewnienia bezpieczeństwa serwisów webowych, pomiędzy którymi istnieją relacje zaufania(federacje). ID-WSF określa podejście do zarządzania tożsamościami, w którym tożsamości jednostek zarządzane są przez różnych dostawców usług połączonych relacją federacji. Usługi webowe mogą wymieniać między sobą dane osobowe swoich użytkowników w celu dostarczenia funkcjonalności żądanej przez klienta usługi. Przykładem sytuacji, gdzie może być zastosowany ten model jest usługa potrzebująca dostarczenia danych adresowych swojego użytkownika. W tym celu może skorzystać z zasobów innej usługi 
+	dysponującej tymi danymi.
 
-	Specyfikacja ID-WSF wprowadza dodatkowy element do architektury systemów zarządzania tożsamościami - "Discovery Service". Usługa "Discovery Service" pozwala dostawcom usług na wyszukiwanie innych serwisów dostarczających funkcjonalności pozwalających na realizacje żądań zadanych usłudze.
+	Rysunek przedstawia przebieg procesu współdzielenia informacji w ID-WSF. Specyfikacja ID-WSF wprowadza dodatkowy element do architektury systemów zarządzania tożsamościami - "Discovery Service". Usługa "Discovery Service" pozwala dostawcom usług na wyszukiwanie innych serwisów dostarczających funkcjonalności pozwalających na realizacje żądań zadanych usłudze. Klient aplikacji decyduje o tym czy jego dane mogą być dostępne dla innych serwisów rejestrując usługę dostarczającą jego danych osobowych w rejestrze "Discovery Service" lub nie dokonując takiej rejestracji. Na przedstawionym schemacie żądana przez użytkownika usługa potrzebuje dodatkowych informacji - w tym celu w rejestrze usług szuka serwisu, który dostarcza potrzebnych informacji dla obsługiwanego użytkownika.
 
+	\begin{figure}[h]
+		\centering
+			\includegraphics[width=15cm,height=9cm]{img/id-wsf.jpg}
+		\caption{Przebieg procesu wykorzystywania informacji dzielonych w ID-WSF}
+		\label{Przebieg procesu wykorzystywania informacji dzielonych w ID-WSF}
+	\end{figure}
+
+	ID-WSF definiuje również mechanizmy pozwalające na komunikację pomiędzy dostawcami usług i użytkownikiem w celu uzyskania zgody na przekazanie danych osobowych do innej aplikacji. Zaprezentowany diagram przedstawia ten proces. Usługa 2. po otrzymaniu żądania dostarczenia dodatkowych danych os Usługi 1. wymaga zgody użytkownika na udzielenie wymaganych informacji.
 	
 %---------------------------------------------------------------------------
 
