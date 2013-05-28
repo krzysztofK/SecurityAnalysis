@@ -6,9 +6,9 @@
 \section{Koncepcja cyfrowego zarzadzania tozsamosciami(IdM)}
 \label{sec:konceptcjaIdM}
 
-Zarządzanie tożsamościami(Identity Management) jest podejściem do zagadnienia zapewnienia bezpieczeństwa dostępu do aplikacji w oparciu o dane identyfikujące użytkownika(Identity). Pojęcie danych identyfikujących może być zdefiniowane jako [3] (ITU-T Y.2720 Recommendation - numeracja z książki o IdM) "informacje o jednostce pozwalające na identyfikację tej jednostki dla pewnej dziedziny zastosowań". W kontekście systemów zarządzania cyfrowymi tożsamościami dane identyfikujące mogą dotyczyć nie tylko osób ale również na przykład komponentów programowych[książka o IdM]. Zgodnie z rekomendacją Y.2720 w skład danych identyfikujących wchodzą identyfikator jednostki, dane uwierzytelniające jednostkę oraz atrybuty opisujące jednostkę.
+Zarządzanie tożsamościami(Identity Management) jest podejściem do zagadnienia zapewnienia bezpieczeństwa dostępu do aplikacji w oparciu o dane identyfikujące użytkownika(Identity). Pojęcie danych identyfikujących może być zdefiniowane jako [3] (ITU-T Y.2720 Recommendation - numeracja z książki o IdM) "informacje o jednostce pozwalające na identyfikację tej jednostki dla pewnej dziedziny zastosowań". W kontekście systemów zarządzania cyfrowymi tożsamościami dane identyfikujące mogą dotyczyć nie tylko osób ale również na przykład komponentów programowych\cite{Bertino11}. Zgodnie z rekomendacją Y.2720 w skład danych identyfikujących wchodzą identyfikator jednostki, dane uwierzytelniające jednostkę oraz atrybuty opisujące jednostkę.
 
-Elisa Bertino i Kenji Takahashi w książce "Identity Management" definiują cele zarządzania tożsamościami jako "utrzymanie integralności danych identyfikujących w trakcie ich użytkowania w celu udostępniania tych danych i powiązanych z nimi informacji w sposób bezpieczny i chroniący prywatność użytkowników".
+Elisa Bertino i Kenji Takahashi w książce "Identity Management" definiują cele zarządzania tożsamościami jako "utrzymanie integralności danych identyfikujących w trakcie ich użytkowania w celu udostępniania tych danych i powiązanych z nimi informacji w sposób bezpieczny i chroniący prywatność użytkowników"\cite{Bertino11}.
  
 \subsection{Role w koncepcji systemów zarządzania tożsamościami}
 
@@ -24,7 +24,14 @@ Przedstawiona w książce .... terminologia wprowadza również pojęcie jednost
 
 \subsection{Relacje miedzy rolami w systemach zarządzania tożsamościami}
 
-Często stosowanym modelem jest infrastruktura złożona z jednej usługi typu "Identity Provider" oraz wielu usług funkcjonalnych opierających na niej swoje mechanizmy zabezpieczeń. Dzięki takiemu rozwiązaniu dostawcy usług mogą skoncentrować się na tworzeniu funkcjonalności stanowiących istotę aplikacji - odpowiedzialności związane z zapewnieniem bezpieczeństwa dostępu delegowane są do usługi IdP. Specjalizowana usługa uwierzytelniania może dostarczać bardziej zaawansowanych zabezpieczeń. Dzięki realizacji tego modelu użytkownicy nie muszą zarządzać wieloma danymi uwierzytelniającymi dla różnych usług - dostęp do wielu serwisów gwarantowany jest przy użyciu tych samych danych. Wprowadza to jednak zagrożenia związane z centralizacja dostępu do różnych usług.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=15cm]{img/idmRelations.jpg}
+		\caption{Relacje miedzy rolami w systemach zarządzania tożsamościami}
+		\label{Relacje miedzy rolami w systemach zarządzania tożsamościami}
+	\end{figure}
+
+	Często stosowanym modelem jest infrastruktura złożona z jednej usługi typu "Identity Provider" oraz wielu usług funkcjonalnych opierających na niej swoje mechanizmy zabezpieczeń. Dzięki takiemu rozwiązaniu dostawcy usług mogą skoncentrować się na tworzeniu funkcjonalności stanowiących istotę aplikacji - odpowiedzialności związane z zapewnieniem bezpieczeństwa dostępu delegowane są do usługi IdP. Specjalizowana usługa uwierzytelniania może dostarczać bardziej zaawansowanych zabezpieczeń. Dzięki realizacji tego modelu użytkownicy nie muszą zarządzać wieloma danymi uwierzytelniającymi dla różnych usług - dostęp do wielu serwisów gwarantowany jest przy użyciu tych samych danych. Wprowadza to jednak zagrożenia związane z centralizacja dostępu do różnych usług.
 
 \subsection{Federated Identity Management}
 
