@@ -30,7 +30,6 @@ public class OrderProcessWithESB {
 	private static final String DELIVERY_REQUEST_PATH = "http://delivery.security.agh.edu.pl:8080/rest-provider/delivery";
 	private static final String FINANCE_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-binding/financial-service";
 
-	private static final String ESB_HOST = "esb.security.agh.edu.pl";
 	private static final String DELIVERY_HOST = "delivery.security.agh.edu.pl";
 
 	private static final int PORT = 8080;
@@ -161,9 +160,6 @@ public class OrderProcessWithESB {
 
 	public IFinancialService prepareFinancialServiceClient() {
 		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-		defaultHttpClient.getCredentialsProvider().setCredentials(
-				new AuthScope(ESB_HOST, PORT),
-				new UsernamePasswordCredentials(userName, samlAssertionString));
 		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
 				defaultHttpClient) {
 
