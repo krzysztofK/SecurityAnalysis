@@ -20,6 +20,8 @@
   <itemDefinition id="_locationItem" structureRef="String" />
   <itemDefinition id="_serviceURLItem" structureRef="String" />
   <itemDefinition id="_invoiceRequestedItem" structureRef="Boolean" />
+  <itemDefinition id="_invoiceIdentifierItem" structureRef="String" />
+  <itemDefinition id="_dueDateItem" structureRef="java.util.Date" />
 
   <itemDefinition id="_1-userItem" structureRef="String" />
   <itemDefinition id="_1-passwordItem" structureRef="String" />
@@ -29,6 +31,8 @@
   <itemDefinition id="_1-locationItem" structureRef="String" />
   <itemDefinition id="_1-serviceURLItem" structureRef="String" />
   <itemDefinition id="_1-invoiceRequestedItem" structureRef="Boolean" />
+  <itemDefinition id="_1-invoiceIdentifierItem" structureRef="String" />
+  <itemDefinition id="_1-dueDateItem" structureRef="java.util.Date" />
 
   <itemDefinition id="_5-userItem" structureRef="String" />
   <itemDefinition id="_5-passwordItem" structureRef="String" />
@@ -38,6 +42,8 @@
   <itemDefinition id="_5-locationItem" structureRef="String" />
   <itemDefinition id="_5-serviceURLItem" structureRef="String" />
   <itemDefinition id="_5-invoiceRequestedItem" structureRef="Boolean" />
+  <itemDefinition id="_5-invoiceIdentifierItem" structureRef="String" />
+  <itemDefinition id="_5-dueDateItem" structureRef="java.util.Date" />
 
   <itemDefinition id="_7-userItem" structureRef="String" />
   <itemDefinition id="_7-passwordItem" structureRef="String" />
@@ -47,6 +53,8 @@
   <itemDefinition id="_7-locationItem" structureRef="String" />
   <itemDefinition id="_7-serviceURLItem" structureRef="String" />
   <itemDefinition id="_7-invoiceRequestedItem" structureRef="Boolean" />
+  <itemDefinition id="_7-invoiceIdentifierItem" structureRef="String" />
+  <itemDefinition id="_7-dueDateItem" structureRef="java.util.Date" />
 
   <process processType="Private" isExecutable="true" id="pl.edu.agh.security.bpmn.order" name="Order Process" >
 
@@ -59,6 +67,8 @@
     <property id="location" itemSubjectRef="_locationItem"/>
     <property id="serviceURL" itemSubjectRef="_serviceURLItem"/>
     <property id="invoiceRequested" itemSubjectRef="_invoiceRequestedItem"/>
+    <property id="invoiceIdentifier" itemSubjectRef="_invoiceIdentifierItem"/>
+    <property id="dueDate" itemSubjectRef="_dueDateItem"/>
 
     <!-- nodes -->
     <task id="_1" name="Authenticate" tns:taskName="Authenticate" >
@@ -135,17 +145,27 @@
     </endEvent>
     <task id="_7" name="RegisterFinancialTransaction" tns:taskName="RegisterFinancialTransaction" >
       <ioSpecification>
+        <dataInput id="_7_AssertionInput" name="Assertion" />
         <dataInput id="_7_CountInput" name="Count" />
         <dataInput id="_7_ProductInput" name="Product" />
         <dataInput id="_7_InvoiceRequestedInput" name="InvoiceRequested" />
+        <dataOutput id="_7_DueDateOutput" name="DueDate" />
+        <dataOutput id="_7_InvoiceIdentifierOutput" name="InvoiceIdentifier" />
         <inputSet>
+          <dataInputRefs>_7_AssertionInput</dataInputRefs>
           <dataInputRefs>_7_CountInput</dataInputRefs>
           <dataInputRefs>_7_ProductInput</dataInputRefs>
           <dataInputRefs>_7_InvoiceRequestedInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_7_DueDateOutput</dataOutputRefs>
+          <dataOutputRefs>_7_InvoiceIdentifierOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>assertion</sourceRef>
+        <targetRef>_7_AssertionInput</targetRef>
+      </dataInputAssociation>
       <dataInputAssociation>
         <sourceRef>count</sourceRef>
         <targetRef>_7_CountInput</targetRef>
@@ -158,6 +178,14 @@
         <sourceRef>invoiceRequested</sourceRef>
         <targetRef>_7_InvoiceRequestedInput</targetRef>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_7_DueDateOutput</sourceRef>
+        <targetRef>dueDate</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_7_InvoiceIdentifierOutput</sourceRef>
+        <targetRef>invoiceIdentifier</targetRef>
+      </dataOutputAssociation>
     </task>
     <exclusiveGateway id="_8" name="Gateway" gatewayDirection="Diverging" />
     <endEvent id="_9" name="End" >
@@ -211,7 +239,7 @@
         <dc:Bounds x="478" y="96" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_9" >
-        <dc:Bounds x="634" y="242" width="48" height="48" />
+        <dc:Bounds x="782" y="136" width="48" height="48" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_2-_1" >
         <di:waypoint x="40" y="80" />
@@ -243,7 +271,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="_7-_9" >
         <di:waypoint x="654" y="160" />
-        <di:waypoint x="658" y="266" />
+        <di:waypoint x="806" y="160" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

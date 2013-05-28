@@ -1,5 +1,6 @@
 package pl.edu.agh.security.bpmn.main;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.drools.event.process.ProcessStartedEvent;
 import org.drools.event.process.ProcessVariableChangedEvent;
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.jbpm.workflow.instance.WorkflowProcessInstance;
 
 import pl.edu.agh.security.bpmn.work.items.AuthenticateWorkItemHandler;
 import pl.edu.agh.security.bpmn.work.items.RegisterFinancialTransactionWorkItemHandler;
@@ -84,7 +86,16 @@ public class ProcessMain {
 			@Override
 			public void afterProcessCompleted(
 					ProcessCompletedEvent processCompletedEvent) {
-				System.out.println("Koniec");
+				WorkflowProcessInstance workflowProcessInstance = (WorkflowProcessInstance) processCompletedEvent
+						.getProcessInstance();
+				String location = (String) workflowProcessInstance
+						.getVariable("location");
+				Date dueDate = (Date) workflowProcessInstance
+						.getVariable("dueDate");
+				String invoiceIdentifier = (String) workflowProcessInstance
+						.getVariable("invoiceIdentifier");
+				System.out.println("Store: " + location + ", due date: "
+						+ dueDate + ", invoice number: " + invoiceIdentifier);
 			}
 
 			@Override

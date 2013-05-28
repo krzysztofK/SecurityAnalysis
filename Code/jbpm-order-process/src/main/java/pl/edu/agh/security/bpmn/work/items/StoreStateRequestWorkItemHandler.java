@@ -61,7 +61,6 @@ public class StoreStateRequestWorkItemHandler implements WorkItemHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(product + " " + count);
 	}
 
 	public IStoreState prepareStoreStateServiceClient(

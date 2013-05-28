@@ -34,7 +34,6 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 			WorkItemManager workItemManager) {
 		String user = (String) workItem.getParameter(USER_PARAMETER);
 		String password = (String) workItem.getParameter(PASSWORD_PARAMETER);
-		System.out.println(user + " " + password);
 
 		Element samlAssertion;
 		try {
@@ -44,7 +43,6 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 					.getNodeAsString(samlAssertion);
 			Map<String, Object> results = new HashMap<String, Object>();
 			results.put(ASSERTION_PARAMETER, samlAssertionString);
-			System.out.println(samlAssertionString);
 			workItemManager.completeWorkItem(workItem.getId(), results);
 		} catch (ParsingException e) {
 			// TODO Auto-generated catch block
