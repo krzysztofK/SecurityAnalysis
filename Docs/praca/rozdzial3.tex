@@ -10,11 +10,11 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 
 \subsection{Security Assertion Markup Language}
 
-	SAML to oparty na języku XML standard zarządzania tożsamościami oraz wymiany informacji uwierzytelniających [3.1https://www.oasis-open.org/committees/download.php/13525/sstc-saml-exec-overview-2.0-cd-01-2col.pdf]. SAML oparty jest na podejściu wykorzystującym federację tożsamości - umożliwia tworzenie powiązań pomiędzy różnymi cyfrowymi tożsamościami użytkownika. SAML pozwala tworzyć asercje opisujące atrybuty tożsamości jednostki oraz przekazywać je do usług wymagających informacji identyfikujących swoich klientów.
+	SAML to oparty na języku XML standard zarządzania tożsamościami oraz wymiany informacji uwierzytelniających \cite{Wisniewski05}. SAML oparty jest na podejściu wykorzystującym federację tożsamości - umożliwia tworzenie powiązań pomiędzy różnymi cyfrowymi tożsamościami użytkownika. SAML pozwala tworzyć asercje opisujące atrybuty tożsamości jednostki oraz przekazywać je do usług wymagających informacji identyfikujących swoich klientów.
 
 	\subsubsection{Cele technologii SAML}
 
-		Dokument [3.1] wymianie następujące cele stawiane technologii SAML:
+		Cele stawiane technologii SAML to\cite{Wisniewski05}:
 
 		\begin{itemize}
 		  \item niezależność od platformy - mechanizmy bezpieczeństwa powinny być niezależne od środowiska i implementacji usługi.
@@ -45,7 +45,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 
 			\subparagraph{Typy deklaracji tożsamości}\mbox{}\\
 
-				Dokument [31] definiuje następujące typy deklaracji tożsamości zawartych w asercjach SAML:
+				Specyfikacja definuje następujące typy deklaracji tożsamości zawartych w asercjach SAML\cite{Wisniewski05}:
 
 				\begin{itemize}
 				  \item deklaracja uwierzytelniania - stwierdza, że opisana w asercji jednostka została uwierzytelniona w danym momencie przy użyciu mechanizmów opisanych w opisie kontekstu deklaracja
@@ -104,7 +104,7 @@ OpenID
 
 \subsection{Liberty Identity Web Services Framework}
 
-	Identity Web Services Framework(ID-WSF) [http://docs.oracle.com/cd/E19575-01/820-3746/ghfgd/index.html] to zbiór specyfikacji definiujących mechanizmy dla zapewnienia bezpieczeństwa serwisów webowych, pomiędzy którymi istnieją relacje zaufania(federacje). ID-WSF określa podejście do zarządzania tożsamościami, w którym tożsamości jednostek zarządzane są przez różnych dostawców usług połączonych relacją federacji. Usługi webowe mogą wymieniać między sobą dane osobowe swoich użytkowników w celu dostarczenia funkcjonalności żądanej przez klienta usługi. Przykładem sytuacji, gdzie może być zastosowany ten model jest usługa potrzebująca dostarczenia danych adresowych swojego użytkownika. W tym celu może skorzystać z zasobów innej usługi 
+	Identity Web Services Framework(ID-WSF) to zbiór specyfikacji definiujących mechanizmy dla zapewnienia bezpieczeństwa serwisów webowych, pomiędzy którymi istnieją relacje zaufania(federacje)\cite{Oracle10}. ID-WSF określa podejście do zarządzania tożsamościami, w którym tożsamości jednostek zarządzane są przez różnych dostawców usług połączonych relacją federacji. Usługi webowe mogą wymieniać między sobą dane osobowe swoich użytkowników w celu dostarczenia funkcjonalności żądanej przez klienta usługi. Przykładem sytuacji, gdzie może być zastosowany ten model jest usługa potrzebująca dostarczenia danych adresowych swojego użytkownika. W tym celu może skorzystać z zasobów innej usługi 
 	dysponującej tymi danymi.
 
 	Rysunek przedstawia przebieg procesu współdzielenia informacji w ID-WSF. Specyfikacja ID-WSF wprowadza dodatkowy element do architektury systemów zarządzania tożsamościami - "Discovery Service". Usługa "Discovery Service" pozwala dostawcom usług na wyszukiwanie innych serwisów dostarczających funkcjonalności pozwalających na realizacje żądań zadanych usłudze. Klient aplikacji decyduje o tym czy jego dane mogą być dostępne dla innych serwisów rejestrując usługę dostarczającą jego danych osobowych w rejestrze "Discovery Service" lub nie dokonując takiej rejestracji. Na przedstawionym schemacie żądana przez użytkownika usługa potrzebuje dodatkowych informacji - w tym celu w rejestrze usług szuka serwisu, który dostarcza potrzebnych informacji dla obsługiwanego użytkownika.
