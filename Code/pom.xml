@@ -30,6 +30,7 @@
 		<module>ejb-weather-service</module>
 		<module>financial-dep-service</module>
 		<module>idp-ldap</module>
+		<module>jbpm-order-process</module>
 		<module>music-service</module>
 		<module>rest-provider-client</module>
 		<module>rest-provider-service</module>
