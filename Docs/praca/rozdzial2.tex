@@ -70,7 +70,15 @@ Procedura jednokrotnego uwierzytelniania pozwala na wygodniejszy sposób korzyst
 \section{Service-Oriented Architecture}
 \label{sec:soa}
 
-Service-Oriented Architecture
+	Architektura zorientowana na usługi(ang. Service-Oriented Architecture) to architektura systemów informatycznych oparta o strukturę luźno powiązanych usług, które mogą być wielokrotnie wykorzystywane i łączone w celu realizacji wymagań stawianych aplikacji. Architektura zorientowana na usługi umożliwia integrację usług w złożone procesy\cite{Lawler08}. Usługi składające się na architekturę SOA udostępniają swoje  funkcjonalności w ramach zdefiniowanych interfejsów i są od siebie niezależne. Komunikacja pomiędzy serwisami odbywa się poprzez wywołania dostarczanych przez nie operacji\cite{Papazoglou07}. 
+
+	Architektura SOA zaprojektowana została jako rozwiązanie wielu problemów pojawiających się w trakcie tworzenia systemów rozproszonych. Do problemów tych należą: integracja aplikacji, zarządzanie transakcjami, zapewnienia bezpieczeństwa wykonywanych operacji, różnorodność środowisk uruchamiania aplikacji\cite{Papazoglou07}.
+
+	Jednym z głównych założeń architektury zorientowanej na usługi jest niezależność od technologii implementacji. Jest to możliwe dzięki wykorzystaniu standardowych interfejsów usług oraz metod komunikacji pomiędzy nimi. Usługi w architekturze SOA są autonomiczne, same przechowują swój stan. W architekturze SOA wszelkie funkcjonalności są udostępniane w postaci usług.
+
+	\subsection{Enterprise service bus} 
+
+		W istniejących środowiskach dostarczania usług występuje często duża niejednorodność technologii i modeli wykorzystywanych przez różne serwisy. Jednym z rozwiązań tego problemu jest wprowadzenie warstwy pośredniczącej, które implementuje logikę pozwalającą na integrację różnorodnych usług. Rozwiązanie to stanowi podstawę dla koncepcji magistrali usług(ang. Enterprise Service Bus). 
 
 %---------------------------------------------------------------------------
 
