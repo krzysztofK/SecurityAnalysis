@@ -3,7 +3,7 @@
 
 %---------------------------------------------------------------------------
 
-\section{Koncepcja cyfrowego zarzadzania tozsamosciami(IdM)}
+\section{Koncepcja cyfrowego zarządzania tożsamościami(IdM)}
 \label{sec:konceptcjaIdM}
 
 	Zarządzanie tożsamościami(Identity Management) jest podejściem do zagadnienia zapewnienia bezpieczeństwa dostępu do aplikacji w oparciu o dane identyfikujące użytkownika(Identity). Pojęcie danych identyfikujących może być zdefiniowane jako "informacje o jednostce pozwalające na identyfikację tej jednostki dla pewnej dziedziny zastosowań"\cite{Itu09}. W kontekście systemów zarządzania cyfrowymi tożsamościami dane identyfikujące mogą dotyczyć nie tylko osób ale również na przykład komponentów programowych\cite{Bertino11}. Zgodnie z rekomendacją Y.2720 w skład danych identyfikujących wchodzą identyfikator jednostki, dane uwierzytelniające jednostkę oraz atrybuty opisujące jednostkę\cite{Itu09}.
@@ -97,6 +97,13 @@
 
 		Narzędzie zarządzania procesami biznesowymi pozwalają na automatyzację procesów. Definicja procesów opiera się o schemat organizacji zadań(ang. workflow). Narzędzie BPM umożliwiają wizualizację, modelowanie i analizę procesów biznesowych. Zarządzanie procesami biznesowymi jest dzięki temu metodologią pozwalającą na tworzenie, przedstawianie i nadzorowanie procesów biznesowych oraz upraszcza zrozumienie przebiegu procesu. Mechanizmy BPM pozwalają na monitorowania wykonania procesu biznesowego oraz dostęp do informacji o jego statusie. 
 
+	\subsection{Zapewnienie bezpieczeństwa dostępu do usług w architekturze SOA}
+
+		Ważnym aspektem dostarczania usług sieciowych jest zapewnienie mechanizmów bezpieczeństwa w procesie komunikacji. Mechanizmy bezpieczeństwa mogą być włączone w warstwie transportowej procesu dostarczania usług lub mogą być realizowane na poziomie wiadomości przesyłanej pomiędzy komunikującymi się jednostkami\cite{Szychowiak09}. 
+
+		Zabezpieczenia warstwy transportowej polegają na zestawieniu szyfrowanej komunikacji pomiędzy klientem i dostawcą usług. Dzięki temu możliwe jest zapewnienie poufności wymiany wiadomości pomiędzy uczestnikami procesu komunikacji i integralności dostarczanych danych. Możliwa jest również implementacja mechanizmów uwierzytelniania w oparciu o szyfrowanie komunikatów\cite{Kolaczek09}.
+
+		Istnieją sytuacje, w których zabezpieczenia warstwy transportowej nie są wystarczające.  Nie pozwalają one na zapewnienie bezpieczeństwa w razie konieczności przetwarzania informacji przez węzły pośrednie. Nie umożliwiają również zapewnienia poufności jedynie fragmentu wiadomości a nie całej jej treści. Rozwiązaniem tego problemów jest zastosowanie koncepcji mechanizmów bezpieczeństwa na poziomie przesyłanych wiadomości. Koncepcja ta zakłada oparcie mechanizmów bezpieczeństwa o informacje dołączane do wiadomości wymienianych pomiędzy klientem i dostawcą usługi. Przesyłane informacje mogą pozwalać na przeprowadzenie procesu uwierzytelniania lub zapewnienie integralności komunikatów. Istnieją liczne standardy opisujące format danych dołączanych do wiadomości oraz sposób ich przesyłania przy pomocy protokołów wykorzystywanych do dostarczania usług. Standardy tego typu definiują również sposób szyfrowania wymienianych wiadomości.		
 %---------------------------------------------------------------------------
 
 \section{Wymagania stawiane systemom Business-to-Business}
@@ -106,8 +113,13 @@ Wymagania stawiane systemom Business-to-Business
 
 %---------------------------------------------------------------------------
 
-\section{Zakres wymagan tworzonego systemu}
+\section{Zakres wymagań tworzonego systemu}
 \label{sec:zakresWymagan}
 
-Zakres wymagan tworzonego systemu
+	W ramach projektu implementacyjnego  związanego z niniejszą pracą przygotowano przykłady ilustrujące zastosowanie mechanizmów systemów zarządzania tożsamościami. Punktem wyjścia była implementacja mechanizmu jednokrotnego uwierzytelniania oraz jednokrotnego wylogowywania dla aplikacji z interfejsem udostępnianym poprzez przeglądarkę internetową. Głównym celem projektu jest analiza mechanizmów zarządzania tożsamościami dla architektury zorientowanej na usługi.
 
+	Przygotowywane moduły powinny korzystać z narzędzi uwierzytelniania i autoryzacji dostarczanych przez serwer aplikacyjny. Mechanizm uwierzytelniania powinien być oparty o protokół LDAP. Jako specyfikację realizującą założenia systemów zarządzania tożsamościami wybrano standard SAML opisany w dalszej części pracy.
+
+	Najważniejszą częścią pracy było zastosowanie koncepcji systemów zarządzania tożsamościami w architekturze SOA. Praca powinna przedstawiać propozycję rozwiązania problemów uwierzytelniania i autoryzacji dostępu do usług sieciowych. W ramach projektu wymagana jest implementacja modułów wykorzystujących uwierzytelnianie oparte o mechanizmy systemów zarządzania tożsamościami dla różnych standardów dostarczania usług webowych(np. SOAP i REST). Należy również dokonać analizy zastosowania zaproponowanych mechanizmów uwierzytelniania w architekturze zorientowanej na usługi. Powinien zostać opracowany mechanizm magistrali usług pozwalający na przekazywanie informacji uwierzytelniających pomiędzy modułami systemu. Wykorzystanie zaimplementowanych usług wraz z mechanizmami zabezpieczania dostępu powinno być przedstawione w postaci modelu procesu biznesowego. 
+
+	Dla ilustracji opisywanych mechanizmów opracowano zestaw usług dostarczających prostych funkcjonalności realizujących różne etapy dokonywania zamówienia w sklepie internetowym(usługi sprawdzania stanu magazynu, zlecenia wydania towaru,   zlecenia transportu, rejestracji transakcji w systemie finansowym). Usługi korzystają z uwierzytelniania w systemie zarządzania tożsamościami. Usługi zaimplementowane zostały przy użyciu różnych technologii.Unifikację sposobu korzystania z serwisów osiągnięto dzięki modułowi magistrali usług. Używając zaimplementowanych usług opracowano model procesu biznesowego realizujący kompletną funkcjonalność dokonywania zamówienia.
