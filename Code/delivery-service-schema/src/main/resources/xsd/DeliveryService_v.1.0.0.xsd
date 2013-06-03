@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/DeliveryService_v.1.0.0/" targetNamespace="http://www.example.org/DeliveryService_v.1.0.0/">
+    <element name="DeliveryRequest" type="tns:DeliveryRequest"></element>
+    
+    <complexType name="DeliveryRequest">
+    	<sequence>
+    		<element name="senderName" type="string"></element>
+    		<element name="senderAddress" type="string"></element>
+    		<element name="recipientName" type="string"></element>
+    		<element name="recipientAddress" type="string"></element>
+    	</sequence>
+    	<attribute name="completionDateTime" type="dateTime"
+    		use="required">
+    	</attribute>
+    	<attribute name="priority" type="tns:Priority" use="required"></attribute>
+    	<attribute name="weight" type="decimal" use="required"></attribute>
+    	<attribute name="status" type="tns:DeliveryStatus"></attribute>
+    </complexType>
+
+
+
+    <simpleType name="Priority">
+    	<restriction base="token">
+    		<enumeration value="NORMAL"></enumeration>
+    		<enumeration value="HIGH"></enumeration>
+    		<enumeration value="TOP"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="DeliveryStatus">
+    	<restriction base="token">
+    		<enumeration value="ACCEPTED"></enumeration>
+    		<enumeration value="COLLECTED"></enumeration>
+    		<enumeration value="IN_TRANSPORT"></enumeration>
+    		<enumeration value="DELIVERED"></enumeration>
+    	</restriction>
+    </simpleType>
+</schema>

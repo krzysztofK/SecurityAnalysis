@@ -20,6 +20,7 @@
 		<switchyardVersion>0.8.0.Final</switchyardVersion>
 		<camelVersion>2.10.0</camelVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jaxb2.commons.collection-setter-injector>0.1</jaxb2.commons.collection-setter-injector>
 	</properties>
 
 	<modules>
@@ -44,6 +45,7 @@
 		<module>ws-store-service-client</module>
 		<module>warehouse-service</module>
 		<module>delivery-service</module>
+		<module>delivery-service-schema</module>
 		<module>test-client</module>
 	</modules>
 
@@ -253,6 +255,11 @@
 						<verbose>false</verbose>
 					</configuration>
 				</plugin>
+				<plugin>
+                    <groupId>org.jvnet.jaxb2.maven2</groupId>
+                    <artifactId>maven-jaxb2-plugin</artifactId>
+                    <version>0.8.1</version>
+                </plugin>
 				<plugin>
 					<!-- Needed for m2eclipse - I still do not know why... -->
 					<groupId>org.eclipse.m2e</groupId>
