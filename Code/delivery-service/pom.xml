@@ -25,9 +25,14 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
 		</dependency>
-		<dependency>
+		<!--  <dependency>
 			<groupId>pl.edu.agh.security</groupId>
 			<artifactId>security-analysis-common</artifactId>
+			<version>${project.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>pl.edu.agh.security</groupId>
+			<artifactId>delivery-service-schema</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

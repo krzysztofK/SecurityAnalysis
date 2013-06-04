@@ -8,8 +8,7 @@
     		<element name="recipientName" type="string"></element>
     		<element name="recipientAddress" type="string"></element>
     	</sequence>
-    	<attribute name="completionDateTime" type="dateTime"
-    		use="required">
+    	<attribute name="completionDateTime" type="dateTime">
     	</attribute>
     	<attribute name="priority" type="tns:Priority" use="required"></attribute>
     	<attribute name="weight" type="decimal" use="required"></attribute>
