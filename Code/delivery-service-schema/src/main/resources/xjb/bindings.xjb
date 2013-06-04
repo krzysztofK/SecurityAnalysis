@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-   <bindings xmlns="http://java.sun.com/xml/ns/jaxb"
-                xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
-                xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-                xsi:schemaLocation="
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xsi:schemaLocation="
 http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
-    version="2.1">
-    
-        <bindings schemaLocation="../xsd/DeliveryService_v.1.0.0.xsd">
-           <schemaBindings>
-              <package name="pl.edu.agh.security.delivery.pojos" />
-          </schemaBindings>
-       </bindings>
-    
-    </bindings>
+	version="2.1">
+
+	<bindings schemaLocation="../xsd/DeliveryService_v.1.0.0.xsd">
+		<schemaBindings>
+			<package name="pl.edu.agh.security.delivery.pojos" />
+		</schemaBindings>
+	</bindings>
+
+</bindings>
