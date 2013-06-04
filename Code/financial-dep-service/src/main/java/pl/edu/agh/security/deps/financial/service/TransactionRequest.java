@@ -34,4 +34,8 @@ public class TransactionRequest {
 		this.count = count;
 	}
 
+	@Override
+	public String toString() {
+		return product.getName() + " - " + count;
+	}
 }
