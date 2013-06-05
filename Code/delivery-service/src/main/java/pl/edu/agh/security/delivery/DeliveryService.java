@@ -1,5 +1,7 @@
 package pl.edu.agh.security.delivery;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -17,8 +19,6 @@ import pl.edu.agh.security.delivery.pojos.DeliveryRequest;
 
 @Stateless
 @Path("/deliveries")
-// @RolesAllowed({ "magister", "doktor" })
-// @DeclareRoles({ "magister", "doktor" })
 public class DeliveryService /* implements IDeliveryService */{
     
     @EJB
@@ -32,6 +32,7 @@ public class DeliveryService /* implements IDeliveryService */{
     @Path("/create")
     @Consumes({ "application/xml" })
     @Produces({ "text/plain" })
+    @RolesAllowed({ "magister", "doktor" })
     public Integer registerDelivery(DeliveryRequest request) {
         Delivery entity = deliveryMapper.mapToEntity(request);
         Integer id = deliveryDAO.insertDelivery(entity);
@@ -42,6 +43,7 @@ public class DeliveryService /* implements IDeliveryService */{
     @GET
     @Path("/delivery/{id}")
     @Produces({ "application/xml" })
+    @RolesAllowed({ "magister", "doktor" })
     public DeliveryRequest receiveDeliveryRequest(@PathParam("id") Integer id) {
         Delivery entity = deliveryDAO.obtainDelivery(id);
         return deliveryMapper.mapToPojo(entity);
