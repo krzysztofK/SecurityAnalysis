@@ -1,7 +1,5 @@
 package pl.edu.agh.security.test.client;
 
-import java.io.StringWriter;
-
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
