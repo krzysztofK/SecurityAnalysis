@@ -36,6 +36,7 @@
 		<module>rest-provider-client</module>
 		<module>rest-provider-service</module>
 		<module>security-analysis-common</module>
+		<module>security-analysis-esb</module>
 		<module>security-token-service</module>
 		<module>simple-order-process</module>
 		<module>simple-servlet-service</module>
