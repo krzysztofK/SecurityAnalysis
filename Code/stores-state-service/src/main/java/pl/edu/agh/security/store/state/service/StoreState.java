@@ -32,6 +32,7 @@ public class StoreState {
 	@RolesAllowed({ "magister" })
 	public Store getStore(@PathParam("name") String productName,
 			@QueryParam("count") int count) {
+		System.out.println("Received: " + productName + " - " + count);
 		return storeDAO.findStoreByRequestedProduct(productName, count);
 	}
 }

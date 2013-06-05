@@ -120,9 +120,14 @@ OpenID
 	
 %---------------------------------------------------------------------------
 
-\section{Przyklady frameworków zarzadzajacych autentykacja i autoryzacja uzytkowników}
+\section{Przykłady frameworków zarządzających uwierzytelnianiem i autoryzacją użytkowników}
 \label{sec:frameworki}
 
-Przyklady frameworków zarzadzajacych autentykacja i autoryzacja uzytkowników
+	\subsection{Standard WS-Security}
 
+		WS-Security to standard specyfikujący rozszerzenia protokołu SOAP(Simple Object Access Protocol) pozwalające na zagwarantowanie mechanizmów uwierzytelniania, poufności komunikacji oraz integralności dostarczania danych dla usług sieciowych opartych o technologię SOAP. Standard ten oparty jest na koncepcji zapewnienia mechanizmów bezpieczeństwa na poziomie przesyłanych wiadomości\cite{Hallam03}. 
+
+		Specyfikacja WS-Security umożliwia uwierzytelnianie użytkownika usługi poprzez definicję formatu przesyłania tokenów bezpieczeństwa. Token bezpieczeństwa pozwala na dostarczenie danych uwierzytelniających użytkownika(np. identyfikatora i hasło) lub asercji opisującej tożsamości klienta usługi. Tokeny bezpieczeństwa mogą być szyfrowane, możliwe jest również zastosowanie certyfikatów X.509 potwierdzających tożsamość jednostki dostarczającej token. 
+
+		Standard WS-Security pozwala na zapewnienie poufności komunikacji poprzez zastosowanie szyfrowania wiadomości SOAP. Szyfrowana może być cała wiadomość lub tylko jej części. WS-Security definiuje również mechanizmy gwarantowania integralności dostarczanych komunikatów. Do tego celu wykorzystywane są podpisy XML. 
 %---------------------------------------------------------------------------
