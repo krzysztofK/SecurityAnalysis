@@ -130,4 +130,49 @@ OpenID
 		Specyfikacja WS-Security umożliwia uwierzytelnianie użytkownika usługi poprzez definicję formatu przesyłania tokenów bezpieczeństwa. Token bezpieczeństwa pozwala na dostarczenie danych uwierzytelniających użytkownika(np. identyfikatora i hasło) lub asercji opisującej tożsamości klienta usługi. Tokeny bezpieczeństwa mogą być szyfrowane, możliwe jest również zastosowanie certyfikatów X.509 potwierdzających tożsamość jednostki dostarczającej token. 
 
 		Standard WS-Security pozwala na zapewnienie poufności komunikacji poprzez zastosowanie szyfrowania wiadomości SOAP. Szyfrowana może być cała wiadomość lub tylko jej części. WS-Security definiuje również mechanizmy gwarantowania integralności dostarczanych komunikatów. Do tego celu wykorzystywane są podpisy XML. 
+
+	\subsection{Standard WS-Trust}
+
+		Standard WS-Trust rozszerza specyfikację WS-Security definiując metody wystawiania, odnawiania i weryfikacji tokenów bezpieczeństwa oraz sposoby ustanawiania relacji zaufania pomiędzy dostawcami usług i klientami. Podobnie jak specyfikacja WS-Security, standard WS-Trust nie jest zależny od konkretnego protokołu bezpieczeństwa - umożliwia zastosowanie różnych protokołów\cite{WS-Trust-1.4-with-errata}.
+
+		W modelu definiowanym przez standard WS-Trust usługa oczekuje dołączenia do wiadomości informacji potwierdzających tożsamość klienta. Serwis powinien odrzucać żądania bez dołączonych wymaganych informacji. Wymagane przez serwis dane mogą być wskazane w opisie polityki usługi. Polityki mogą być definiowane przy użyciu standardu WS-Policy. Uwierzytelnianie nadawcy wiadomości może być oparte o mechanizmy bezpieczeństwa warstwy transportowej, dane dostarczone w żądaniu SOAP lub poprzez szyfrowanie wiadomości kluczem znanym nadawcy. Jednym ze sposobów gwarancji korzystania z autoryzowanego tokenu bezpieczeństwa jest dołączenie do informacji cyfrowego podpisu szyfrowanego poufnym kluczem skojarzonym z tokenem.
+
+		Standard WS-Trust wprowadza pojęcie usługi "Security Token Service"(STS). Jest to usługa przyznająca klientom tokeny bezpieczeństwa, które później mogą być wykorzystane w celu uwierzytelnienia i autoryzacji dostępu do innych usług. W celu dostarczenia tokenu STS wymaga najczęściej danych uwierzytelniających klienta(np. identyfikatora i hasła). Tokeny przyznawane przez usługę STS umożliwiają nawiązywanie relacji zaufania pomiędzy różnymi domenami bezpieczeństwa. Specyfikacja określa również sekwencje wymieniany komunikatów dla różnych scenariuszy pozyskiwania tokenu bezpieczeństwa. Zastosowanie usługi "Security Token Serie" umożliwia uwierzytelnianie, kontrolę dostępu do zasobów, nadzór nad działaniem systemu bezpieczeństwa oraz nawiązywanie relacji zaufania.
+
+		\begin{figure}[h]
+			\centering
+				\includegraphics{img/ws-trust.jpg}
+			\caption{Model zapewnienia bezpieczeństwa dostępu do aplikacji w standardzie WS-Trust}
+			\label{Model zapewnienia bezpieczeństwa dostępu do aplikacji w standardzie WS-Trust}
+		\end{figure}
+
+		Klient może pozyskiwać tokeny bezpieczeństwa od usługi "Security Token Serie". Otrzymany token może być dołączony do żądania klienta wysyłanego do usługi webowej. Serwis powinien weryfikować czy usługa wystawiająca token objęta jest relacją zaufania względem danych, które dostarcza. Serwis może ufać otrzymywanym tokenom bezpieczeństwa lub zlecać i walidację usłudze STS. Usługa może również komunikować się z modułem STS w celu wymiany otrzymanego tokenu bezpieczeństwa na inny odpowiedni dla mechanizmów bezpieczeństwa danej usługi. 
+
+		Serwis może deklarować kryteria dla otrzymywanych tokenów określające kiedy token będzie uznany za zaufany\cite{WS-Trust-1.4-with-errata}. Możliwe kryteria to np.:
+
+		\begin{itemize}
+			\item typ tokenu(np. token protokołu Kerberos)
+			\item dostawca tokenu - usługa deklaruje dostawców tokenów, dla których istnieje relacja zaufania
+			\item hierarchia zaufania - usługa może określać zaufanie względem jednostek, w których hierarchii zaufania znajduje się określony serwis
+			\item zaufanie tylko dla tokenów wystawianych przez serwis uwierzytelniający - otrzymane tokeny przekazywane są do usługi uwierzytelniającej; w procesie udostępniania zasobów wykorzystywany jest token wygenerowany przez tą usługę na podstawie tokenu dostarczonego w żądaniu. 
+		\end{itemize} 
+		
+	Informowanie odbiorców usług o wymaganiach bezpieczeństwa stawianych przez serwis jest możliwe dzięki standardowi WS-SecurityPolicy. Jest to specyfikacja rozszerzająca język WSDL(Web Services Description Language) pozwalająca definiować następujące wymagania bezpieczeństwa:
+
+	\begin{itemize}
+		\item konieczność dostarczenia tokenu bezpieczeństwa
+		\item konieczność dostarczenia podpisu dla tokenu bezpieczeństwa
+		\item wymagany sposób szyfrowania
+		\item konieczność dostarczenia cyfrowego podpisu dla określonej części wiadomości
+		\item konieczność szyfrowania określonej części wiadomości
+		\item wymaganie dostarczenia określonych wiadomości opisujących klienta aplikacji
+	\end{itemize} 
+
+	\subsection{Standard OAuth}
+
+		W podstawowej koncepcji ograniczania dostępu do zasobów użytkownik uzyskuje dostęp do zasobów korzystając z dany uwierzytelniających właściciela zasobu. Gdy klient usługi chce udostępnić usłudze chronione zasoby musi przekazać jej swoje dane uwierzytelniające.  Zastosowanie tego modelu pociąga za sobą zagrożenia bezpieczeństwa związane z przechowywaniem dany uwierzytelniających przez usługę, której udzielono dostępu do danych, brakiem możliwości ograniczenia udzielonych praw dostępu jedynie do części zasobów oraz brakiem możliwości odebrania przydzielonych wcześniej praw dostępu.
+
+		Jednym z rozwiązań tego typu problemów jest zastosowanie standardu OAuth - specyfikacji definiującej mechanizmy autoryzacji dostępu do zasobów. Standard OAuth zakłada wprowadzenie dodatkowej warstwy autoryzacji  oraz rozdzielenie ról klienta i właściciela zasobu. W procesie przyznawania klientowi praw dostępu do zasobu wykorzystywane są dane uwierzytelniające różne od danych właściciela zasobu. 
+
 %---------------------------------------------------------------------------
+
