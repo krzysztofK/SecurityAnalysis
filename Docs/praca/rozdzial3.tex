@@ -168,11 +168,30 @@ OpenID
 		\item wymaganie dostarczenia określonych wiadomości opisujących klienta aplikacji
 	\end{itemize} 
 
+	\subsection{Standard WS-Federation}
+
+		Standard WS-Federation definiuje mechanizmy pozwalające na dzielenie tożsamości i atrybutów jednostek pomiędzy usługami w różnych domenach administracyjnych lub domenach bezpieczeństwa w oparciu o reguły i wymagania zdefiniowane przy pomocy mechanizmu polityk. Specyfikacja określa sposób współdzielenia informacji dotyczących bezpieczeństwa pomiędzy usługami dostarczającymi tokenów bezpieczeństwa a dostawcami usług. Definicja polityk umożliwia deklarację danych, które mogą być współdzielone. Wymieniane informacje mogą obejmować dane o sfederowanych usługach, wymagania zawarte w politykach federacji, opis relacji zaufania oraz tokeny bezpieczeństwa.
+
+		Koncepcja federacji w standardzie WS-Federation wprowadza mechanizm mapowania tożsamości. Jest to proces translacji cyfrowej tożsamości pomiędzy formatem rozumianym przez domenę nadawcy a formatem akceptowanym przez domenę docelową. Usługa dokonująca mapowania tożsamości powinna posiadać relację zaufania dla domeny nadawcy i mieć uprawnienia do przekazywania informacji do domeny odbiorcy.
+
+		Specyfikacja WS-Federation wykorzystuje model pozyskiwania tokenów bezpieczeństwa i uwierzytelniania przy ich pomocy opisywany w standardzie WS-Trust. Standard WS-Federation rozszerza koncepcję opisaną w WS-Trust o możliwość pozyskiwania informacji o politykach realizowanych przez usługi i stawianych przez nie wymaganiach dotyczących zabezpieczania dostępu do chronionych zasobów. 
+
 	\subsection{Standard OAuth}
 
 		W podstawowej koncepcji ograniczania dostępu do zasobów użytkownik uzyskuje dostęp do zasobów korzystając z dany uwierzytelniających właściciela zasobu. Gdy klient usługi chce udostępnić usłudze chronione zasoby musi przekazać jej swoje dane uwierzytelniające.  Zastosowanie tego modelu pociąga za sobą zagrożenia bezpieczeństwa związane z przechowywaniem dany uwierzytelniających przez usługę, której udzielono dostępu do danych, brakiem możliwości ograniczenia udzielonych praw dostępu jedynie do części zasobów oraz brakiem możliwości odebrania przydzielonych wcześniej praw dostępu.
 
-		Jednym z rozwiązań tego typu problemów jest zastosowanie standardu OAuth - specyfikacji definiującej mechanizmy autoryzacji dostępu do zasobów. Standard OAuth zakłada wprowadzenie dodatkowej warstwy autoryzacji  oraz rozdzielenie ról klienta i właściciela zasobu. W procesie przyznawania klientowi praw dostępu do zasobu wykorzystywane są dane uwierzytelniające różne od danych właściciela zasobu. 
+		Jednym z rozwiązań tego typu problemów jest zastosowanie standardu OAuth - specyfikacji definiującej mechanizmy autoryzacji dostępu do zasobów dla protokołu HTTP\cite{Hardt12}. Standard OAuth zakłada wprowadzenie dodatkowej warstwy autoryzacji  oraz rozdzielenie ról klienta i właściciela zasobu. W procesie przyznawania klientowi praw dostępu do zasobu wykorzystywane są dane uwierzytelniające różne od danych właściciela zasobu. W tym celu klient otrzymuje token dostępu od serwera autoryzującego za zgodą właściciela zasobu. Token zawiera m. in. informacje określające zakres praw nadanych użytkownikowi oraz okres obowiązywania przyznanych uprawnień. 
+
+		Właścicielem zasobów w standardzie OAuth jest jednostka przyznająca dostęp do zasobów. Klientem jest aplikacja, która w odpowiedzi na operacje wykonywane przez  właściciela zasobu i za jego zgodą korzysta z tego zasobu.
+
+		\begin{figure}[h]
+			\centering
+				\includegraphics{img/oauth.jpg}
+			\caption{Przebieg autoryzacji w standardzie OAuth}
+			\label{Przebieg autoryzacji w standardzie OAuth}
+		\end{figure}
+
+		Proces przyznania klientowi dostępu do zasobu rozpoczyna się żądaniem autoryzacji przesyłanym do właściciela zasobu.  Właściciel zasobu odpowiada na żądanie przesyłając grant autoryzujący typu zależnego od metody wykorzystywanej do autoryzacji. Następnie klient przysyła do serwera autoryzującego żądanie przydzielenia tokenu dostępu na podstawie otrzymanego grantu autoryzującego. Serwer autoryzujący uwierzytelnia klienta i weryfikuje otrzymany grant autoryzujący i na tej podstawie przyznaje token dostępu. Klient korzysta z zasobów przedstawiając przydzielony mu token dostępu.
 
 %---------------------------------------------------------------------------
 
