@@ -170,11 +170,20 @@ OpenID
 
 	\subsection{Standard WS-Federation}
 
-		Standard WS-Federation definiuje mechanizmy pozwalające na dzielenie tożsamości i atrybutów jednostek pomiędzy usługami w różnych domenach administracyjnych lub domenach bezpieczeństwa w oparciu o reguły i wymagania zdefiniowane przy pomocy mechanizmu polityk. Specyfikacja określa sposób współdzielenia informacji dotyczących bezpieczeństwa pomiędzy usługami dostarczającymi tokenów bezpieczeństwa a dostawcami usług. Definicja polityk umożliwia deklarację danych, które mogą być współdzielone. Wymieniane informacje mogą obejmować dane o sfederowanych usługach, wymagania zawarte w politykach federacji, opis relacji zaufania oraz tokeny bezpieczeństwa.
+		Standard WS-Federation definiuje mechanizmy pozwalające na dzielenie tożsamości i atrybutów jednostek pomiędzy usługami w różnych domenach administracyjnych lub domenach bezpieczeństwa w oparciu o reguły i wymagania zdefiniowane przy pomocy mechanizmu polityk\cite{Goodner09}. Specyfikacja określa sposób współdzielenia informacji dotyczących bezpieczeństwa pomiędzy usługami dostarczającymi tokenów bezpieczeństwa a dostawcami usług. Definicja polityk umożliwia deklarację danych, które mogą być współdzielone. Wymieniane informacje mogą obejmować dane o sfederowanych usługach, wymagania zawarte w politykach federacji, opis relacji zaufania oraz tokeny bezpieczeństwa.
 
 		Koncepcja federacji w standardzie WS-Federation wprowadza mechanizm mapowania tożsamości. Jest to proces translacji cyfrowej tożsamości pomiędzy formatem rozumianym przez domenę nadawcy a formatem akceptowanym przez domenę docelową. Usługa dokonująca mapowania tożsamości powinna posiadać relację zaufania dla domeny nadawcy i mieć uprawnienia do przekazywania informacji do domeny odbiorcy.
 
-		Specyfikacja WS-Federation wykorzystuje model pozyskiwania tokenów bezpieczeństwa i uwierzytelniania przy ich pomocy opisywany w standardzie WS-Trust. Standard WS-Federation rozszerza koncepcję opisaną w WS-Trust o możliwość pozyskiwania informacji o politykach realizowanych przez usługi i stawianych przez nie wymaganiach dotyczących zabezpieczania dostępu do chronionych zasobów. 
+		Specyfikacja WS-Federation wykorzystuje model pozyskiwania tokenów bezpieczeństwa i uwierzytelniania przy ich pomocy opisywany w standardzie WS-Trust. Standard WS-Federation rozszerza koncepcję opisaną w WS-Trust o możliwość pozyskiwania informacji o politykach realizowanych przez usługi i stawianych przez nie wymaganiach dotyczących zabezpieczania dostępu do chronionych zasobów. Specyfikacja określa sposób wykorzystania modeli opisanych przez WS-Security, WS-Trust i WS-Policy tworząc bardziej rozbudowany model relacji zaufania pomiędzy serwisami przy użyciu mechanizmu federacji.
+
+		\begin{figure}[h]
+			\centering
+				\includegraphics{img/ws-federation.jpg}
+			\caption{Prosty scenariusz federacji serwisow}
+			\label{Prosty scenariusz federacji serwisow}
+		\end{figure}
+
+		Przedstawiony schemat ilustruje przebieg uzyskiwania dostępu do zasobu przy użyciu mechanizmu federacji. Przerywana linia stanowi granicę między domenami bezpieczeństwa. Klient przeprowadza proces uwierzytelniania  i uzyskuje token bezpieczeństwa od usługi "Security Token Service" w swojej domenie bezpieczeństwa. Otrzymany token zostaje przedstawiony usłudze STS w odrębnej domenie bezpieczeństwa w celu uzyskania tokenu uprawniającego do dostępu do zasobów w tej domenie. Token uzyskany w tym procesie jest przesyłany w żądaniach dostępu do zasobów w odrębnej domenie bezpieczeństwa. 
 
 	\subsection{Standard OAuth}
 
