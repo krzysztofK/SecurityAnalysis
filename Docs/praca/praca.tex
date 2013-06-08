@@ -3,10 +3,11 @@
 % \documentclass[pdflatex,en]{aghdpl}  % praca w języku angielskim
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
 
 % dodatkowe pakiety
 \usepackage{enumerate}
-\usepackage{listings}
+\usepackage{listings,color}
 \lstloadlanguages{TeX}
 
 \lstset{
@@ -30,6 +31,28 @@
            {Ż}{{\.Z}}1
 }
 
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+ 
+\lstdefinelanguage{XML}
+{
+  basicstyle=\ttfamily\color{darkblue}\bfseries,
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
 %---------------------------------------------------------------------------
 
 \author{Krzysztof Wilaszek~Tomasz Wójcik}
