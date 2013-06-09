@@ -28,18 +28,20 @@ Mechanizmy bezpieczenstwa platformy Java EE
 \section{Mechanizmy bezpieczeństwa serwera aplikacyjnego JBoss}
 \label{sec:jboss}
 
-	Mechanizmy bezpieczeństwa serwera aplikacyjnego JBoss w wersji 7 oparte są o framework PicketBox. PicketBox dostarcza podstawowych funkcjonalności zapewnienia bezpieczeństwa dostępu do zasobów, takich jak uwierzytelnianie, autoryzacja, audyty systemu oraz mapowanie ról i danych uwierzytelniających. Usługi bezpieczeństwa dostarczane przez Picketbox są dostępne dla serwera aplikacyjnego poprzez podsystem bezpieczeństwa(ang. Security Subsystem).  Każdemu żądaniu klienta przypisywany jest kontekst bezpieczeństwa dostępny dla podsystemu bezpieczeństwa. 
+	Mechanizmy bezpieczeństwa serwera aplikacyjnego JBoss w wersji 7 oparte są o framework PicketBox. PicketBox dostarcza podstawowych funkcjonalności zapewnienia bezpieczeństwa dostępu do zasobów, takich jak uwierzytelnianie, autoryzacja, audyty systemu oraz mapowanie ról i danych uwierzytelniających. 
 
-	Kontekst bezpieczeństwa udostępnia komponenty skonfigurowane dla domeny bezpieczeństwa. Możliwe komponenty to:
+	\subsection{Podsystemy bezpieczeństwa serwera aplikacyjnego JBoss}
 
-	\begin{itemize}
-		\item Authentication Manager - dokonuje uwierzytelniania użytkowników na podstawie otrzymanych danych uwierzytelniających przy użyciu modułów logowania zdefiniowanych dla wykorzystywanej domeny bezpieczeństwa;
-		\item Authorization Manager - dostarcza informacji o rolach przypisanych użytkownikowi oraz dokonuje autoryzacji dostępu do zasobów dla uwierzytelnionych użytkowników;
-		\item Audit Manager - pozwala na logowanie zdarzeń zachodzących w systemie zapewnienia bezpeiczeństwa dostępu do aplikacji;
-		\item Mapping Manager - pozwala na przypisywanie uwierzytelnionemu użytkownikowi dodatkowych uprawnień, ról lub atrybutów.
-	\end{itemize}
+		Usługi bezpieczeństwa dostarczane przez Picketbox są dostępne dla serwera aplikacyjnego poprzez podsystem bezpieczeństwa(ang. Security Subsystem).  Każdemu żądaniu klienta przypisywany jest kontekst bezpieczeństwa dostępny dla podsystemu bezpieczeństwa\cite{Lofthouse12}. 
 
-	\subsection{Konfiguracja podsystemy bezpieczeństwa}
+		Kontekst bezpieczeństwa udostępnia komponenty skonfigurowane dla domeny bezpieczeństwa. Możliwe komponenty to:
+
+		\begin{itemize}
+			\item Authentication Manager - dokonuje uwierzytelniania użytkowników na podstawie otrzymanych danych uwierzytelniających przy użyciu modułów logowania zdefiniowanych dla wykorzystywanej domeny bezpieczeństwa;
+			\item Authorization Manager - dostarcza informacji o rolach przypisanych użytkownikowi oraz dokonuje autoryzacji dostępu do zasobów dla uwierzytelnionych użytkowników;
+			\item Audit Manager - pozwala na logowanie zdarzeń zachodzących w systemie zapewnienia bezpeiczeństwa dostępu do aplikacji;
+			\item Mapping Manager - pozwala na przypisywanie uwierzytelnionemu użytkownikowi dodatkowych uprawnień, ról lub atrybutów.
+		\end{itemize}
 
 		Korzystania z podsystemów bezpieczeństwa możliwe jest dzięki dodaniu rozszerzenia:
 		\lstset{language=XML}
@@ -48,7 +50,7 @@ Mechanizmy bezpieczenstwa platformy Java EE
 		\end{lstlisting}
 		w pliku konfiguracyjnym serwera.
 
-		Podsystem bezpieczeństwa serwera aplikacyjnego JBoss udpstępnia konfigurację następujących własności:
+		Podsystem bezpieczeństwa serwera aplikacyjnego JBoss udostępnia konfigurację następujących własności:
 
 		\begin{itemize}
 			\item security-management - pozwala nadpisywać domyślne parametry modułu PicketBox takie jak implementacje klas zarządców dla procesów uwierzytelniania, autoryzacji, audytów, mapowania danych tożsamości oraz tworzenia relacji zaufania.
@@ -56,10 +58,24 @@ Mechanizmy bezpieczenstwa platformy Java EE
 			\item security-properties - pozwala definiować dodatkowe własności wymagane przez podsystem bezpieczeństwa.
 		\end{itemize}
 
-	\subsection{Konfiguracja domeny bezpieczeństwa}
+	\subsection{Domena bezpieczeństwa serwera aplikacyjnego JBoss}
 
-		W ramach podsystemu bezpieczeństwa możliwa jest definicja domen bezpieczeństwa. Domeny bezpieczeństwa opisuje mechanizmy uwierzytelniania i autoryzacji ....
+		W ramach podsystemu bezpieczeństwa możliwa jest definicja domen bezpieczeństwa. Domena bezpieczeństwa opisuje mechanizmy zabezpieczeń dostępu do aplikacji wykorzystywane przez grupę usług przypisanych do tej domeny.
 
+		Podstawowym zadaniem domeny bezpieczeństwa jest przeprowadzanie procesu uwierzytelniania klientów aplikacji. W tym celu do domeny przypisane są moduły logowania(ang. "Login Module") wykorzystywane do uwierzytelniania użytkowników. Konfigurując moduł logowania należy wybrać klasę definiującą sposób i przebieg uwierzytelniania użytkownika. Domyślnie dostępne są implementacje pozwalające na uwierzytelnianie np. w oparciu o certyfikaty, bazę danych z użytkownikami i hasłami, protokół LDAP, protokół Kerberos lub prosty plik z użytkownikami i hasłami.
+
+		Możliwe jest również oparcie mechanizmów uwierzytelniania o specyfikację JASPI(Java Authentication Service Provider Interface for Containers). JASPI definiuje standardowy interfejs dla dostawców usług, przy pomocy którego dla kontenera aplikacji Java EE możliwe jest uwierzytelnianie na podstawie danych bezpieczeństwa przesyłanych na poziomie wiadomości. Specyfikacja określa mechanizmy strony klienckiej oraz serwerowej. Serwer ma możliwość weryfikacji tokenów bezpieczeństwa lub podpisów przychodzących wiadomości i pozyskania opisu uprawnień użytkownika lub asercji. Strona kliencka może dodawać do wysyłanych wiadomości token bezpieczeństwa lub podpis cyfrowy. 
+
+		Inny ważnym mechanizmem definiowanym na poziomie domeny bezpieczeństwa jest autoryzacja klientów aplikacji. Domyślnie realizowanym podejściem w procesie autoryzacji jest RBAC(Role Based Access Control). Metoda ta przydziela lub odmawia prawa dostępu do zasobów w oparciu o przynależność użytkownika do określonej grupy. Możliwe jest również użycie innych metod autoryzacji, np. JACC(Java Authorization Contract for Containers) lub XACML (eXtensible Access Control Markup Language). 
+
+		Definicja domeny bezpieczeństwa obejmuje również:
+
+		\begin{itemize}
+			\item mapowania ról, uprawnień, danych uwierzytelniających i atrybutów; 
+			\item konfigurację mechanizmu audytów operacji w domenie bezpieczeństwa
+			\item konfigurację repozytorium certyfikatów bezpieczeństwa wykorzystywanych przez kontekst SSL lub przez procesy pozyskiwania i magazynowania certyfikatów.
+		\end{itemize}
+		
 %---------------------------------------------------------------------------
 
 \section{Security Assertion Markup Language}

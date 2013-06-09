@@ -122,6 +122,23 @@ OpenID
 
 \section{Przykłady frameworków zarządzających uwierzytelnianiem i autoryzacją użytkowników}
 \label{sec:frameworki}
+	\subsection{Protokół Kerberos}
+
+		Kerberos jest protokołem uwierzytelniania użytkowników zasobów sieciowych.
+
+		\subsubsection{Cele protokołu Kerberos}
+
+			Centralnym punktem architektury Kerberos jest serwer uwierzytelniający. Każda komponent systemu Kerberos jest połączony z serwerem uwierzytelniającym relacją zaufania; wszystkie żądania uwierzytelniania są kierowane do tego serwera. Działanie systemu Kerberos opiera się na usługach KDC(Key Distribution Center). Każdy serwis KDC posiada bazę użytkowników i usług wraz z ich danymi uwierzytelniającymi. Dzięki temu możliwe jest uproszczenie zadań administracyjnych. Pozwala to również zastosować bardziej skuteczne mechanizmy bezpieczeństwa chroniące bazę użytkowników.
+
+			Kerberos zapewnia bezpieczeństwo procesu uwierzytelniania gwarantując przesyłanie danych uwierzytelniających w postaci zaszyfrowanej. Korzysta z biletów(ang. Tickets) - wiadomości kryptograficznych dowodzących tożsamości użytkownika żądającego dostępu do zasobów serwera. Bilety dostarczane są przez usługę KDC na żądanie uwierzytelniającego się klienta. Bilety wystawiane są najczęściej na pewien okres - po jego upływie tracą ważność. Bazując na generowanych biletach Kerberos dostarcza mechanizmu jednokrotnego uwierzytelniania. 
+
+			Zastosowanie protokołu Kerberos gwarantuje obustronne uwierzytelnienie w procesie komunikacji pomiędzy klientem a serwerem - zarówno klient jak i serwer muszą dowieść swojej tożsamości. 
+
+		\subsubsection{Elementy systemu Kerberos}
+
+			Każdy użytkownik, usługa lub host w systemie Kerberos ma przypisany unikalny w ramach domeny identyfikator. Każdy identyfikator skojarzony jest z kluczem uwierzytelniającym jednostkę w systemie. Kluczem tym może być np. hasło. Identyfikatory wraz z kluczami przechowywane są w bazie usługi "Key Distribution Center". W skład KDC wchodzi również serwer uwierzytelniający i serwer TGS(Ticket Granting Server). W systemie Kerberos może istnieć więcej niż jedna usługa KDC - istnieje konieczność synchronizacji zawartości bazy identyfikatorów dla każdej z usług KDC.
+
+			Serwer uwierzytelniający przyznaje zaszyfrowany bilet - Ticket Granting Ticket(TGT) - użytkownikowi uwierzytelniającemu się w domenie. Użytkownik nie musi przesyłać usłudze swoich danych uwierzytelniających ponieważ zwracany bilet TGT jest szyfrowany hasłem użytkownika. Otrzymany bilet może być wykorzystany aby otrzymać bilet specyficzna dla zasobów, do których użytkownik chce uzyskać dostęp. Bilety specyficzne dla określonej usługi przyznawane są przez serwer TGS. Serwer dokonuje weryfikacji otrzymanych biletów TGT, sprawdzając czy jest on poprawnie zaszyfrowany kluczem serwera Kerberos. Po zakończonej powodzeniem weryfikacji serwer przyznaje bilet specyficzny dla żądanej usługi.
 
 	\subsection{Standard WS-Security}
 
