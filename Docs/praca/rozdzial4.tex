@@ -25,6 +25,34 @@ Mechanizmy bezpieczenstwa platformy Java EE
 
 %---------------------------------------------------------------------------
 
+\section{Protokół LDAP}
+\label{sec:ldap}
+
+	LDAP(Lightweight Directory Access Protocol) jest protokołem definiującym metody, dzięki którym możliwy jest dostęp do danych zawartych w katalogach\cite{ZyTrax13}. Opisuje sposób reprezentacji danych w usłudze katalogowej oraz definiuje metody ładowania i eksportowania danych. Bazuje na standardzie X.500.
+
+	\subsection{Model działania protokołu LDAP}
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/ldap.jpg}
+			\caption{Schemat funkcjonowania protokolu  LDAP}
+			\label{Schemat funkcjonowania protokolu  LDAP}
+		\end{figure}
+
+		Protokół LDAP definiuje sposób dostępu do zasobów, nie określa natomiast sposób przechowywania danych. Jednym z wariantów jest przechowywanie informacji w bazie danych. Użytkownik komunikujący się z serwerem LDAP nie wie skąd pochodzą dane, które otrzymuje. Protokół LDAP definiuje również metody ładowania danych do usługi katalogowej oraz eksportowania danych z usługi przy użyciu formatu LDIF. Protokół LDAP opisuje operacje jakie mogą być wykonywane na modelu danych(np. modyfikowanie, usuwanie, odczyt).
+
+	\subsection{Reprezentacja danych w protokole LDAP}
+
+		Dane w protokole LDAP reprezentowane są w postaci hierarchii obiektów\cite{ZyTrax13}. Obiekty tworzą strukturę drzewa nazywanego drzewem DIT(Data Information Tree). Wierzchołek drzewa to element "root". Każdy element drzewa składa się z co najmniej jednej klasy obiektów. Klasa obiektów to zbiór atrybutów przypisanych do obiektu. Każdy atrybut posiada nazwę i najczęściej ma przypisaną wartość. Klasa obiektu określa czy nadanie wartości danego atrybutu jest obowiązkowe czy opcjonalne. Obiekty identyfikowane są poprzez swoje położenie w drzewie - ścieżkę określającą elementy drzewa na drodze do obiektu. Identyfikator obiektu nazywany jest elementem Distinguished Name(DN).
+
+	\subsection{Uwierzytelnianie przy użyciu protokołu LDAP}
+
+		Usługa katalogowa LDAP może być wykorzystywana jako baza informacji o użytkownikach  i serwis uwierzytelniający. LDAP pozwala również na przechowywanie informacji o rolach użytkowników. 
+
+		Proces uwierzytelniania przy użyciu protokołu LDAP rozpoczyna się od pozyskania mapowania pomiędzy identyfikatorem użytkownika w systemie a elementem DN usługi katalogowej. Następnie wykonywana jest operacja uwierzytelniania w serwerze LDAP - "bind". Aby wykonać operację "bind" konieczne jest przesłanie nazwy DN i hasła użytkownika.  Innym sposobem uwierzytelnienia użytkownika może być porównanie przedstawionego przez niego hasła z hasłem przechowywanym przez usługę katalogową. Dla uwierzytelnionego użytkownika możliwe jest pobranie listy jego ról i uprawnień.
+
+%---------------------------------------------------------------------------
+
 \section{Mechanizmy bezpieczeństwa serwera aplikacyjnego JBoss}
 \label{sec:jboss}
 
