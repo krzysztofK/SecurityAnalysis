@@ -21,7 +21,10 @@
 			<artifactId>warehouse-service</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.jboss.resteasy.mobile</groupId>
 			<artifactId>resteasy-mobile</artifactId>
@@ -29,6 +32,11 @@
 		<dependency>
 			<groupId>pl.edu.agh.security</groupId>
 			<artifactId>security-analysis-common</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pl.edu.agh.security</groupId>
+			<artifactId>delivery-service-schema</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
