@@ -23,6 +23,19 @@ Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorien
 
 		Kiedy użytkownik chce uzyskać dostęp do zasobów, usługa sprawdza czy klient jest uwierzytelniony. Jeśli nie jest uwierzytelniony następuje przekierowanie do usługi "Identity Provider". Klient podaje swoje dane uwierzytelniające a IDP weryfikuje ich poprawność. Gdy dane są prawidłowe generowana jest asercja SAML i następuje przekierowanie do usługi. Usługa weryfikuje otrzymaną asercję i przydziela lub odmawia prawa dostępu do zasobu. Gdy klient chce uzyskać dostęp do zasobów innej aplikacji nie musi ponownie podawać swoich danych uwierzytelniających, usługa IDP nie dokonuje ponownie procesu uwierzytelniania w usłudze katalogowej LDAP.
 
+	\subsection{Komponenty systemu uwierzytelniania klientów usług webowych w oparciu o standard SAML}
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/samlWS.jpg}
+			\caption{Uwierzytelnianie klienta serwisu webowego z wykorzystaniem SAML}
+			\label{Uwierzytelnianie klienta serwisu webowego z wykorzystaniem SAML}
+		\end{figure}
+
+		Implementacja mechanizmu uwierzytelniania dla klientów usług webowych korzysta z rozwiązań wprowadzonych przez standard WS-Trust. W skład infrastruktury systemu wchodzi usługa "Security Token Service" odpowiedzialna za uwierzytelnianie użytkowników i generowanie asercji SAML. Serwis korzysta z bazy użytkowników udostępnianej przez usługę katalogową LDAP. Dzięki serwisowi STS klient pozyskuje token bezpieczeństwa - asercję SAML, która może być przekazywana do usługi, do której użytkownik chce uzyskać dostęp. Klient dokonuje procesu uwierzytelniania jednokrotnie - raz pozyskana asercja może zostać wykorzystana wielokrotnie dla różnych usług w celu potwierdzenia tożsamości klienta. Mechanizm uwierzytelniania klienta i pozyskiwania asercji korzysta ze specyfikacji WS-Security - użytkownik przekazuje do usługi STS swoje dane uwierzytelniające(identyfikator i hasło); gdy dane są poprawne usługa zwraca token bezpieczeństwa. Otrzymana asercja przekazywana jest w nagłówku SOAP lub HTTP(dla usług typu REST) do wywoływanych serwisów.
+
+	Udostępniając usługi webowe, których zasoby powinny być chronione należy zagwarantować skuteczność kontroli dostępu do serwisu. Żaden nieuwierzytelniony lub nieuprawniony użytkownik nie powinien uzyskać praw dostępu, do któregokolwiek z zasobów. Jednym z rozwiązań tego problemu jest centralizacja punktu uwierzytelniania i autoryzacji klientów serwisów - obsługa każdego otrzymanego żądanie użytkownika powinna rozpoczynać się od weryfikacji uprawnień klienta do pozyskiwanych zasobów. Rozwiązanie tego typu opisywane jest przez wzorzec "Message Interceptor Gateway". 
+
 %---------------------------------------------------------------------------
 
 \section{Środowisko wdrożenia}

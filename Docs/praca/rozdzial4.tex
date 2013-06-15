@@ -116,7 +116,13 @@ Security Assertion Markup Language
 \section{Picketlink}
 \label{sec:picketlink}
 
-Picketlink jest projektem dostarczającym implementacji założeń systemów zarządzania tożsamościami dla aplikacji Java. Picketlink definiuje model tożsamości wykorzystywanych w operacjach systemów IdM. Pozwala na zarządzanie informacjami o użytkownikach, grupach i rolach oraz ich atrybutach. Umożliwia wykorzystanie różnych sposobów przechowywania tożsamości, np. bazy danych lub usługi katalogowej LDAP. Projekt Picketlink umożliwia korzystanie z federacji tożsamości - wspiera specyfikacje SAML, OpenID oraz WS-Trust.
+Picketlink jest projektem dostarczającym implementacji założeń systemów zarządzania tożsamościami dla aplikacji Java. Picketlink definiuje model tożsamości wykorzystywanych w operacjach systemów IdM. Pozwala na zarządzanie informacjami o użytkownikach, grupach i rolach oraz ich atrybutach. Umożliwia wykorzystanie różnych sposobów przechowywania tożsamości, np. bazy danych lub usługi katalogowej LDAP. Projekt Picketlink umożliwia korzystanie z federacji tożsamości - wspiera specyfikacje SAML, OpenID oraz WS-Trust\cite{PicketLink13}.
+
+Picketlink dostarcza wsparcie dla profili specyfikacji SAML umożliwiających jednokrotne uwierzytelnianie aplikacji webowych oraz globalne wylogowanie. Określa również mapowania dla protokołu HTTP przy użyciu komunikatów POST i Redirect. 
+
+Picketlink implementuje mechanizmy pozwalające na tworzenie usługi "Identity Provider". Dostarcza narzędzi konfiguracji usługi, uwierzytelniania a także implementację operacji obsługi przechowywania tożsamości. W ramach konfiguracji możliwe jest między innymi określenie zaufanych hostów dla usługi IdP, ustawienie cyfrowego podpisu dla wiadomości oraz szyfrowanie komunikatów. Usługa "Identity Provider" w procesie uwierzytelniania może korzystać z mechanizmu domen bezpieczeństwa serwera aplikacyjnego JBoss. Dostawcy usług korzystają z serwisu IdP w pozyskując asercje opisujące użytkowników. Picketlink umożliwia taką konfigurację usług aby ich mechanizmy uwierzytelniania korzystały z usługi IdP.
+
+Narzędzia Picketlink dostarczają implementacji specyfikacji WS-Trust - za operacje zarządzania asercjami SAML(tworzenie, odnawianie, anulowanie i walidację) odpowiada usługa "Security Token Service". Moduł Picketlink zawiera implementację usługi STS oraz pozwala konfigurować parametry takie jak szyfrowanie tokenu bezpieczeństwa i wymóg dołączania cyfrowego podpisu dla tokenów. Moduł implementuje narzędzia przechwytywania wywołań usług webowych i weryfikacji wymaganych asercji uprawniających do dostępu do zasobów. 
 
 %---------------------------------------------------------------------------
 
