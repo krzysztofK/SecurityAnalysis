@@ -6,7 +6,7 @@
 \section{Najpopularniejsze standardy IdM}
 \label{sec:standardyIdM}
 
-Implementacja systemów zarządzania tożsamościami jest obszarem, w którym standaryzacja procesów wykorzystywania danych osobowych przynosi istotne korzyści. Wprowadzenie standardowych rozwiązań upraszcza wdrożenie nowych aplikacji lub usług typu "Identity Provider". Ujednoliceniu sposobu korzystania z funkcjonalności systemów zarządzania tożsamościami umożliwia tworzenie aplikacji klienckich używających podobnych rozwiązań dla dostępu do różnych usług. Rozwijanych jest wiele standardów realizujących wymagania stawiane systemom zarządzania tożsamościami. Najbardziej istotne z nich to SAML(Security Assertion Markup Language) oraz OpenID. 
+Implementacja systemów zarządzania tożsamościami jest obszarem, w którym standaryzacja procesów wykorzystywania danych osobowych przynosi istotne korzyści. Wprowadzenie standardowych rozwiązań upraszcza wdrożenie nowych aplikacji lub usług typu ,,Identity Provider''. Ujednoliceniu sposobu korzystania z funkcjonalności systemów zarządzania tożsamościami umożliwia tworzenie aplikacji klienckich używających podobnych rozwiązań dla dostępu do różnych usług. Rozwijanych jest wiele standardów realizujących wymagania stawiane systemom zarządzania tożsamościami. Najbardziej istotne z nich to SAML(Security Assertion Markup Language) oraz OpenID. 
 
 \subsection{Security Assertion Markup Language}
 
@@ -26,11 +26,11 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 	\subsubsection{Struktura specyfikacji SAML}
 
 		Specyfikacja technologii SAML definiuje czterowarstwową strukturę, w skład której wchodzą asercje, protokoły, mapowania dla protokołów komunikacyjnych oraz profile. 
-		Asercje zawierają informacje wymieniane pomiędzy aplikacjami, usługami "Identity Provider" oraz użytkownikami. Protokoły, mapowania oraz profile definiują mechanizmy przetwarzania asercji.
+		Asercje zawierają informacje wymieniane pomiędzy aplikacjami, usługami ,,Identity Provider'' oraz użytkownikami. Protokoły, mapowania oraz profile definiują mechanizmy przetwarzania asercji.
 
 		\paragraph{Asercje}\mbox{}\\
 					
-			Asercje są to wiadomości zawierające dane identyfikacyjne jednostek w systemie. Składają się z deklaracji tożsamości opisujących jednostki wygenerowanych przez usługę "Identity Provider" systemu SAML. Na podstawie otrzymanych deklaracji tożsamości jednostki dostawca usługi podejmuje decyzję o przyznaniu lub odmówieniu prawa dostępu do swoich zasobów. Również dostawcy usług mają możliwość tworzenia asercji w celu utworzenia zapytania do serwisu uwierzytelniającego o parametry transakcji określania tożsamości. 
+			Asercje są to wiadomości zawierające dane identyfikacyjne jednostek w systemie. Składają się z deklaracji tożsamości opisujących jednostki wygenerowanych przez usługę ,,Identity Provider'' systemu SAML. Na podstawie otrzymanych deklaracji tożsamości jednostki dostawca usługi podejmuje decyzję o przyznaniu lub odmówieniu prawa dostępu do swoich zasobów. Również dostawcy usług mają możliwość tworzenia asercji w celu utworzenia zapytania do serwisu uwierzytelniającego o parametry transakcji określania tożsamości. 
 
 			\subparagraph{Struktura asercji}\mbox{}\\
 			
@@ -58,7 +58,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 			Protokoły SAML definiują format wiadomości żądań i odpowiedzi pozwalających na komunikację pomiędzy elementami systemu zarządzania tożsamościami przy pomocy technologii SAML. Specyfikacja SAML określa protokoły:
 
 			\begin{itemize}
-			  \item protokół odpytywania usługi "Identity Provider" o asercje
+			  \item protokół odpytywania usługi ,,Identity Provider'' o asercje
 			  \item protokół żądania uwierzytelniania jednostki
 			  \item protokół rejestrowania identyfikatorów jednostek
 			  \item protokół żądania wygaśnięcia identyfikatora jednostki
@@ -72,7 +72,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 
 		\paragraph{Profile}\mbox{}\\
 
-			Profile SAML definiują zbiór funkcjonalności jakie można uzyskać przy użyciu elementów niższych warstw(asercji, protokołów i mapowań) oraz sposób w jaki te funkcjonalności mogą być osiągnięte. Przykładem mogą być profile jednokrotnego uwierzytelniania specyfikujące sposób komunikacji pomiędzy dostawcami usług i serwisami "Identity Provider" w celu dostarczenia mechanizmów SSO lub profile zapytania o asercję dla jednostki.
+			Profile SAML definiują zbiór funkcjonalności jakie można uzyskać przy użyciu elementów niższych warstw(asercji, protokołów i mapowań) oraz sposób w jaki te funkcjonalności mogą być osiągnięte. Przykładem mogą być profile jednokrotnego uwierzytelniania specyfikujące sposób komunikacji pomiędzy dostawcami usług i serwisami ,,Identity Provider'' w celu dostarczenia mechanizmów SSO lub profile zapytania o asercję dla jednostki.
 
 	\subsubsection{Mechanizmy jednokrotnego uwierzytelniania przy użyciu SAML}
 
@@ -96,7 +96,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 				\label{Przebieg procesu jednokrotnego uwierzytelniania w SAML}
 			\end{figure}
 
-			Usługa objęta mechanizmem jednokrotnego uwierzytelniania po otrzymaniu żądania udostępnienia swoich zasobów zleca modułowi "Identity Provider" przeprowadzenie procesu uwierzytelnienia klienta serwisu. Asercja będąca wynikiem procesu uwierzytelnienia zostaje przekazana do usługi zlecającej. Usługa dokonuje weryfikacji otrzymanej asercji i akceptuje lub odrzuca żądanie dostępu do zasobów. Gdy użytkownik chce skorzystać z usług innego serwisu sfederowanego z usługą, do której otrzymał dostęp, proces uwierzytelniania przebiega podobnie. Pomijany jest jednak krok ponownego uwierzytelniania użytkownika przez usługę "Identity Provider" - usługa ta zwraca do aplikacji żądającej uwierzytelniania asercję wygenerowaną na podstawie wcześniej wykonanego procesu uwierzytelniania.	
+			Usługa objęta mechanizmem jednokrotnego uwierzytelniania po otrzymaniu żądania udostępnienia swoich zasobów zleca modułowi ,,Identity Provider'' przeprowadzenie procesu uwierzytelnienia klienta serwisu. Asercja będąca wynikiem procesu uwierzytelnienia zostaje przekazana do usługi zlecającej. Usługa dokonuje weryfikacji otrzymanej asercji i akceptuje lub odrzuca żądanie dostępu do zasobów. Gdy użytkownik chce skorzystać z usług innego serwisu sfederowanego z usługą, do której otrzymał dostęp, proces uwierzytelniania przebiega podobnie. Pomijany jest jednak krok ponownego uwierzytelniania użytkownika przez usługę ,,Identity Provider'' - usługa ta zwraca do aplikacji żądającej uwierzytelniania asercję wygenerowaną na podstawie wcześniej wykonanego procesu uwierzytelniania.	
 			
 \subsection{OpenID}
 
@@ -107,7 +107,7 @@ OpenID
 	Identity Web Services Framework(ID-WSF) to zbiór specyfikacji definiujących mechanizmy dla zapewnienia bezpieczeństwa serwisów webowych, pomiędzy którymi istnieją relacje zaufania(federacje)\cite{Oracle10}. ID-WSF określa podejście do zarządzania tożsamościami, w którym tożsamości jednostek zarządzane są przez różnych dostawców usług połączonych relacją federacji. Usługi webowe mogą wymieniać między sobą dane osobowe swoich użytkowników w celu dostarczenia funkcjonalności żądanej przez klienta usługi. Przykładem sytuacji, gdzie może być zastosowany ten model jest usługa potrzebująca dostarczenia danych adresowych swojego użytkownika. W tym celu może skorzystać z zasobów innej usługi 
 	dysponującej tymi danymi.
 
-	Rysunek przedstawia przebieg procesu współdzielenia informacji w ID-WSF. Specyfikacja ID-WSF wprowadza dodatkowy element do architektury systemów zarządzania tożsamościami - "Discovery Service". Usługa "Discovery Service" pozwala dostawcom usług na wyszukiwanie innych serwisów dostarczających funkcjonalności pozwalających na realizacje żądań zadanych usłudze. Klient aplikacji decyduje o tym czy jego dane mogą być dostępne dla innych serwisów rejestrując usługę dostarczającą jego danych osobowych w rejestrze "Discovery Service" lub nie dokonując takiej rejestracji. Na przedstawionym schemacie żądana przez użytkownika usługa potrzebuje dodatkowych informacji - w tym celu w rejestrze usług szuka serwisu, który dostarcza potrzebnych informacji dla obsługiwanego użytkownika.
+	Rysunek przedstawia przebieg procesu współdzielenia informacji w ID-WSF. Specyfikacja ID-WSF wprowadza dodatkowy element do architektury systemów zarządzania tożsamościami - ,,Discovery Service''. Usługa ,,Discovery Service'' pozwala dostawcom usług na wyszukiwanie innych serwisów dostarczających funkcjonalności pozwalających na realizacje żądań zadanych usłudze. Klient aplikacji decyduje o tym czy jego dane mogą być dostępne dla innych serwisów rejestrując usługę dostarczającą jego danych osobowych w rejestrze ,,Discovery Service'' lub nie dokonując takiej rejestracji. Na przedstawionym schemacie żądana przez użytkownika usługa potrzebuje dodatkowych informacji - w tym celu w rejestrze usług szuka serwisu, który dostarcza potrzebnych informacji dla obsługiwanego użytkownika.
 
 	\begin{figure}[h]
 		\centering
@@ -137,7 +137,7 @@ OpenID
 
 		\subsubsection{Elementy systemu Kerberos}
 
-			Każdy użytkownik, usługa lub host w systemie Kerberos ma przypisany unikalny w ramach domeny identyfikator\cite{Garman03}. Każdy identyfikator skojarzony jest z kluczem uwierzytelniającym jednostkę w systemie. Kluczem tym może być np. hasło. Identyfikatory wraz z kluczami przechowywane są w bazie usługi "Key Distribution Center". W skład KDC wchodzi również serwer uwierzytelniający i serwer TGS(Ticket Granting Server). W systemie Kerberos może istnieć więcej niż jedna usługa KDC - istnieje konieczność synchronizacji zawartości bazy identyfikatorów dla każdej z usług KDC.
+			Każdy użytkownik, usługa lub host w systemie Kerberos ma przypisany unikalny w ramach domeny identyfikator\cite{Garman03}. Każdy identyfikator skojarzony jest z kluczem uwierzytelniającym jednostkę w systemie. Kluczem tym może być np. hasło. Identyfikatory wraz z kluczami przechowywane są w bazie usługi ,,Key Distribution Center''. W skład KDC wchodzi również serwer uwierzytelniający i serwer TGS(Ticket Granting Server). W systemie Kerberos może istnieć więcej niż jedna usługa KDC - istnieje konieczność synchronizacji zawartości bazy identyfikatorów dla każdej z usług KDC.
 
 		\subsubsection{Uwierzytelnianie w systemie Kerberos}
 
@@ -150,7 +150,7 @@ OpenID
 
 			Proces uwierzytelniania rozpoczyna się przesłaniem  do serwera uwierzytelniającego wiadomości żądania uwierzytelnienia wraz z opisem tożsamości klienta\cite{Garman03}. Serwer weryfikuje otrzymane informacje oraz znacznik czasowy dołączony do wiadomości - sprawdza w ten sposób czy żądanie nie zostało wygenerowano zbyt dawno. Po weryfikacji zakończonej sukcesem serwer generuje klucz sesji dzielony między klientem i serwerem TGS. Serwer przyznaje zaszyfrowany bilet - Ticket Granting Ticket(TGT) - użytkownikowi uwierzytelniającemu się w domenie. Serwer przesyła klucz sesji oraz tożsamość użytkownika zaszyfrowane kluczem serwera TGS   oraz kopię klucza sesji szyfrowaną długoterminowym kluczem klienta. Dzięki temu użytkownik nie musi przesyłać usłudze swoich danych uwierzytelniających - dowodzi swojej tożsamości poprzez umiejętność odszyfrowania klucza sesje oraz biletu TGT. 
 
-			Otrzymany bilet może być wykorzystany aby otrzymać bilet specyficzny dla zasobów, do których użytkownik chce uzyskać dostęp. Bilety specyficzne dla określonej usługi przyznawane są przez serwer TGS. Wiadomość przesyłana do serwera TGS składa się z żądania TGS, kopii biletu TGT oraz danych uwierzytelniających. Przesyłane dane uwierzytelniające obejmują znacznik czasowy szyfrowany kluczem sesji. Przesyłanie zaszyfrowanego znacznika czasowego pozwala zagwarantować, że klient ma dostęp do klucza sesji. Serwer dokonuje weryfikacji otrzymanych biletów TGT, sprawdzając czy jest on poprawnie zaszyfrowany kluczem serwera Kerberos. Po zakończonej powodzeniem weryfikacji serwer przyznaje bilet specyficzny dla żądanej usługi. Serwer generuje zestaw nowych kluczy sesji dzielonych pomiędzy klientem a serwerem usług. Kopia kliencka nowych kluczy szyfrowana jest kluczem pozyskanym w procesie uwierzytelniania. Kopia przeznaczona dla serwisu umieszczana jest w "bilecie serwisu"(ang. service ticket) i  szyfrowana jest jego długoterminowym kluczem. Gdy klient chce uzyskać dostęp do zasobów usługi poświadcza swojej uprawnienia przesyłając bilet serwisu i klucz sesji.
+			Otrzymany bilet może być wykorzystany aby otrzymać bilet specyficzny dla zasobów, do których użytkownik chce uzyskać dostęp. Bilety specyficzne dla określonej usługi przyznawane są przez serwer TGS. Wiadomość przesyłana do serwera TGS składa się z żądania TGS, kopii biletu TGT oraz danych uwierzytelniających. Przesyłane dane uwierzytelniające obejmują znacznik czasowy szyfrowany kluczem sesji. Przesyłanie zaszyfrowanego znacznika czasowego pozwala zagwarantować, że klient ma dostęp do klucza sesji. Serwer dokonuje weryfikacji otrzymanych biletów TGT, sprawdzając czy jest on poprawnie zaszyfrowany kluczem serwera Kerberos. Po zakończonej powodzeniem weryfikacji serwer przyznaje bilet specyficzny dla żądanej usługi. Serwer generuje zestaw nowych kluczy sesji dzielonych pomiędzy klientem a serwerem usług. Kopia kliencka nowych kluczy szyfrowana jest kluczem pozyskanym w procesie uwierzytelniania. Kopia przeznaczona dla serwisu umieszczana jest w ,,bilecie serwisu''(ang. service ticket) i  szyfrowana jest jego długoterminowym kluczem. Gdy klient chce uzyskać dostęp do zasobów usługi poświadcza swojej uprawnienia przesyłając bilet serwisu i klucz sesji.
 
 	\subsection{Standard WS-Security}
 
@@ -166,7 +166,7 @@ OpenID
 
 		W modelu definiowanym przez standard WS-Trust usługa oczekuje dołączenia do wiadomości informacji potwierdzających tożsamość klienta. Serwis powinien odrzucać żądania bez dołączonych wymaganych informacji. Wymagane przez serwis dane mogą być wskazane w opisie polityki usługi. Polityki mogą być definiowane przy użyciu standardu WS-Policy. Uwierzytelnianie nadawcy wiadomości może być oparte o mechanizmy bezpieczeństwa warstwy transportowej, dane dostarczone w żądaniu SOAP lub poprzez szyfrowanie wiadomości kluczem znanym nadawcy. Jednym ze sposobów gwarancji korzystania z autoryzowanego tokenu bezpieczeństwa jest dołączenie do informacji cyfrowego podpisu szyfrowanego poufnym kluczem skojarzonym z tokenem.
 
-		Standard WS-Trust wprowadza pojęcie usługi "Security Token Service"(STS). Jest to usługa przyznająca klientom tokeny bezpieczeństwa, które później mogą być wykorzystane w celu uwierzytelnienia i autoryzacji dostępu do innych usług. W celu dostarczenia tokenu STS wymaga najczęściej danych uwierzytelniających klienta(np. identyfikatora i hasła). Tokeny przyznawane przez usługę STS umożliwiają nawiązywanie relacji zaufania pomiędzy różnymi domenami bezpieczeństwa. Specyfikacja określa również sekwencje wymieniany komunikatów dla różnych scenariuszy pozyskiwania tokenu bezpieczeństwa. Zastosowanie usługi "Security Token Serie" umożliwia uwierzytelnianie, kontrolę dostępu do zasobów, nadzór nad działaniem systemu bezpieczeństwa oraz nawiązywanie relacji zaufania.
+		Standard WS-Trust wprowadza pojęcie usługi ,,Security Token Service''(STS). Jest to usługa przyznająca klientom tokeny bezpieczeństwa, które później mogą być wykorzystane w celu uwierzytelnienia i autoryzacji dostępu do innych usług. W celu dostarczenia tokenu STS wymaga najczęściej danych uwierzytelniających klienta(np. identyfikatora i hasła). Tokeny przyznawane przez usługę STS umożliwiają nawiązywanie relacji zaufania pomiędzy różnymi domenami bezpieczeństwa. Specyfikacja określa również sekwencje wymieniany komunikatów dla różnych scenariuszy pozyskiwania tokenu bezpieczeństwa. Zastosowanie usługi ,,Security Token Serie'' umożliwia uwierzytelnianie, kontrolę dostępu do zasobów, nadzór nad działaniem systemu bezpieczeństwa oraz nawiązywanie relacji zaufania.
 
 		\begin{figure}[h]
 			\centering
@@ -175,7 +175,7 @@ OpenID
 			\label{Model zapewnienia bezpieczeństwa dostępu do aplikacji w standardzie WS-Trust}
 		\end{figure}
 
-		Klient może pozyskiwać tokeny bezpieczeństwa od usługi "Security Token Serie". Otrzymany token może być dołączony do żądania klienta wysyłanego do usługi webowej. Serwis powinien weryfikować czy usługa wystawiająca token objęta jest relacją zaufania względem danych, które dostarcza. Serwis może ufać otrzymywanym tokenom bezpieczeństwa lub zlecać i walidację usłudze STS. Usługa może również komunikować się z modułem STS w celu wymiany otrzymanego tokenu bezpieczeństwa na inny odpowiedni dla mechanizmów bezpieczeństwa danej usługi. 
+		Klient może pozyskiwać tokeny bezpieczeństwa od usługi ,,Security Token Serie''. Otrzymany token może być dołączony do żądania klienta wysyłanego do usługi webowej. Serwis powinien weryfikować czy usługa wystawiająca token objęta jest relacją zaufania względem danych, które dostarcza. Serwis może ufać otrzymywanym tokenom bezpieczeństwa lub zlecać i walidację usłudze STS. Usługa może również komunikować się z modułem STS w celu wymiany otrzymanego tokenu bezpieczeństwa na inny odpowiedni dla mechanizmów bezpieczeństwa danej usługi. 
 
 		Serwis może deklarować kryteria dla otrzymywanych tokenów określające kiedy token będzie uznany za zaufany\cite{WS-Trust-1.4-with-errata}. Możliwe kryteria to np.:
 
@@ -212,7 +212,7 @@ OpenID
 			\label{Prosty scenariusz federacji serwisow}
 		\end{figure}
 
-		Przedstawiony schemat ilustruje przebieg uzyskiwania dostępu do zasobu przy użyciu mechanizmu federacji. Przerywana linia stanowi granicę między domenami bezpieczeństwa. Klient przeprowadza proces uwierzytelniania  i uzyskuje token bezpieczeństwa od usługi "Security Token Service" w swojej domenie bezpieczeństwa. Otrzymany token zostaje przedstawiony usłudze STS w odrębnej domenie bezpieczeństwa w celu uzyskania tokenu uprawniającego do dostępu do zasobów w tej domenie. Token uzyskany w tym procesie jest przesyłany w żądaniach dostępu do zasobów w odrębnej domenie bezpieczeństwa. 
+		Przedstawiony schemat ilustruje przebieg uzyskiwania dostępu do zasobu przy użyciu mechanizmu federacji. Przerywana linia stanowi granicę między domenami bezpieczeństwa. Klient przeprowadza proces uwierzytelniania  i uzyskuje token bezpieczeństwa od usługi ,,Security Token Service'' w swojej domenie bezpieczeństwa. Otrzymany token zostaje przedstawiony usłudze STS w odrębnej domenie bezpieczeństwa w celu uzyskania tokenu uprawniającego do dostępu do zasobów w tej domenie. Token uzyskany w tym procesie jest przesyłany w żądaniach dostępu do zasobów w odrębnej domenie bezpieczeństwa. 
 
 	\subsection{Standard OAuth}
 
