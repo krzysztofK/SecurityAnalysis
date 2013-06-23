@@ -50,8 +50,15 @@ Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorien
 
 		Zastosowanie koncepcji systemów zarządzania tożsamościami w architekturze zorientowanej na usługi przedstawione zostało na przykładzie prostego systemu obsługi zamówień sklepu internetowego. Opracowane zostały różne usługi realizujące poszczególne etapy dokonywania zamówienia. Serwisy zaimplementowane zostały przy użyciu różnych standardów dostarczania usług webowych(REST i SOAP). Wykorzystują schemat przebiegu procesu uwierzytelniania opisany w rozdziale ,,Komponenty systemu uwierzytelniania klientów usług webowych w oparciu o standard SAML'' niniejszej pracy. Proces uwierzytelniania oparty jest na mechanizmach opisanych standardem WS-Trust - wykorzystuje usługę ,,Security Token Service''. Proces zamówienia realizowany jest przez usługi odpowiedzialne za sprawdzanie stanu magazynu, zlecenie dostawy towaru, zlecenie wydania towaru  oraz rejestrację transakcji w serwisie księgowym. Usługi zlokalizowane są w różnych domenach. Uwierzytelnianie klientów usług opiera się na otrzymywanych asercjach SAML i wykorzystuje mechanizm weryfikacji tokenów bezpieczeństwa dostarczany przez usługę STS. 
 
-		Do architektury proponowanego systemu wprowadzono dodatkową warstwę - magistralę usług(ESB). Magistrala usług pośredniczy w wywołaniach usług udostępnianych serwisów.
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/esbAndSAML.jpg}
+			\caption{Udział magistrali ESB w procesie wywołań usług z mechanizmami uwierzytelniania opartymi o SAML}
+			\label{ESB i SAML}
+		\end{figure}
 
+		Do architektury proponowanego systemu wprowadzono dodatkową warstwę - magistralę usług(ESB). Magistrala usług pośredniczy w wywołaniach usług udostępnianych przez serwisy - otrzymuje wiadomości wraz z załączonymi tokenami bezpieczeństwa kierowane do przyłączonych serwisów. Magistrala dostosowuje otrzymywane wiadomości do formatu wykorzystywanego przez daną usługę. Zadania magistrali usług w kontekście obsługi tokenów bezpieczeństwa są ograniczone. Moduł ESB nie dokonuje analizy ani przetwarzania otrzymywanych asercji SAML. Jedynym zadaniem magistrali w procesie obsługi tokenów bezpieczeństwa jest dołączenie tokenu do nagłówka odpowiedniego typu dla danego formatu wiadomości akceptowanych przez usługę.
+		
 %---------------------------------------------------------------------------
 
 \section{Środowisko wdrożenia}
