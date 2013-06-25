@@ -14,14 +14,12 @@ Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorien
 
 		\begin{figure}[h]
 			\centering
-			\includegraphics{img/samlWebSSO.jpg}
+			\includegraphics{img/samlWeb.jpg}
 			\caption{Jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}
-			\label{Jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}
+			\label{webSSO}
 		\end{figure}
 
-		Podstawowym elementem pozwalającym na realizację procedury jednokrotnego uwierzytelniania dla aplikacji webowych jest usługa ,,Identity Provider''. Usługa odpowiada za uwierzytelnianie klientów oraz dostarcza tożsamości użytkowników do zaufanych aplikacji. IDP wykorzystuje usługę katalogową LDAP jako bazę tożsamości. Dostawcy usług polegają na informacjach na temat użytkowników dostarczanych przez moduł IdP. 
-
-		Kiedy użytkownik chce uzyskać dostęp do zasobów, usługa sprawdza czy klient jest uwierzytelniony. Jeśli nie jest uwierzytelniony następuje przekierowanie do usługi ,,Identity Provider''. Klient podaje swoje dane uwierzytelniające a IDP weryfikuje ich poprawność. Gdy dane są prawidłowe generowana jest asercja SAML i następuje przekierowanie do usługi. Usługa weryfikuje otrzymaną asercję i przydziela lub odmawia prawa dostępu do zasobu. Gdy klient chce uzyskać dostęp do zasobów innej aplikacji nie musi ponownie podawać swoich danych uwierzytelniających, usługa IDP nie dokonuje ponownie procesu uwierzytelniania w usłudze katalogowej LDAP.
+		Podstawowym elementem pozwalającym na realizację procedury jednokrotnego uwierzytelniania dla aplikacji webowych jest usługa ,,Identity Provider''. Usługa odpowiada za uwierzytelnianie klientów oraz dostarcza tożsamości użytkowników do zaufanych aplikacji. IDP wykorzystuje usługę katalogową LDAP jako bazę tożsamości. Dostawcy usług weryfikują tożsamość klienta żądającego dostępu do zasobów. Gdy konieczne jest uwierzytelniania polegają na mechanizmach dostarczanych przez usługę IDP. Klient komunikuje się z usługa IDP w procesie uwierzytelniania przesyłając dane potwierdzające jego tożsamość.
 
 	\subsection{Komponenty systemu uwierzytelniania klientów usług webowych w oparciu o standard SAML}
 
