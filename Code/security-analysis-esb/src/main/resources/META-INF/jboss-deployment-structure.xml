@@ -4,7 +4,11 @@
 		<dependencies>
 			<module name="org.switchyard" />
 			<module name="org.apache.camel.jaxb" />
+			<module name="deployment.delivery-service-schema-0.0.1-SNAPSHOT.jar" />
 		</dependencies>
+		<resources>
+			<resource-root path="delivery-service-schema-0.0.1-SNAPSHOT.jar" />
+		</resources>
 	</deployment>
 </jboss-deployment-structure>
 

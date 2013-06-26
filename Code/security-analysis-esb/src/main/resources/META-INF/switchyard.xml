@@ -39,6 +39,38 @@
 		        <rest:contextPath>stores-state-service</rest:contextPath>
 		    </rest:binding.rest>
 		</sca:reference>
+		
+		<sca:service name="RestDeliveryServiceProxy" promote="RestDeliveryServiceProxy">
+			<rest:binding.rest>
+				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes="saml.*"/>
+				<rest:interfaces>pl.edu.agh.security.esb.delivery.IDeliveryService</rest:interfaces>
+				<rest:contextPath>rest-delivery-binding</rest:contextPath>
+			</rest:binding.rest>
+		</sca:service>
+		
+		<sca:reference name="RestDeliveryService" promote="RestDeliveryServiceProxy/RestDeliveryService" multiplicity="0..1">
+		    <rest:binding.rest>
+				<rest:contextMapper class="pl.edu.agh.security.esb.context.mappers.RESTInScopeHeadersMapper" includes="saml.*"/>
+		        <rest:interfaces>pl.edu.agh.security.esb.delivery.IDeliveryService</rest:interfaces> 
+		        <rest:address>http://delivery.security.agh.edu.pl:8080</rest:address>
+		        <rest:contextPath>delivery-service</rest:contextPath>
+		    </rest:binding.rest>
+		</sca:reference>
+
+		<sca:component name="RestDeliveryServiceProxy">
+
+			<implementation.camel xmlns="urn:switchyard-component-camel:config:1.0">
+				<java class="pl.edu.agh.security.esb.routes.DeliveryServiceRoute" />
+			</implementation.camel>
+ 			<sca:service name="RestDeliveryServiceProxy">
+				<sca:interface.java
+					interface="pl.edu.agh.security.esb.delivery.IDeliveryService" />
+			</sca:service>
+ 			<sca:reference name="RestDeliveryService">
+ 				<sca:interface.java
+					interface="pl.edu.agh.security.esb.delivery.IDeliveryService" />
+			</sca:reference>
+		</sca:component>
 
 		<sca:component name="RestStoreServiceProxy">
 

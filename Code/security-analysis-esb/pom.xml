@@ -13,6 +13,12 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>${resteasyVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.switchyard.components</groupId>
 			<artifactId>switchyard-component-soap</artifactId>
 		</dependency>
@@ -23,6 +29,11 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-soap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>pl.edu.agh.security</groupId>
+			<artifactId>delivery-service-schema</artifactId>
+			<version>${parent.version}</version>
 		</dependency>
 	</dependencies>
 </project>
