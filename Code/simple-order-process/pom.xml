@@ -44,6 +44,10 @@
 			<artifactId>picketlink-core</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.ws.cxf</groupId>
 			<artifactId>jbossws-cxf-client</artifactId>
 			<scope>provided</scope>

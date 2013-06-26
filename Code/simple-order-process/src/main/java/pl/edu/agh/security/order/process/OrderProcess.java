@@ -12,6 +12,7 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.log4j.Logger;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.resteasy.client.ProxyFactory;
@@ -27,15 +28,26 @@ import org.picketlink.trust.jbossws.handler.SAML2Handler;
 import org.w3c.dom.Element;
 
 import pl.edu.agh.security.common.Utils;
-import pl.edu.agh.security.common.services.IDeliveryService;
+import pl.edu.agh.security.delivery.pojos.DeliveryRequest;
+import pl.edu.agh.security.delivery.pojos.Priority;
+import pl.edu.agh.security.store.state.service.client.IDeliveryService;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
 import pl.edu.agh.security.store.state.service.client.StoreStateRequest;
 
 public class OrderProcess {
 
+    private static final Logger LOGGER = Logger.getLogger(OrderProcess.class);
+    private static final String USER_NAME = "magister";
+    private static final String PASSWORD = "inzynier";
+    
+    private static final String ORDERED_PRODUCT = "woda";
+    private static final int COUNT = 3;
+    private static final boolean INVOICE_REQUESTED = true;
+    private static final String COMPANY_NAME = "ACME";
+    
 	private static final String STORES_REQUEST_PATH = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
-	private static final String DELIVERY_REQUEST_PATH = "http://delivery.security.agh.edu.pl:8080/delivery";
+	private static final String DELIVERY_REQUEST_PATH = "http://delivery.security.agh.edu.pl:8080/delivery-service/rest";
 	private static final String STORES_HOST = "stores-states.security.agh.edu.pl";
 	private static final String DELIVERY_HOST = "delivery.security.agh.edu.pl";
 	private static final int PORT = 8080;
@@ -51,6 +63,8 @@ public class OrderProcess {
 	private final int count;
 	private final boolean invoiceRequested;
 
+
+	
 	public OrderProcess(String userName, String password,
 			String orderedProduct, int count, boolean invoiceRequested) {
 		super();
@@ -74,15 +88,17 @@ public class OrderProcess {
 		/**
 		 * Looks for store with requested count of the product
 		 */
+		LOGGER.info("Sending request to store service: "+stateRequest);
 		Store store = prepareStoreStateServiceClient().getStore(stateRequest);
+		LOGGER.info("Received store info: "+store);
 
 		if (store != null) {
-			// TODO: store service + shipments
-
-			// DeliveryState deliveryState =
-			// prepareDeliveryServiceClient().putDelivery("Middle of nowhere",
-			// store.getLocation(), 1.0);
-			// System.out.println(deliveryState);
+		    DeliveryRequest deliveryRequest = new DeliveryRequest();
+		    deliveryRequest.setSenderAddress(store.getLocation());
+		    deliveryRequest.setSenderName(COMPANY_NAME);
+		    deliveryRequest.setPriority(Priority.NORMAL);
+		    Integer deliveryId = prepareDeliveryServiceClient().registerDelivery(deliveryRequest);
+		    LOGGER.info("delivery id is: "+ deliveryId);
 
 			/**
 			 * Financial service execution
@@ -98,14 +114,16 @@ public class OrderProcess {
 			TransactionResponse transactionResponse = financialOperations
 					.registerTransaction(transactionRequest);
 			if (transactionResponse != null) {
-				System.out.println("Transaction successful. Due date: "
+				LOGGER.info("Transaction successful. Due date: "
 						+ transactionResponse.getDueDate()
+						+ ", delivery number: "
+						+ deliveryId
 						+ ", invoice number: "
 						+ transactionResponse.getInvoiceIdentifier()
 						+ ", store: " + store.getLocation());
 			}
 		} else {
-			System.out.println("Requested count of the product not available");
+			LOGGER.warn("Requested count of the product not available");
 		}
 	}
 
@@ -114,6 +132,7 @@ public class OrderProcess {
 		samlAssertion = Utils.retrieveSamlAssertion(STS_SERVICE_NAME, STS_PORT,
 				STS_ENDPOINT_URI, userName, password);
 		samlAssertionString = DocumentUtil.getNodeAsString(samlAssertion);
+		LOGGER.info("Obtained saml assertion: "+samlAssertionString);
 	}
 
 	public IStoreState prepareStoreStateServiceClient()
@@ -128,7 +147,11 @@ public class OrderProcess {
 			public ClientResponse execute(ClientRequest request)
 					throws Exception {
 				request.header("samlAssertion", samlAssertionString);
-				return super.execute(request);
+				LOGGER.info("Store state request uri: "+request.getUri());
+				LOGGER.info("Store state request headers: "+request.getHeaders());
+				ClientResponse response = super.execute(request);
+				LOGGER.info("Store state response : "+response);
+				return response;
 			}
 		};
 
@@ -151,7 +174,11 @@ public class OrderProcess {
 			public ClientResponse execute(ClientRequest request)
 					throws Exception {
 				request.header("samlAssertion", samlAssertionString);
-				return super.execute(request);
+				LOGGER.info("Delivery request uri: "+request.getUri());
+                LOGGER.info("Delivery request headers: "+request.getHeaders());
+                ClientResponse response =  super.execute(request);
+				LOGGER.info("Delivery response : "+response);
+				return response;
 			}
 		};
 
@@ -183,6 +210,12 @@ public class OrderProcess {
 		handlers.add(new SAML2Handler());
 		bindingProvider.getBinding().setHandlerChain(handlers);
 		return financialOperations;
+	}
+	
+	public static void main(String[] args) throws ConfigurationException,
+	ProcessingException, ParsingException {
+	    OrderProcess orderProcess = new OrderProcess(USER_NAME, PASSWORD, ORDERED_PRODUCT, COUNT, INVOICE_REQUESTED);
+	    orderProcess.execute();
 	}
 
 }

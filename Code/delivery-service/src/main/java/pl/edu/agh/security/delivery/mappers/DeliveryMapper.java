@@ -19,29 +19,39 @@ public class DeliveryMapper {
     public Delivery mapToEntity(DeliveryRequest pojo) {
         Delivery entity = new Delivery();
         entity.setCompletionDateTime(xmlGregorianCalendarToDate(pojo.getCompletionDateTime()));
-        entity.setPriority(pojo.getPriority().name());
+        if (pojo.getPriority() != null) {
+            entity.setPriority(pojo.getPriority().name());
+        }
         entity.setRecipientAddress(pojo.getRecipientAddress());
         entity.setRecipientName(pojo.getRecipientName());
         entity.setSenderAddress(pojo.getSenderAddress());
         entity.setSenderName(pojo.getSenderName());
         entity.setStatus(DeliveryStatus.ACCEPTED.name());
-        entity.setWeight(pojo.getWeight().intValue());
+        if (pojo.getWeight() != null) {
+            entity.setWeight(pojo.getWeight().intValue());
+        }
         return entity;
     }
-    
+
     public DeliveryRequest mapToPojo(Delivery entity) {
         DeliveryRequest pojo = new DeliveryRequest();
         pojo.setCompletionDateTime(dateToXMLGregorianCalendar(entity.getCompletionDateTime()));
-        pojo.setPriority(Priority.fromValue(entity.getPriority()));
+        if (entity.getPriority() != null) {
+            pojo.setPriority(Priority.fromValue(entity.getPriority()));
+        }
         pojo.setRecipientAddress(entity.getRecipientAddress());
         pojo.setRecipientName(entity.getRecipientName());
         pojo.setSenderAddress(entity.getSenderAddress());
         pojo.setSenderName(entity.getSenderName());
-        pojo.setStatus(DeliveryStatus.fromValue(entity.getStatus()));
-        pojo.setWeight(new BigDecimal(entity.getWeight()));
+        if (entity.getStatus() != null) {
+            pojo.setStatus(DeliveryStatus.fromValue(entity.getStatus()));
+        }
+        if (entity.getWeight() != null) {
+            pojo.setWeight(new BigDecimal(entity.getWeight()));
+        }
         return pojo;
     }
-    
+
     private XMLGregorianCalendar dateToXMLGregorianCalendar(Date date) {
         if (date == null) {
             return null;
@@ -55,7 +65,7 @@ public class DeliveryMapper {
             throw new RuntimeException(e);
         }
     }
-    
+
     private Date xmlGregorianCalendarToDate(XMLGregorianCalendar xmlGregorianCalendar) {
         if (xmlGregorianCalendar == null) {
             return null;

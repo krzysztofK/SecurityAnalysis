@@ -19,7 +19,7 @@ import pl.edu.agh.security.delivery.pojos.DeliveryRequest;
 
 @Stateless
 @Path("/deliveries")
-public class DeliveryService /* implements IDeliveryService */{
+public class DeliveryService {
     
     @EJB
     private DeliveryDAO deliveryDAO;
@@ -27,7 +27,6 @@ public class DeliveryService /* implements IDeliveryService */{
     @EJB
     private DeliveryMapper deliveryMapper;
 
-    // @Override
     @POST
     @Path("/create")
     @Consumes({ "application/xml" })
