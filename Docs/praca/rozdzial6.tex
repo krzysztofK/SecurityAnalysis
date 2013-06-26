@@ -5,14 +5,16 @@ Zgodnie z opisanymi w poprzednim rozdziale pracy założeniami architektury dla 
 
 \section{Implementacja mechanizmu jednokrotnego uwierzytelniania klientów aplikacji webowych}
 
-		\begin{figure}[h]
-			\centering
-			\includegraphics{img/samlWebSSO.jpg}
-			\caption{Jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}
-			\label{Jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}
-		\end{figure}
+	Przy pomocy mechanizmów udostępnianych przez narzędzia \textit{Picketlink} zaimplementowana została usługa ,,Identity Provider'' odpowiedzialna za uwierzytelnianie użytkowników systemu. Stosując usługę IDP możliwe jest jednokrotne uwierzytelnianie klientów aplikacji webowych. Zaimplementowane zostały również aplikacje wykorzystujące usługę IDP jako mechanizm uwierzytelniania klientów żądających dostępu do zasobów aplikacji.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics{img/samlWebSSO.jpg}
+		\caption{Przebieg procesu jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}
+		\label{samlSSOSteps}
+	\end{figure}
 		
-		Kiedy użytkownik chce uzyskać dostęp do zasobów, usługa sprawdza czy klient jest uwierzytelniony. Jeśli nie jest uwierzytelniony następuje przekierowanie do usługi ,,Identity Provider''. Klient podaje swoje dane uwierzytelniające a IDP weryfikuje ich poprawność. Gdy dane są prawidłowe generowana jest asercja SAML i następuje przekierowanie do usługi. Usługa weryfikuje otrzymaną asercję i przydziela lub odmawia prawa dostępu do zasobu. Gdy klient chce uzyskać dostęp do zasobów innej aplikacji nie musi ponownie podawać swoich danych uwierzytelniających, usługa IDP nie dokonuje ponownie procesu uwierzytelniania w usłudze katalogowej LDAP.
+	Kiedy użytkownik chce uzyskać dostęp do zasobów, usługa sprawdza czy klient jest uwierzytelniony. Jeśli nie jest uwierzytelniony następuje przekierowanie do usługi ,,Identity Provider''. Klient podaje swoje dane uwierzytelniające a IDP weryfikuje ich poprawność. Gdy dane są prawidłowe generowana jest asercja SAML i następuje przekierowanie do usługi. Usługa weryfikuje otrzymaną asercję i przydziela lub odmawia prawa dostępu do zasobu. Gdy klient chce uzyskać dostęp do zasobów innej aplikacji nie musi ponownie podawać swoich danych uwierzytelniających, usługa IDP nie dokonuje ponownie procesu uwierzytelniania w usłudze katalogowej LDAP.
 
 \section{Implementacja modułu magistrali usług}
 
