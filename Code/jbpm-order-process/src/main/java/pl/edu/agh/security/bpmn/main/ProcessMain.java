@@ -19,6 +19,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.jbpm.workflow.instance.WorkflowProcessInstance;
 
 import pl.edu.agh.security.bpmn.work.items.AuthenticateWorkItemHandler;
+import pl.edu.agh.security.bpmn.work.items.DeliveryWorkItemHandler;
 import pl.edu.agh.security.bpmn.work.items.RegisterFinancialTransactionWorkItemHandler;
 import pl.edu.agh.security.bpmn.work.items.StoreStateRequestWorkItemHandler;
 
@@ -35,6 +36,7 @@ public class ProcessMain {
 				new AuthenticateWorkItemHandler());
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"StoresStateRequest", new StoreStateRequestWorkItemHandler());
+		ksession.getWorkItemManager().registerWorkItemHandler("Delivery", new DeliveryWorkItemHandler());
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"RegisterFinancialTransaction",
 				new RegisterFinancialTransactionWorkItemHandler());
@@ -90,11 +92,13 @@ public class ProcessMain {
 						.getProcessInstance();
 				String location = (String) workflowProcessInstance
 						.getVariable("location");
+				String deliveryID = (String) workflowProcessInstance
+                        .getVariable("deliveryID");
 				Date dueDate = (Date) workflowProcessInstance
 						.getVariable("dueDate");
 				String invoiceIdentifier = (String) workflowProcessInstance
 						.getVariable("invoiceIdentifier");
-				System.out.println("Store: " + location + ", due date: "
+				System.out.println("Store: " + location + ", deliveryID: " + deliveryID + ", due date: "
 						+ dueDate + ", invoice number: " + invoiceIdentifier);
 			}
 
