@@ -10,12 +10,15 @@ import org.picketlink.identity.federation.core.exceptions.ConfigurationException
 import org.picketlink.identity.federation.core.exceptions.ParsingException;
 import org.picketlink.identity.federation.core.exceptions.ProcessingException;
 import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 import pl.edu.agh.security.common.Utils;
 
 public class AuthenticateWorkItemHandler implements WorkItemHandler {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticateWorkItemHandler.class);
 	private static final String USER_PARAMETER = "User";
 	private static final String PASSWORD_PARAMETER = "Password";
 	public static final String ASSERTION_PARAMETER = "Assertion";
@@ -41,6 +44,7 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 					STS_PORT, STS_ENDPOINT_URI, user, password);
 			String samlAssertionString = DocumentUtil
 					.getNodeAsString(samlAssertion);
+			LOGGER.info("Received saml assertion {}", samlAssertionString);
 			Map<String, Object> results = new HashMap<String, Object>();
 			results.put(ASSERTION_PARAMETER, samlAssertionString);
 			workItemManager.completeWorkItem(workItem.getId(), results);

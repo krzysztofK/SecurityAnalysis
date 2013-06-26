@@ -16,6 +16,8 @@ import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.picketlink.identity.federation.core.exceptions.ConfigurationException;
 import org.picketlink.identity.federation.core.exceptions.ParsingException;
 import org.picketlink.identity.federation.core.exceptions.ProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
@@ -23,6 +25,7 @@ import pl.edu.agh.security.store.state.service.client.StoreStateRequest;
 
 public class StoreStateRequestWorkItemHandler implements WorkItemHandler {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StoreStateRequestWorkItemHandler.class);
 	public static final String COUNT_PARAMETER = "Count";
 	public static final String PRODUCT_PARAMETER = "Product";
 	private static final String STORES_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-store-binding/state";
@@ -41,12 +44,15 @@ public class StoreStateRequestWorkItemHandler implements WorkItemHandler {
 		int count = (Integer) workItem.getParameter(COUNT_PARAMETER);
 		String assertion = (String) workItem
 				.getParameter(AuthenticateWorkItemHandler.ASSERTION_PARAMETER);
+		LOGGER.info("Trying to get store for {} items of {}", count, product);
+		LOGGER.info("Saml assertion is " +assertion);
 		try {
 			IStoreState storeState = prepareStoreStateServiceClient(assertion);
 			StoreStateRequest request = new StoreStateRequest();
 			request.setCount(count);
 			request.setProductName(product);
 			Store store = storeState.getStore(request);
+			LOGGER.info("Obtained store {}", store);
 			Map<String, Object> results = new HashMap<String, Object>();
 			results.put(LOCATION_PARAMETER, store.getLocation());
 			results.put(SERVICE_URL_PARAMETER, store.getServiceUrl());

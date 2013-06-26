@@ -114,7 +114,7 @@ public class ProcessMain {
 		values.put("user", "magister");
 		values.put("password", "inzynier");
 		values.put("product", "woda");
-		values.put("count", 5);
+		values.put("count", 3);
 		values.put("invoiceRequested", true);
 		ksession.startProcess("pl.edu.agh.security.bpmn.order", values);
 	}
