@@ -45,6 +45,7 @@
 				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes="saml.*"/>
 				<rest:interfaces>pl.edu.agh.security.esb.delivery.IDeliveryService</rest:interfaces>
 				<rest:contextPath>rest-delivery-binding</rest:contextPath>
+				<swyd:operationSelector operationName="registerDelivery" xmlns:swyd="urn:switchyard-config:switchyard:1.0"/>
 			</rest:binding.rest>
 		</sca:service>
 		
@@ -53,7 +54,8 @@
 				<rest:contextMapper class="pl.edu.agh.security.esb.context.mappers.RESTInScopeHeadersMapper" includes="saml.*"/>
 		        <rest:interfaces>pl.edu.agh.security.esb.delivery.IDeliveryService</rest:interfaces> 
 		        <rest:address>http://delivery.security.agh.edu.pl:8080</rest:address>
-		        <rest:contextPath>delivery-service</rest:contextPath>
+		        <rest:contextPath>delivery-service/rest</rest:contextPath>
+		        <swyd:operationSelector operationName="registerDelivery" xmlns:swyd="urn:switchyard-config:switchyard:1.0"/>
 		    </rest:binding.rest>
 		</sca:reference>
 

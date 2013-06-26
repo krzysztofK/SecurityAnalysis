@@ -19,14 +19,4 @@ public interface IDeliveryService {
     @Produces({ "text/plain" })
     @RolesAllowed({ "magister", "doktor" })
     public Integer registerDelivery(DeliveryRequest request);
-	
-	@GET
-    @Path("/delivery/{id}")
-    @Produces({ "application/xml" })
-    @RolesAllowed({ "magister", "doktor" })
-    public DeliveryRequest receiveDeliveryRequest(@PathParam("id") Integer id);
-	
-	@GET
-    @Path("/smoketest/{param}")
-    public Response printMessage(@PathParam("param") String msg);
 }
