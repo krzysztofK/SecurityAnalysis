@@ -3,11 +3,60 @@
 
 %---------------------------------------------------------------------------
 
+W ramach projektu przeprowadzono analizę wykorzystania mechanizmów wprowadzonych przez koncepcję systemów zarządzania tożsamościami dla różnych typów zastosowań. W tym celu zaimplementowane zostały przykładowe aplikacje. Jako specyfikację realizującą założenia systemów zarządzania tożsamościami wybrano standard SAML. Punktem wyjścia dla projektu było wdrożenie koncepcji jednokrotnego uwierzytelniania dla aplikacji webowych. Następnym krokiem było rozszerzenie mechanizmów uwierzytelniania opartych o protokół SAML na serwisy webowe. Opracowano aplikacje dostarczające usługi sieciowe przy użyciu różnych standardów(SAML, REST) wykorzystując protokół SAML jako mechanizm uwierzytelniania. 
+
+Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorientowanej na usługi zostało przeanalizowane na przykładzie prototypu systemu dokonywania zamówień w sklepie internetowym. Zaimplementowane zostały serwisy obsługujące różne etapy dokonywania zamówienia - sprawdzanie dostępności produktu, zlecenie przygotowania towaru do wydania, zlecanie dostawy, rejestracja transakcji w serwisie księgowym. Usługi dostarczane są przy pomocy różnych standardów. Wprowadzono również dodatkową warstwę pośredniczącą w dostępie do serwisów - magistralę usług. Opracowano także model procesu biznesowego opisujący przebieg dokonywania zamówienia przy użyciu dostępnych usług. 
+
 \section{Podział na komponenty}
 \label{sec:komponenty}
 
-Podział na komponenty
+	\subsection{Komponenty architektury aplikacji webowych z mechanizmem jednokrotnego uwierzytelniania}
 
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/samlWeb.jpg}
+			\caption{Jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}
+			\label{webSSO}
+		\end{figure}
+
+		Podstawowym elementem pozwalającym na realizację procedury jednokrotnego uwierzytelniania dla aplikacji webowych jest usługa ,,Identity Provider''. Usługa odpowiada za uwierzytelnianie klientów oraz dostarcza tożsamości użytkowników do zaufanych aplikacji. IDP wykorzystuje usługę katalogową LDAP jako bazę tożsamości. Dostawcy usług weryfikują tożsamość klienta żądającego dostępu do zasobów. Gdy konieczne jest uwierzytelniania polegają na mechanizmach dostarczanych przez usługę IDP. Klient komunikuje się z usługa IDP w procesie uwierzytelniania przesyłając dane potwierdzające jego tożsamość.
+
+	\subsection{Komponenty systemu uwierzytelniania klientów usług webowych w oparciu o standard SAML}
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/samlWS.jpg}
+			\caption{Uwierzytelnianie klienta serwisu webowego z wykorzystaniem SAML}
+			\label{Uwierzytelnianie klienta serwisu webowego z wykorzystaniem SAML}
+		\end{figure}
+
+		Implementacja mechanizmu uwierzytelniania dla klientów usług webowych korzysta z rozwiązań wprowadzonych przez standard WS-Trust. W skład infrastruktury systemu wchodzi usługa ,,Security Token Service'' odpowiedzialna za uwierzytelnianie użytkowników i generowanie asercji SAML. Serwis korzysta z bazy użytkowników udostępnianej przez usługę katalogową LDAP. Dzięki serwisowi STS klient pozyskuje token bezpieczeństwa - asercję SAML, która może być przekazywana do usługi, do której użytkownik chce uzyskać dostęp. Klient dokonuje procesu uwierzytelniania jednokrotnie - raz pozyskana asercja może zostać wykorzystana wielokrotnie dla różnych usług w celu potwierdzenia tożsamości klienta. Mechanizm uwierzytelniania klienta i pozyskiwania asercji korzysta ze specyfikacji WS-Security - użytkownik przekazuje do usługi STS swoje dane uwierzytelniające(identyfikator i hasło); gdy dane są poprawne usługa zwraca token bezpieczeństwa. Otrzymana asercja przekazywana jest w nagłówku SOAP lub HTTP(dla usług typu REST) do wywoływanych serwisów.
+
+		Udostępniając usługi webowe, których zasoby powinny być chronione należy zagwarantować skuteczność kontroli dostępu do serwisu. Żaden nieuwierzytelniony lub nieuprawniony użytkownik nie powinien uzyskać praw dostępu, do któregokolwiek z zasobów. Jednym z rozwiązań tego problemu jest centralizacja punktu uwierzytelniania i autoryzacji klientów serwisów - obsługa każdego otrzymanego żądanie użytkownika powinna rozpoczynać się od weryfikacji uprawnień klienta do pozyskiwanych zasobów. Rozwiązanie tego typu opisywane jest przez wzorzec ,,Message Interceptor Gateway''. 
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/interceptorGateway.jpg}
+			\caption{Zastosowanie wzorca ,,Message Interceptor Gateway'' w procesie uwierzytelniania klienta serwisu webowego}
+			\label{Zastosowanie wzorca ,,Message Interceptor Gateway'' w procesie uwierzytelniania klienta serwisu webowego}
+		\end{figure}
+
+		Zastosowanie wzorca wprowadza do systemu pojedynczy punkt weryfikacji uprawnień klienta do żądanych zasobów. Gwarantuje w ten sposób, że wszystkie zasoby w ramach jednej domeny będą odpowiednio chronione i każde żądanie użytkownika usługi przejdzie tą samą ścieżkę weryfikacji uprawnień przed przyznaniem prawa dostępu do funkcjonalności usługi. Obsługa żądań klientów rozpoczyna się od uwierzytelnienia klienta. Uwierzytelnianie odbywa się na podstawie asercji SAML przesyłanej w nagłówku wiadomości. Otrzymana asercja jest weryfikowana przy użyciu usługi ,,Security Token Service''. Dzięki asercji uznanej w procesie weryfikacji za poprawną możliwe jest dostęp do informacji o użytkowniku, np. jego nazwy oraz ról do jakich jest przypisany. Żądanie uwierzytelnionego użytkownika poddawane jest kolejnej weryfikacji w module autoryzacji. Moduł sprawdza, czy dany klient jest uprawniony do korzystania z usługi, do której chce uzyskać dostęp. W zaproponowanych rozwiązaniach wykorzystywany jest model autoryzacji RBAC(Role Based Access Control). Prawa dostępu weryfikowane są na podstawie przynależności użytkownika do określonej roli. Gdy moduł autoryzacji potwierdza uprawnienia klienta do usługi, udostępniane są mu zasoby serwisu.
+
+	\subsection{Uwierzytelnianie klientów usług webowych przy użyciu asercji SAML w architekturze SOA}
+
+
+		Zastosowanie koncepcji systemów zarządzania tożsamościami w architekturze zorientowanej na usługi przedstawione zostało na przykładzie prostego systemu obsługi zamówień sklepu internetowego. Opracowane zostały różne usługi realizujące poszczególne etapy dokonywania zamówienia. Serwisy zaimplementowane zostały przy użyciu różnych standardów dostarczania usług webowych(REST i SOAP). Wykorzystują schemat przebiegu procesu uwierzytelniania opisany w rozdziale ,,Komponenty systemu uwierzytelniania klientów usług webowych w oparciu o standard SAML'' niniejszej pracy. Proces uwierzytelniania oparty jest na mechanizmach opisanych standardem WS-Trust - wykorzystuje usługę ,,Security Token Service''. Proces zamówienia realizowany jest przez usługi odpowiedzialne za sprawdzanie stanu magazynu, zlecenie dostawy towaru, zlecenie wydania towaru  oraz rejestrację transakcji w serwisie księgowym. Usługi zlokalizowane są w różnych domenach. Uwierzytelnianie klientów usług opiera się na otrzymywanych asercjach SAML i wykorzystuje mechanizm weryfikacji tokenów bezpieczeństwa dostarczany przez usługę STS. 
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/esbAndSAML.jpg}
+			\caption{Udział magistrali ESB w procesie wywołań usług z mechanizmami uwierzytelniania opartymi o SAML}
+			\label{ESB i SAML}
+		\end{figure}
+
+		Do architektury proponowanego systemu wprowadzono dodatkową warstwę - magistralę usług(ESB). Magistrala usług pośredniczy w wywołaniach usług udostępnianych przez serwisy - otrzymuje wiadomości wraz z załączonymi tokenami bezpieczeństwa kierowane do przyłączonych serwisów. Magistrala dostosowuje otrzymywane wiadomości do formatu wykorzystywanego przez daną usługę. Zadania magistrali usług w kontekście obsługi tokenów bezpieczeństwa są ograniczone. Moduł ESB nie dokonuje analizy ani przetwarzania otrzymywanych asercji SAML. Jedynym zadaniem magistrali w procesie obsługi tokenów bezpieczeństwa jest dołączenie tokenu do nagłówka odpowiedniego typu dla danego formatu wiadomości akceptowanych przez usługę.
+		
 %---------------------------------------------------------------------------
 
 \section{Środowisko wdrożenia}
