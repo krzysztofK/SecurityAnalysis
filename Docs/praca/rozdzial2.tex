@@ -1,6 +1,15 @@
 \chapter{Analiza dziedziny problemu}
 \label{cha:analizaDziedzinyProblemu}
 
+{\it
+	Niniejszy rozdział stanowi wprowadzenie do problematyki analizowanej i omawianej w przedstawionej pracy. U podstaw pracy leżą zagadnienia związane z  systemami zarządzania tożsamościami. Jest to koncepcja opisująca mechanizmy systemów magazynowania, przetwarzania i wykorzystywania tożsamości użytkowników na różnych etapach obsługi klientów. Celem stawianym przed systemami tego typu jest zapewnienie bezpieczeństwa wymiany informacji a także zwiększenia zakresu funkcjonalności oferowanych użytkownikom. Rozdział zawiera definicję i opis funkcjonowania systemów zarządzania tożsamościami. Wprowadza również pojęcie federacji tożsamości - połączenie pomiędzy różnymi tożsamościami tego samego użytkownika. 
+
+	Rozdział porusza tematykę zastosowania mechanizmów jednokrotnego uwierzytelniania dla dostępu do różnych aplikacji. Opisuje architekturę najczęstszych rozwiązań wykorzystujących to podejście do przydzielania praw dostępu do zasobów systemów informatycznych. 
+
+	Niniejsza praca koncentruje się na analizie zastosowań koncepcji systemów zarządzania tożsamości w architekturze zorientowanej na usługi. Kluczowym elementem rozwiązań opartych o architekturę tego typu są serwisy - funkcjonalności udostępnianie  klientom, zamknięte w ramach dobrze zdefiniowanych interfejsów. Rozdział prezentuje elementy architektury zorientowanej na usługi, przedstawia strukturę powiązań i zależności pomiędzy nimi, opisuje sposób funkcjonowania systemów realizowanych w oparciu o architekturę tego typu. 
+
+}
+
 %---------------------------------------------------------------------------
 
 \section{Koncepcja cyfrowego zarządzania tożsamościami(IdM)}
@@ -78,7 +87,7 @@
 	
 	\subsection{Model architektury zorientowanej na usługi}
 	
-		Model SOA definiuje charakterystyczne elementy architektury - komponenty, usługi i przetwarzanie informacji pomiędzy nimi - realizujące określone procesy biznesowe. Model ma budowę warstwową. Definicja warstw modelu ma na celu bardziej precyzyjne odwzorowanie pomiędzy wymaganiami biznesowymi, modelowaniem funkcjonalności a realizacją konkretnych rozwiązań dla stawianych wymagań. Kluczową cecha charakterystyczną dla architektury SOA jest wyraźny rozdział pomiędzy interfejsem opisującym usługę a jej implementacją. Model architektury SOA umożliwia wydzielenie części odpowiedzialnych za poszczególne typy zadań oraz upraszcza proces projektowania i tworzenia aplikacji opartych o architekturę zorientowaną na usługi. 
+		Model SOA definiuje charakterystyczne elementy architektury - komponenty, usługi i przetwarzanie informacji pomiędzy nimi - realizujące określone procesy biznesowe. Model ma budowę warstwową. Definicja warstw modelu ma na celu bardziej precyzyjne odwzorowanie pomiędzy wymaganiami biznesowymi, modelowaniem funkcjonalności a realizacją konkretnych rozwiązań dla stawianych wymagań. Kluczową cecha charakterystyczną dla architektury SOA jest wyraźny rozdział pomiędzy interfejsem opisującym usługę a jej implementacją. Model architektury SOA umożliwia wydzielenie części odpowiedzialnych za poszczególne typy zadań oraz upraszcza proces projektowania i tworzenia aplikacji opartych o architekturę zorientowaną na usługi\cite{Arsanjani07}. 
 
 		Model architektury SOA składa się z dwóch typów warstw. Warstwy oznaczone na rysunku przy pomocy bloków poziomowych ilustrują cechy funkcjonalne rozwiązań architektury SOA. Bloki pionowe przedstawiają cechy niefunkcjonalne odnoszące się do warstw funkcjonalnych. Model wprowadza rozgraniczenie pomiędzy dostawcami oraz konsumentami usług. Model zakłada powiązanie relacjami biznesowymi pomiędzy obydwoma grupami. Wyraźne rozdzielenie pomiędzy dostawcami i konsumentami usług pozwala określić kompetencje i wymagania stawiane obydwu rolom w architekturze SOA. Do warstw przypisywanych dostawcom usług należą niższe warstwy modelu - serwisów, komponentów oraz warstwa operacyjna. Wyższe warstwy - serwisów, procesów biznesowych oraz konsumentów - przypisane są konsumentom usług. 
 
@@ -87,7 +96,7 @@
 		\subsubsection{Warstwy funkcjonalne modelu architektury SOA}
 
 
-			Warstwa operacji obejmuje wszelkie aplikacje uruchamiane w środowisku architektury SOA, wspierające funkcje biznesowe systemu. W tej warstwie włączane są istniejące aplikacje, których zastosowanie pomaga w realizacji celów stawianych systemowi. Pozwala to na wielokrotne wykorzystanie opracowywanych rozwiązań. 
+			Warstwa operacji obejmuje wszelkie aplikacje uruchamiane w środowisku architektury SOA, wspierające funkcje biznesowe systemu. W tej warstwie włączane są istniejące aplikacje, których zastosowanie pomaga w realizacji celów stawianych systemowi. Pozwala to na wielokrotne wykorzystanie opracowywanych rozwiązań\cite{Arsanjani07}. 
 
 			Warstwa komponentów serwisowych składa się z elementów dostarczających realizacji usług. Komponenty serwisów zawierają definicję cech funkcjonalnych i niefunkcjonalnych udostępnianych usług. Komponenty dostosowują kontrakt usług opisany w warstwie serwisów do wykorzystanych w systemie mechanizmów realizacji i implementacji funkcjonalności. Zadaniem komponentów jest spełnienie wymagań dotyczących jakości usług. Zwiększają elastyczność procesu realizacji wymagań biznesowych poprzez umożliwienie łatwego komponowania usług realizujących wymagane funkcjonalności. Ułatwiają techniczne aspekty dostarczania serwisów poprzez rozdzielenie interfejsu usług od mechanizmów implementacyjnych.
 
@@ -99,7 +108,7 @@
 
 		\subsubsection{Warstwy niefunkcjonalne modelu architektury SOA}
 
-			Funkcjonowanie rozwiązań w oparciu o architekturę SOA jest w dużej mierze możliwe dzięki mechanizmom zdefiniowanym w warstwie integracji. Warstwa ta umożliwia kierowanie i transport żądań klientów usług do odpowiednich dostawców serwisów. Pozwala na integrację pomiędzy różnymi usługami poprzez zastosowanie mechanizmów komunikacji punkt-punkt oraz bardziej zaawansowanych technik sterowania ruchem komunikatów(ang. \textit{routowania}) i transformowania zawartości wiadomości. Warstwa odpowiada głównie za integrację działania warstw komponentów, serwisów oraz procesów biznesowych. Definiuje standardy rozdzielenie pomiędzy dostawcami i konsumentami usług(np. poprzez wprowadzenie warstwy pośredniczącej - magistrali usług ESB).
+			Funkcjonowanie rozwiązań w oparciu o architekturę SOA jest w dużej mierze możliwe dzięki mechanizmom zdefiniowanym w warstwie integracji. Warstwa ta umożliwia kierowanie i transport żądań klientów usług do odpowiednich dostawców serwisów. Pozwala na integrację pomiędzy różnymi usługami poprzez zastosowanie mechanizmów komunikacji punkt-punkt oraz bardziej zaawansowanych technik sterowania ruchem komunikatów(ang. \textit{routowania}) i transformowania zawartości wiadomości. Warstwa odpowiada głównie za integrację działania warstw komponentów, serwisów oraz procesów biznesowych. Definiuje standardy rozdzielenie pomiędzy dostawcami i konsumentami usług(np. poprzez wprowadzenie warstwy pośredniczącej - magistrali usług ESB)\cite{Arsanjani07}.
 
 			Warstwa gwarantowania jakości dostarczania usług odpowiada za realizację wymagań niefunkcjonalnych stawianych systemowi. W zakres odpowiedzialności przypisanych tej warstwie wchodzą monitorowanie i logowanie parametrów jakości udostępniania usług oraz sygnalizowanie przypadków niezgodności aktualny parametrów opisu jakości z wymaganiami stawianymi systemowi opartemu o architekturę SOA. Dostarcza metody zapewniania jakości usług w kontekście wiarygodności, dostępności, łatwości zarządzania, skalowalności i bezpieczeństwa. 
 
