@@ -1,7 +1,15 @@
 \chapter{Opis implementacji}
 \label{cha:implementacja}
 
-Zgodnie z opisanymi w poprzednim rozdziale pracy założeniami architektury dla proponowanych rozwiązań zaimplementowano przykładowe aplikacje prezentujące wykorzystanie koncepcji systemów zarządzania tożsamościami przy użyciu specyfikacji SAML. Najbardziej podstawowym spośród zrealizowanych scenariuszy było zastosowanie asercji SAML w procesie uwierzytelniania klientów aplikacji webowych - udostępnianych poprzez przeglądarkę internetową. Implementacja tego przypadku była punktem wyjścia dla wdrożenia koncepcji zarządzania tożsamościami dla systemów w architekturze zorientowanej na usługi. Opracowane zostały aplikacje wykorzystujące standard SAML w procesie uwierzytelniania klientów usług webowych(przy użyciu standardów SOAP i REST). Zaimplementowano usługi realizujące poszczególne etapy procesu dokonywania zamówienia w sklepie internetowym. Usługi zostały wykorzystane jako przykład zastosowania mechanizmów SAML w architekturze SOA. Wprowadzona została warstwa pośrednicząca pomiędzy wywołaniami klienta a dostarczanymi serwisami - magistrala usług ESB. Zastosowano również narzędzia modelowania procesów biznesowych w celu skomponowania procesu realizacji zamówienia przy użyciu dostępnych usług z wykorzystaniem uwierzytelniania opartego o tokeny bezpieczeństwa SAML. 
+{\it
+
+Zgodnie z założeniami architektury dla proponowanych rozwiązań i przy wykorzystaniu technologii opisanych w poprzednich rozdziałach niniejszej pracy zaimplementowano przykładowe aplikacje prezentujące wykorzystanie koncepcji systemów zarządzania tożsamościami przy użyciu specyfikacji SAML. Najbardziej podstawowym spośród zrealizowanych scenariuszy było zastosowanie asercji SAML w procesie uwierzytelniania klientów aplikacji webowych - udostępnianych poprzez przeglądarkę internetową. Główną rolę w proponowanym rozwiązaniu odgrywa moduł ,,Identity Provider'' odpowiedzialny za procesy uwierzytelniania użytkowników aplikacji.
+
+Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji webowych przy użyciu standardu SAML była punktem wyjścia dla wdrożenia koncepcji zarządzania tożsamościami dla systemów w architekturze zorientowanej na usługi. Opracowane zostały aplikacje wykorzystujące standard SAML w procesie uwierzytelniania klientów usług webowych(przy użyciu standardów SOAP i REST). Realizacja tych mechanizmów wykorzystuje model architektury uwierzytelniania klientów serwisów webowych opisany w niniejszej  pracy. Zaimplementowano usługi realizujące poszczególne etapy procesu dokonywania zamówienia w sklepie internetowym. Usługi zostały wykorzystane jako przykład zastosowania mechanizmów SAML w architekturze SOA. Wprowadzona została warstwa pośrednicząca pomiędzy wywołaniami klienta a dostarczanymi serwisami - magistrala usług ESB. Zastosowano również narzędzia modelowania procesów biznesowych w celu skomponowania procesu realizacji zamówienia przy użyciu dostępnych usług z wykorzystaniem uwierzytelniania opartego o tokeny bezpieczeństwa SAML. 
+
+}
+
+%---------------------------------------------------------------------------
 
 \section{Implementacja mechanizmu jednokrotnego uwierzytelniania klientów aplikacji webowych}
 
