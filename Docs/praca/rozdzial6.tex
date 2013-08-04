@@ -1,7 +1,15 @@
 \chapter{Opis implementacji}
 \label{cha:implementacja}
 
-Zgodnie z opisanymi w poprzednim rozdziale pracy założeniami architektury dla proponowanych rozwiązań zaimplementowano przykładowe aplikacje prezentujące wykorzystanie koncepcji systemów zarządzania tożsamościami przy użyciu specyfikacji SAML. Najbardziej podstawowym spośród zrealizowanych scenariuszy było zastosowanie asercji SAML w procesie uwierzytelniania klientów aplikacji webowych - udostępnianych poprzez przeglądarkę internetową. Implementacja tego przypadku była punktem wyjścia dla wdrożenia koncepcji zarządzania tożsamościami dla systemów w architekturze zorientowanej na usługi. Opracowane zostały aplikacje wykorzystujące standard SAML w procesie uwierzytelniania klientów usług webowych(przy użyciu standardów SOAP i REST). Zaimplementowano usługi realizujące poszczególne etapy procesu dokonywania zamówienia w sklepie internetowym. Usługi zostały wykorzystane jako przykład zastosowania mechanizmów SAML w architekturze SOA. Wprowadzona została warstwa pośrednicząca pomiędzy wywołaniami klienta a dostarczanymi serwisami - magistrala usług ESB. Zastosowano również narzędzia modelowania procesów biznesowych w celu skomponowania procesu realizacji zamówienia przy użyciu dostępnych usług z wykorzystaniem uwierzytelniania opartego o tokeny bezpieczeństwa SAML. 
+{\it
+
+Zgodnie z założeniami architektury dla proponowanych rozwiązań i przy wykorzystaniu technologii opisanych w poprzednich rozdziałach niniejszej pracy zaimplementowano przykładowe aplikacje prezentujące wykorzystanie koncepcji systemów zarządzania tożsamościami przy użyciu specyfikacji SAML. Najbardziej podstawowym spośród zrealizowanych scenariuszy było zastosowanie asercji SAML w procesie uwierzytelniania klientów aplikacji webowych - udostępnianych poprzez przeglądarkę internetową. Główną rolę w proponowanym rozwiązaniu odgrywa moduł ,,Identity Provider'' odpowiedzialny za procesy uwierzytelniania użytkowników aplikacji.
+
+Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji webowych przy użyciu standardu SAML była punktem wyjścia dla wdrożenia koncepcji zarządzania tożsamościami dla systemów w architekturze zorientowanej na usługi. Opracowane zostały aplikacje wykorzystujące standard SAML w procesie uwierzytelniania klientów usług webowych(przy użyciu standardów SOAP i REST). Realizacja tych mechanizmów wykorzystuje model architektury uwierzytelniania klientów serwisów webowych opisany w niniejszej  pracy. Zaimplementowano usługi realizujące poszczególne etapy procesu dokonywania zamówienia w sklepie internetowym. Usługi zostały wykorzystane jako przykład zastosowania mechanizmów SAML w architekturze SOA. Wprowadzona została warstwa pośrednicząca pomiędzy wywołaniami klienta a dostarczanymi serwisami - magistrala usług ESB. Zastosowano również narzędzia modelowania procesów biznesowych w celu skomponowania procesu realizacji zamówienia przy użyciu dostępnych usług z wykorzystaniem uwierzytelniania opartego o tokeny bezpieczeństwa SAML. 
+
+}
+
+%---------------------------------------------------------------------------
 
 \section{Implementacja mechanizmu jednokrotnego uwierzytelniania klientów aplikacji webowych}
 
@@ -16,7 +24,26 @@ Zgodnie z opisanymi w poprzednim rozdziale pracy założeniami architektury dla 
 		
 	Kiedy użytkownik chce uzyskać dostęp do zasobów, usługa sprawdza czy klient jest uwierzytelniony. Jeśli nie jest uwierzytelniony następuje przekierowanie do usługi ,,Identity Provider''. Klient podaje swoje dane uwierzytelniające a IDP weryfikuje ich poprawność. Gdy dane są prawidłowe generowana jest asercja SAML i następuje przekierowanie do usługi. Usługa weryfikuje otrzymaną asercję i przydziela lub odmawia prawa dostępu do zasobu. Gdy klient chce uzyskać dostęp do zasobów innej aplikacji nie musi ponownie podawać swoich danych uwierzytelniających, usługa IDP nie dokonuje ponownie procesu uwierzytelniania w usłudze katalogowej LDAP.
 
-\section{Implementacja modułu magistrali usług}
+%---------------------------------------------------------------------------
+
+\section{Implementacja mechanizmu uwierzytelniania klientów usług webowych}
+
+	Implementacja mechanizmów uwierzytelniania klientów usług sieciowych oparta jest na modelu systemu prezentowanym w rozdziale opisującym architekturę dla proponowanych rozwiązań. Zaimplementowane zostały usługi różnych standardów(SOAP i REST) wykorzystujące asercję SAML w procesie uwierzytelniania swoich klientów. Zgodnie z zaproponowanym modelem w systemie istnieje usługa ,,Security Token Service'' odpowiedzialna za przydzielanie tokenów bezpieczeństwa użytkownikom. Otrzymany token bezpieczeństwa dołączany jest do żądania przesyłanego do serwisu. Przed przyznaniem dostępu do żądanych funkcjonalności treść wiadomości przechwytywana jest przez mechanizm specyficzny dla danego typu serwisu. Dla usług opartych o standard SOAP są to mechanizmy typu \textit{,,Handler''}. Dla usług dostarczanych w standardzie REST jest to mechanizm typu \textit{,,Interceptor''} dostarczany przez bibliotekę RESTEasy - implementację technologi dostarczania usług sieciowych typu REST. Mechanizmy dostarczane przez RESTEasy grupują \textit{interceptory} na klasy o różnych priorytetach. Klasą o najwyższym priorytecie(której metody wykonywane są najwcześniej) są \textit{interceptory} bezpieczeństwa. Dzięki zastosowaniu tej grupy możliwa jest realizacja wymagania przeprowadzenia procesu uwierzytelniania klienta na samym początku przetwarzania jego żądania i uniemożliwienia dostępu do jakichkolwiek zasobów dla nieuwierzytelnionych użytkowników.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics{img/interceptorGatewayImplementation.jpg}
+		\caption{Uwierzytelnianie klientów usług webowych przy użyciu asercji SAML}
+		\label{interceptorGatewayImplementation}
+	\end{figure}
+
+	Przechwycona wiadomość poddawana jest procesom wstępnej analizy. Między innymi wydobywana jest asercja SAML i przy jej wykorzystaniu wykonywany jest proces uwierzytelniania użytkownika. W trakcie uwierzytelniania asercja przesyłana jest do usługi "Security Token Service" w celu weryfikacji jej poprawności. Po poprawnym uwierzytelnieniu klienta usługi następuje proces autoryzacji - dostęp do zasobów przyznawany jest na podstawie wiadomości o przynależności do określonych grup użytkowników. Wiadomość o grupach klienta zawarta jest w asercji SAML. 
+
+%---------------------------------------------------------------------------
+
+\section{Implementacja mechanizmów bezpieczeństwa w architekturze zorientowanej na usługi}
+
+\subsection{Implementacja modułu magistrali usług}
 
 	Implementacja mechanizmu magistrali usług wykorzystuje framework ,,Switchyard''. Przy pomocy narzędzi ,,Switchyard'' konfigurowane są punkty końcowe, na których nasłuchiwane są nadchodzące komunikaty. Przetwarzanie otrzymanych wiadomości realizowane jest przy użyciu narzędzi ,,Camel''. ,,Camel'' dostarcza mechanizmy zarządzania ścieżką jaką kierowane są wiadomości  oraz implementuje wzorce EIP(\textit{Enterprise Integration Patterns}). Implementacja mechanizmu przetwarzania wiadomości magistrali usług przedstawiona zostanie na przykładzie wywołań serwisów webowych dostarczanych przy użyciu technologii SOAP(rysunek \textit{,,Implementacja przetwarzania wiadomości przez magistralę usług''}).
 

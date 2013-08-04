@@ -1,6 +1,16 @@
 \chapter{Przegląd dostępnych rozwiązań}
 \label{cha:przegladRozwiazan}
 
+{\it
+
+	Istnieje szereg dostępnych rozwiązań implementujących mechanizmy gwarantowania bezpieczeństwa dostępu do aplikacji. Z perspektywy pracy najbardziej interesującymi przykładami rozwiązań tego typu są standardy realizujące założenia systemów zarządzania tożsamościami. Niniejszy rozdział przedstawia najbardziej popularne specyfikacje oparte o koncepcje zarządzania tożsamościami - SAML, OpenID oraz Liberty Identity Web Services Framework. Najbardziej istotnym z punktu widzenia pracy standardem jest oparta o język XML specyfikacja SAML. SAML pozwala na wymianę informacji o tożsamości użytkowników pomiędzy komponentami systemu informatycznego oraz definiuje przebieg procesów komunikacji wykonywanych w celu potwierdzenia tożsamości klientów aplikacji. Określa również format wymienianych wiadomości. 
+
+	W wielu systemach rozproszonych wykorzystywane są mechanizmy uwierzytelniania i autoryzacji oparte o koncepcje różne niż systemy zarządzania tożsamościami. Jednym z popularnie stosowanych standardów jest protokół Kerberos. System Kerberos realizuje mechanizmy jednokrotnego uwierzytelniania użytkowników aplikacji poprzez wprowadzenie koncepcji biletów ogólnego przeznaczenia, dzięki którym przyznawane są bilety dedykowane konkretnym usługom żądanym przez użytkownika.
+
+	Opracowano również szereg standardów ukierunkowanych na zapewnienie dostępu do bezpieczeństwa do usług webowych opartych o protokół SOAP. Wśród nich wymienić można - WS-Security(definiujący mechanizmy uwierzytelniania oraz sposoby gwarantowania poufności i integralności przesyłania komunikatów), WS-Trust(określający mechanizmy wymiany informacji o tożsamościach pomiędzy różnorodnymi usługami) oraz WS-Federation(umożliwiający współdzielenie tożsamości użytkowników pomiędzy różnymi domenami bezpieczeństwa). Innym powszechnie stosowanym standardem w kontekście zapewniania bezpieczeństwa dostępu do aplikacji jest specyfikacja OAuth - definiująca mechanizmy autoryzacji realizowane przy użyciu protokołu HTTP. 
+
+}
+
 %---------------------------------------------------------------------------
 
 \section{Najpopularniejsze standardy IdM}
