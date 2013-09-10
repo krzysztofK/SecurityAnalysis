@@ -87,8 +87,15 @@
 	
 	\subsection{Model architektury zorientowanej na usługi}
 	
-		Model SOA definiuje charakterystyczne elementy architektury - komponenty, usługi i przetwarzanie informacji pomiędzy nimi - realizujące określone procesy biznesowe. Model ma budowę warstwową. Definicja warstw modelu ma na celu bardziej precyzyjne odwzorowanie pomiędzy wymaganiami biznesowymi, modelowaniem funkcjonalności a realizacją konkretnych rozwiązań dla stawianych wymagań. Kluczową cecha charakterystyczną dla architektury SOA jest wyraźny rozdział pomiędzy interfejsem opisującym usługę a jej implementacją. Model architektury SOA umożliwia wydzielenie części odpowiedzialnych za poszczególne typy zadań oraz upraszcza proces projektowania i tworzenia aplikacji opartych o architekturę zorientowaną na usługi\cite{Arsanjani07}. 
+		Model SOA definiuje charakterystyczne elementy architektury - komponenty, usługi i przetwarzanie informacji pomiędzy nimi - realizujące określone procesy biznesowe. Model ma budowę warstwową. Definicja warstw modelu ma na celu bardziej precyzyjne odwzorowanie pomiędzy wymaganiami biznesowymi, modelowaniem funkcjonalności a realizacją konkretnych rozwiązań dla stawianych wymagań. Kluczową cechą charakterystyczną dla architektury SOA jest wyraźny rozdział pomiędzy interfejsem opisującym usługę a jej implementacją. Model architektury SOA umożliwia wydzielenie części odpowiedzialnych za poszczególne typy zadań oraz upraszcza proces projektowania i tworzenia aplikacji opartych o architekturę zorientowaną na usługi\cite{Arsanjani07}. 
 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=15cm]{img/s3.jpg}
+			\caption{Warstwy modelu architektury zorientowanej na usługi, źródło - \textit{http://www.ibm.com/developerworks/library/ar-archtemp/}}
+			\label{soaModel}
+		\end{figure}
+		
 		Model architektury SOA składa się z dwóch typów warstw. Warstwy oznaczone na rysunku przy pomocy bloków poziomowych ilustrują cechy funkcjonalne rozwiązań architektury SOA. Bloki pionowe przedstawiają cechy niefunkcjonalne odnoszące się do warstw funkcjonalnych. Model wprowadza rozgraniczenie pomiędzy dostawcami oraz konsumentami usług. Model zakłada powiązanie relacjami biznesowymi pomiędzy obydwoma grupami. Wyraźne rozdzielenie pomiędzy dostawcami i konsumentami usług pozwala określić kompetencje i wymagania stawiane obydwu rolom w architekturze SOA. Do warstw przypisywanych dostawcom usług należą niższe warstwy modelu - serwisów, komponentów oraz warstwa operacyjna. Wyższe warstwy - serwisów, procesów biznesowych oraz konsumentów - przypisane są konsumentom usług. 
 
 		Cele stawiane tworzonej architekturze SOA wyznaczane są przez zestaw wymagań funkcjonalnych i niefunkcjonalnych stawianych systemom. Wśród wymagań niefunkcjonalnych, jakie uwzględniane są w opisie architektury SOA można wyróżnić - bezpieczeństwo, dostępność, wiarygodność, łatwość zarządzania, skalowalność oraz wymagania dotyczące wydajności dostarczanych rozwiązań. Wymagania realizowane są poprzez udostępniane serwisy.Realizacja wymagań może być osiągnięta poprzez funkcjonowanie jednej warstwy modelu architektury SOA lub poprzez połączenie działania wielu warstw. Kluczowym aspektem implementacji rozwiązań opartych o architekturę SOA jest identyfikacja wymagań stawianych systemowi i odzwierciedlenie tych wymagań na poszczególne warstwy modelu aplikacji. 
