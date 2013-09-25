@@ -39,7 +39,10 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 		\label{interceptorGatewayImplementation}
 	\end{figure}
 
-	Przechwycona wiadomość poddawana jest procesom wstępnej analizy. Między innymi wydobywana jest asercja SAML i przy jej wykorzystaniu wykonywany jest proces uwierzytelniania użytkownika. W trakcie uwierzytelniania asercja przesyłana jest do usługi "Security Token Service" w celu weryfikacji jej poprawności. Po poprawnym uwierzytelnieniu klienta usługi następuje proces autoryzacji - dostęp do zasobów przyznawany jest na podstawie wiadomości o przynależności do określonych grup użytkowników. Wiadomość o grupach klienta zawarta jest w asercji SAML. 
+	Przechwycona wiadomość poddawana jest procesom wstępnej analizy. Między innymi wydobywana jest asercja SAML i przy jej wykorzystaniu wykonywany jest proces uwierzytelniania użytkownika. W trakcie uwierzytelniania asercja przesyłana jest do usługi "Security Token Service" w celu weryfikacji jej poprawności. Po poprawnym uwierzytelnieniu klienta usługi następuje proces autoryzacji - dostęp do zasobów przyznawany jest na podstawie wiadomości o przynależności do określonych grup użytkowników. Wiadomość o grupach klienta zawarta jest w asercji SAML.
+
+	W oparciu o przedstawiony schemat zaimplementowane zostały przykładowe usługi dostarczające funkcjonalności poszczególnych etapów realizacji zamówienia w sklepie internetowym. Opracowano serwisy umożliwiające sprawdzanie stanu magazynu, zlecenie dostawy, obsługę wydawania towarów oraz rejestrację transakcji w serwisie finansowym. Zaimplementowane usługi wykorzystują różne standardy dostarczania usług sieciowych - REST lub SOAP. 
+	
 
 %---------------------------------------------------------------------------
 
