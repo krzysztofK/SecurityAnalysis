@@ -63,15 +63,16 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 	Dostęp do serwisów obsługujących poszczególne etapy realizacji zamówienia w przykładowym systemie sklepu internetowego odbywa się za pośrednictwem mechanizmu magistrali usług zaimplementowanego zgodnie z opisanym schematem. 
 	
-\subsection{Zastosowanie narzędzi modelowania procesów biznesowych}	
+	\subsection{Zastosowanie narzędzi modelowania procesów biznesowych}
 
-	Serwisy udostępniane poprzez moduł magistrali usług dostarczają funkcjonalności realizujących poszczególne etapy przetwarzania zamówienia w sklepie internetowym. Każda z usług implementuje mechanizmy zabezpieczania dostępu do swoich funkcjonalności. Przy użyciu narzędzi  zarządzania procesami biznesowymi \textit{jBPM} opracowany został model procesu biznesowego wykorzystujący usługi udostępnianie poprzez moduł magistrali \textit{ESB} w celu realizacji zamówienia w sklepie internetowym. Model zakłada zastosowanie mechanizmów jednokrotnego uwierzytelniania z użyciem standardu \textit{SAML} w procesie uzyskiwania dostępu do usług poszczególnych serwisów realizujących kolejne etapy zamówienia. 
+	Serwisy udostępniane poprzez moduł magistrali usług dostarczają funkcjonalności realizujących poszczególne etapy przetwarzania zamówienia w sklepie internetowym. Przy użyciu narzędzi  zarządzania procesami biznesowymi \textit{jBPM} opracowany został model procesu biznesowego wykorzystujący usługi udostępnianie poprzez moduł magistrali \textit{ESB} w celu realizacji zamówienia w sklepie internetowym. Model zakłada zastosowanie mechanizmów jednokrotnego uwierzytelniania z użyciem standardu \textit{SAML} w procesie uzyskiwania dostępu do usług poszczególnych serwisów realizujących kolejne etapy zamówienia. 
 
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=17cm,height=4cm]{img/jbpm_order_process.png}
-		\caption{Zastosowanie narzędzie modelowania procesów biznesowych z wykorzystaniem mechanizmów jednokrotnego uwierzytelniania}
-		\label{jBPM process}
-	\end{figure}
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/jbpm_order_process.png}
+			\caption{Zastosowanie narzędzie modelowania procesów biznesowych z wykorzystaniem mechanizmów jednokrotnego uwierzytelniania}
+			\label{jBPM process}
+		\end{figure}
 
+	Punktem wejściowym przedstawionego modelu procesu biznesowego jest uwierzytelnienie klienta serwisu. W wyniku poprawnego przebiegu uwierzytelniania klient otrzymuje token bezpieczeństwa - asercję SAML. Uzyskana asercja wykorzystywana jest w procesie przyznawania dostępu do usług konkretnych serwisów odpowiadających za poszczególne etapy realizacji zamówienia. Zastosowanie asercji SAML i wykorzystanie modelu opisanego przez specyfikację WS-Trust pozwala na osiągnięcie funkcjonalności jednokrotnego uwierzytelniania klienta procesu biznesowego - token bezpieczeństwa pozyskany na etapie uwierzytelniania identyfikuje klienta aplikacji podczas korzystania z usług poszczególnych serwisów wchodzących w skład procesu.
 %---------------------------------------------------------------------------
