@@ -12,6 +12,29 @@
 
 %---------------------------------------------------------------------------
 
+\section{Podstawowe aspekty związane z bezpieczeństwem systemów informatycznych}
+\label{sec:aspektyBezpieczenstwa}
+
+Zagadnienie zapewnienia bezpieczeństwa w kontekście systemów komputerowych odnosi się do metod ochrony informacji zawartych w systemie informatycznym przed nieupoważnionym dostępem oraz metod gwarantowania poufności i integralności przetwarzanych danych. Dotyczy również problematyki zapewniania dostępności i wiarygodności funkcjonalności dostarczanych przez systemy informatyczne. Zadaniem stawianym przed mechanizmami zapewniania bezpieczeństwa systemów informatycznych jest minimalizacja prawdopodobieństwa naruszenia któregoś z czynników warunkujących poziom bezpieczeństwa systemu. 
+
+Istnieją 4 podstawowe metody zabezpieczania systemów informatycznych \cite{Russell91}:
+
+\begin{itemize}
+	\item Kontrola dostępu do systemu, której celem jest umożliwienie korzystania z zasobów systemu jedynie uwierzytelnionym i uprawnionym użytkownikom. W obrębie tej metody mieszczą się również funkcjonalności systemu wymuszające na użytkownikach zgodność z przyjętymi procedurami zwiększania bezpieczeństwa systemu. Obejmuje ona również działania związane z monitorowaniem zdarzeń w systemie - szczególnie tych związanych z pozyskiwaniem dostępu do zasobów systemu. 
+	\item Kontrola dostępu do danych - polegająca na definiowaniu uprawnień użytkowników do korzystania z informacji zawartych w systemie pod określonymi warunkami.
+	\item Administracja systemu i jego aspektów bezpieczeństwa - obejmuje działania administracyjne takie jak nadzór nad realizacja założeń przyjętej polityki bezpieczeństwa lub analizę zagrożeń bezpieczeństwa systemu i redukcję ryzyka wystąpienia tych zagrożeń. 
+	\item Uwzględnienie zagrożeń bezpieczeństwa systemu na etapie projektowania architektury aplikacji. 
+\end{itemize} 
+		
+\subsection{Kontrola dostępu do systemów informatycznych}
+
+	Podstawą kontroli dostępu do systemów informatycznych jest proces identyfikacji i uwierzytelniania użytkowników. W procesie tym klient aplikacji przedstawia swoją tożsamość oraz dowodzi jej. Istnieją różne typy potwierdzania tożsamości użytkowników aplikacji. Najbardziej popularnym sposobem jest weryfikacja wiedzy użytkownika dotyczącej jego atrybutów bezpieczeństwa(najbardziej powszechnie wykorzystywanym podejściem jest zastosowanie haseł). Inne podejście zakłada konieczność posiadania atrybutu potwierdzającego tożsamość użytkownika. Atrybutem tym może być klucz, identyfikator, karta(np. bankomatowa) czy token. Istnieją również metody oparte o cechy użytkownika np. odcisk palca, obraz siatkówki oka, głos, podpis. Cechy zgromadzone w systemie biometrycznym porównywane są z cechami uwierzytelnianego użytkownika i na tej podstawie przydzielane są prawa dostępu do systemu.
+
+	Potwierdzona tożsamość użytkownika aplikacji wykorzystywana jest w procesie określania jego uprawnień do poszczególnych zasobów systemu. Często systemy wykorzystują informacji o tożsamości użytkownika podczas logowania zdarzeń zachodzących w systemie. Najczęściej systemy przypisują użytkowników do grup określających uprawnienia swoich członków.
+
+%---------------------------------------------------------------------------
+
+
 \section{Koncepcja cyfrowego zarządzania tożsamościami(IdM)}
 \label{sec:konceptcjaIdM}
 
