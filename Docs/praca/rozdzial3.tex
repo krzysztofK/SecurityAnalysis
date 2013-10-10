@@ -110,7 +110,20 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 			
 \subsection{OpenID}
 
-OpenID
+	Standard \textit{OpenId} wykorzystuje podejście umożliwiające jednostkom dynamiczny wybór wykorzystywanej usługi typu textit{,,Identity Provide''}. Specyfikacja oparta jest na koncepcji reprezentowania tożsamości jednostek przy użyciu identyfikatora URI(ang. \textit{Universal Resource Indicator}, dzięki czemu tożsamość może być wykorzystywana w dowolnej aplikacji korzystającej z sieci internet. Specyfikacja OpenID definiuje np. mechanizmy uwierzytelniania, wymiany atrybutów tożsamości jednostek oraz rejestracji jednostek. Istnieje wiele podobieństw pomiędzy standardami \textit{OpenId} oraz SAML jednak głównym wyróżnikiem specyfikacji \textit{OpenId} jest funkcjonalność wyszukiwania i dynamicznego wyboru usługi typu \textit{IdP}. Specyfikacja SAML określa jedynie format opisu lokalizacji usługi \textit{IdP}. \textit{OpenId} jest znacznie prostszy niż standard SAML - korzysta z mniej złożonych informacji o transakcjach bezpieczeństwa. Specyfikacja \textit{OpenId} nie definiuje funkcjonalności federacji tożsamości\cite{Bertino11}.
+
+	\subsubsection{Uwierzytelnianie w standardzie OpenId}
+
+		Standard \textit{OpenId} definiuje sposób dostarczania wyników uwierzytelniania jednostek do serwisów korzystających z usług \textit{IdP}. Klienci korzystający z usług wykorzystują asercje opisujące procesy uwierzytelniania przeprowadzone przez usługę \textit{,,Identity Provider''}. Protokół uwzględnia możliwość wykorzystania protokołu Diffiego-Hellmana w celu zestawienia bezpiecznego kanału komunikacyjnego pomiędzy dostawcą usług a serwisem \textit{IdP}. Wynikiem procesu uwierzytelniania jest asercja określająca jedynie czy proces zakończył się powodzeniem czy błędem. 
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/OpenIdAuthentication.jpg}
+			\caption{Przebieg procesu uwierzytelniania w standardzie OpenId}
+			\label{OpenIdAuthentication}
+		\end{figure}
+
+		Klient przesyła żądanie dostarczenia usługi serwisu. Usługa wymaga uwierzytelnienia użytkownika - w tym celu przesyła żądanie dostarczenia identyfikatora \textit{OpenId} do klienta. Klient odpowiada przesyłając swój identyfikator. Serwis wyszukuje usługę \textit{IdP} na podstawie otrzymanego identyfikatora i przesyła do niej zapytanie o wynik procesu uwierzytelnienia. Usługa \textit{IdP} komunikuje się z klientem w celu przeprowadzenia procesu uwierzytelniania, generuje asercję zawierająca wynik oraz zwraca asercję do serwisu. Dostawca usług dokonuje weryfikacji otrzymanej asercji i na tej podstawie przyznaje klientowi dostęp do żądanych usług.
 
 \subsection{Liberty Identity Web Services Framework}
 
