@@ -125,6 +125,12 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 
 		Klient przesyła żądanie dostarczenia usługi serwisu. Usługa wymaga uwierzytelnienia użytkownika - w tym celu przesyła żądanie dostarczenia identyfikatora \textit{OpenId} do klienta. Klient odpowiada przesyłając swój identyfikator. Serwis wyszukuje usługę \textit{IdP} na podstawie otrzymanego identyfikatora i przesyła do niej zapytanie o wynik procesu uwierzytelnienia. Usługa \textit{IdP} komunikuje się z klientem w celu przeprowadzenia procesu uwierzytelniania, generuje asercję zawierająca wynik oraz zwraca asercję do serwisu. Dostawca usług dokonuje weryfikacji otrzymanej asercji i na tej podstawie przyznaje klientowi dostęp do żądanych usług.
 
+	\subsubsection{Pozostałe funkcjonalności definiowane standardem OpenId}
+
+		Standard \textit{OpenId} definiuje rozszerzenia umożliwiające wymianę atrybutów zawartych w asercjach pomiędzy serwisem \textit{IdP} a dostawcą usług. Dostępne są dwie metody wymiany atrybutów - pobieranie wartości atrybutu z usługi \textit{Identity Provider} oraz ustawienie wartości atrybutu.
+
+		Inne z rozszerzeń standardu \textit{OpenId} definiuje przebieg komunikacji pomiędzy serwisem \textit{Identity Provider} a dostawcą usług w celu dostarczenia informacji o politykach uwierzytelniania, które powinny być stosowane. Inne z rozszerzeń umożliwia dostawcom usług pobieranie atrybutów klienta od usługi \textit{IdP} za zgodą klienta.
+
 \subsection{Liberty Identity Web Services Framework}
 
 	Identity Web Services Framework(ID-WSF) to zbiór specyfikacji definiujących mechanizmy dla zapewnienia bezpieczeństwa serwisów webowych, pomiędzy którymi istnieją relacje zaufania(federacje)\cite{Oracle10}. ID-WSF określa podejście do zarządzania tożsamościami, w którym tożsamości jednostek zarządzane są przez różnych dostawców usług połączonych relacją federacji. Usługi webowe mogą wymieniać między sobą dane osobowe swoich użytkowników w celu dostarczenia funkcjonalności żądanej przez klienta usługi. Przykładem sytuacji, gdzie może być zastosowany ten model jest usługa potrzebująca dostarczenia danych adresowych swojego użytkownika. W tym celu może skorzystać z zasobów innej usługi 
