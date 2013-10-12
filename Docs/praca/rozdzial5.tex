@@ -13,10 +13,10 @@ Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picke
 
 %---------------------------------------------------------------------------
 
-\section{Mechanizmy bezpieczenstwa platformy Java SE}
+\autsection{Mechanizmy bezpieczeństwa platformy Java SE}{Krzysztof Wilaszek}
 \label{sec:javaSE}
 
-Mechanizmy bezpieczenstwa platformy Java SE
+	Architektura platformy Java zaprojektowana została z uwzględnieniem różnorodnych aspektów bezpieczeństwa aplikacji komputerowych. Najbardziej podstawowe mechanizmy bezpieczeństwa dotyczą poziomu języka programowania - można wśród nich wymienić bezpieczeństwo typów, mechanizm \textit{,,garbage collection''} czy też mechanizm bezpiecznego ładowania klas. Wraz z rozwojem platformy Java wprowadzano zmiany w architekturze bezpieczeństwa Javy wzbogacając funkcjonalności platformy o powszechnie wykorzystywane algorytmy, mechanizmy i protokoły. Należą do nich algorytmy kryptograficzne, interfejsy dla infrastruktury klucza publicznego, interfejsy uwierzytelniania i kontroli dostępu do zasobów aplikacji. Platforma Javy zapewnia niezależność aplikacji wykorzystujących API mechanizmów bezpieczeństwa od konkretnej, niejednokrotnie złożonej implementacji danego mechanizmu. Umożliwia również dostarczenie własnej realizacji dla różnych mechanizmów bezpieczeństwa. 
 
 %---------------------------------------------------------------------------
 
@@ -106,13 +106,6 @@ Mechanizmy bezpieczenstwa platformy Java EE
 			\item konfigurację mechanizmu audytów operacji w domenie bezpieczeństwa
 			\item konfigurację repozytorium certyfikatów bezpieczeństwa wykorzystywanych przez kontekst SSL lub przez procesy pozyskiwania i magazynowania certyfikatów.
 		\end{itemize}
-		
-%---------------------------------------------------------------------------
-
-\section{Security Assertion Markup Language}
-\label{sec:saml}
-
-Security Assertion Markup Language
 
 %---------------------------------------------------------------------------
 
