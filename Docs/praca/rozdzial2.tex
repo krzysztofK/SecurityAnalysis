@@ -12,7 +12,7 @@
 
 %---------------------------------------------------------------------------
 
-\section{Podstawowe aspekty związane z bezpieczeństwem systemów informatycznych}
+\autsection{Podstawowe aspekty związane z bezpieczeństwem systemów informatycznych}{Krzysztof Wilaszek}
 \label{sec:aspektyBezpieczenstwa}
 
 Zagadnienie zapewnienia bezpieczeństwa w kontekście systemów komputerowych odnosi się do metod ochrony informacji zawartych w systemie informatycznym przed nieupoważnionym dostępem oraz metod gwarantowania poufności i integralności przetwarzanych danych. Dotyczy również problematyki zapewniania dostępności i wiarygodności funkcjonalności dostarczanych przez systemy informatyczne. Zadaniem stawianym przed mechanizmami zapewniania bezpieczeństwa systemów informatycznych jest minimalizacja prawdopodobieństwa naruszenia któregoś z czynników warunkujących poziom bezpieczeństwa systemu. 
@@ -35,7 +35,7 @@ Istnieją 4 podstawowe metody zabezpieczania systemów informatycznych \cite{Rus
 %---------------------------------------------------------------------------
 
 
-\section{Koncepcja cyfrowego zarządzania tożsamościami(IdM)}
+\autsection{Koncepcja cyfrowego zarządzania tożsamościami(IdM)}{Krzysztof Wilaszek}
 \label{sec:konceptcjaIdM}
 
 	Zarządzanie tożsamościami(Identity Management) jest podejściem do zagadnienia zapewnienia bezpieczeństwa dostępu do aplikacji w oparciu o dane identyfikujące użytkownika(Identity). Pojęcie danych identyfikujących może być zdefiniowane jako ,,informacje o jednostce pozwalające na identyfikację tej jednostki dla pewnej dziedziny zastosowań''\cite{Itu09}. W kontekście systemów zarządzania cyfrowymi tożsamościami dane identyfikujące mogą dotyczyć nie tylko osób ale również na przykład komponentów programowych\cite{Bertino11}. Zgodnie z rekomendacją Y.2720 w skład danych identyfikujących wchodzą identyfikator jednostki, dane uwierzytelniające jednostkę oraz atrybuty opisujące jednostkę\cite{Itu09}.
@@ -79,7 +79,7 @@ Istnieją 4 podstawowe metody zabezpieczania systemów informatycznych \cite{Rus
 
 		Systemy zarządzania tożsamościami powinny obsługiwać zmiany atrybutów tożsamości. Powinny aktualizować informacje o danych jednostek po zmianach wysyłając powiadomienia do usług przechowujących te dane, np. ,,Identity Provider''. Identyfikatory jednostek nie powinny podlegać zmianom. Systemy IdM muszą również usuwać tożsamości jeśli nie są już aktualne.
 
-\section{Jednokrotne uwierzytelnianie}
+\autsection{Jednokrotne uwierzytelnianie}{Krzysztof Wilaszek}
 
 	Książka ,,Identity Management: Concepts, Technologies and Systems'' definiuje jednokrotne uwierzytelnianie(ang. Single Sign-On) jako proces uwierzytelniania, w którym jednostka może wykorzystać wynik pojedynczego uwierzytelniania dla uzyskania dostępu do wielu niezależnych usług z ochroną dostępu\cite{Bertino11}. 
 
@@ -99,7 +99,7 @@ Istnieją 4 podstawowe metody zabezpieczania systemów informatycznych \cite{Rus
 
 %---------------------------------------------------------------------------
 
-\section{Service-Oriented Architecture}
+\autsection{Service-Oriented Architecture}{Krzysztof Wilaszek}
 \label{sec:soa}
 
 	Architektura zorientowana na usługi(ang. Service-Oriented Architecture) to architektura systemów informatycznych oparta o strukturę luźno powiązanych, rozproszonych usług, które mogą być wielokrotnie wykorzystywane i łączone w celu realizacji wymagań stawianych aplikacji. Architektura zorientowana na usługi umożliwia integrację usług w złożone procesy\cite{Lawler08}. Usługi składające się na architekturę SOA udostępniają swoje  funkcjonalności w ramach zdefiniowanych interfejsów i są od siebie niezależne. Komunikacja pomiędzy serwisami odbywa się poprzez wywołania dostarczanych przez nie operacji\cite{Papazoglou07}. 
@@ -176,7 +176,7 @@ Istnieją 4 podstawowe metody zabezpieczania systemów informatycznych \cite{Rus
 		Istnieją sytuacje, w których zabezpieczenia warstwy transportowej nie są wystarczające.  Nie pozwalają one na zapewnienie bezpieczeństwa w razie konieczności przetwarzania informacji przez węzły pośrednie. Nie umożliwiają również zapewnienia poufności jedynie fragmentu wiadomości a nie całej jej treści. Rozwiązaniem tego problemów jest zastosowanie koncepcji mechanizmów bezpieczeństwa na poziomie przesyłanych wiadomości. Koncepcja ta zakłada oparcie mechanizmów bezpieczeństwa o informacje dołączane do wiadomości wymienianych pomiędzy klientem i dostawcą usługi. Przesyłane informacje mogą pozwalać na przeprowadzenie procesu uwierzytelniania lub zapewnienie integralności komunikatów. Istnieją liczne standardy opisujące format danych dołączanych do wiadomości oraz sposób ich przesyłania przy pomocy protokołów wykorzystywanych do dostarczania usług. Standardy tego typu definiują również sposób szyfrowania wymienianych wiadomości.		
 %---------------------------------------------------------------------------
 
-\section{Wymagania stawiane systemom Business-to-Business}
+\autsection{Wymagania stawiane systemom Business-to-Business}{Krzysztof Wilaszek}
 \label{sec:wymaganiaB2B}
 
 Punktem wyjścia dla koncepcji systemów typu \textit{Business-to-Business} jest pojęcie systemów otwartych. Systemy otwarte można zdefiniować jako systemy spełniające warunki przenośności pomiędzy platformami sprzętowymi, skalowalności oraz zdolności do współpracy z innymi systemami\cite{Kajan04}. Systemu tego typu składają się z komponentów spełniających oczekiwane standardy. 
@@ -187,7 +187,7 @@ Jednym z założeń systemów typu B2B jest dostępność danych i zasobów potr
 
 %---------------------------------------------------------------------------
 
-\section{Zakres wymagań tworzonego systemu}
+\autsection{Zakres wymagań tworzonego systemu}{Krzysztof Wilaszek}
 \label{sec:zakresWymagan}
 
 	W ramach projektu implementacyjnego  związanego z niniejszą pracą przygotowano przykłady ilustrujące zastosowanie mechanizmów systemów zarządzania tożsamościami. Punktem wyjścia była implementacja mechanizmu jednokrotnego uwierzytelniania oraz jednokrotnego wylogowywania dla aplikacji z interfejsem udostępnianym poprzez przeglądarkę internetową. Głównym celem projektu jest analiza mechanizmów zarządzania tożsamościami dla architektury zorientowanej na usługi.

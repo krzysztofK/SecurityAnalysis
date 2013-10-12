@@ -11,7 +11,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 %---------------------------------------------------------------------------
 
-\section{Implementacja mechanizmu jednokrotnego uwierzytelniania klientów aplikacji webowych}
+\autsection{Implementacja mechanizmu jednokrotnego uwierzytelniania klientów aplikacji webowych}{Krzysztof Wilaszek}
 
 	Przy pomocy mechanizmów udostępnianych przez narzędzia \textit{Picketlink} zaimplementowana została usługa ,,Identity Provider'' odpowiedzialna za uwierzytelnianie użytkowników systemu. Stosując usługę IDP możliwe jest jednokrotne uwierzytelnianie klientów aplikacji webowych. Zaimplementowane zostały również aplikacje wykorzystujące usługę IDP jako mechanizm uwierzytelniania klientów żądających dostępu do zasobów aplikacji.
 
@@ -28,7 +28,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 %---------------------------------------------------------------------------
 
-\section{Implementacja mechanizmu uwierzytelniania klientów usług webowych}
+\autsection{Implementacja mechanizmu uwierzytelniania klientów usług webowych}{Krzysztof Wilaszek}
 
 	Implementacja mechanizmów uwierzytelniania klientów usług sieciowych oparta jest na modelu systemu prezentowanym w rozdziale opisującym architekturę dla proponowanych rozwiązań. Zaimplementowane zostały usługi różnych standardów(SOAP i REST) wykorzystujące asercje SAML w procesie uwierzytelniania swoich klientów. Zgodnie z zaproponowanym modelem w systemie istnieje usługa ,,Security Token Service'' odpowiedzialna za przydzielanie tokenów bezpieczeństwa użytkownikom. Otrzymany token bezpieczeństwa dołączany jest do żądania przesyłanego do serwisu. Przed przyznaniem dostępu do żądanych funkcjonalności treść wiadomości przechwytywana jest przez mechanizm specyficzny dla danego typu serwisu. Dla usług opartych o standard SOAP są to mechanizmy typu \textit{,,Handler''}. Dla usług dostarczanych w standardzie REST jest to mechanizm typu \textit{,,Interceptor''} dostarczany przez bibliotekę RESTEasy - implementację technologi dostarczania usług sieciowych typu REST. Mechanizmy dostarczane przez RESTEasy grupują \textit{interceptory} na klasy o różnych priorytetach. Klasą o najwyższym priorytecie(której metody wykonywane są najwcześniej) są \textit{interceptory} bezpieczeństwa. Dzięki zastosowaniu tej grupy możliwa jest realizacja wymagania przeprowadzenia procesu uwierzytelniania klienta na samym początku przetwarzania jego żądania i uniemożliwienia dostępu do jakichkolwiek zasobów dla nieuwierzytelnionych użytkowników.
 
@@ -46,7 +46,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 %---------------------------------------------------------------------------
 
-\section{Implementacja mechanizmów bezpieczeństwa w architekturze zorientowanej na usługi}
+\autsection{Implementacja mechanizmów bezpieczeństwa w architekturze zorientowanej na usługi}{Krzysztof Wilaszek}
 
 \subsection{Implementacja modułu magistrali usług}
 
