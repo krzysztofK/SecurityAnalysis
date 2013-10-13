@@ -12,12 +12,31 @@ Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picke
 }
 
 %---------------------------------------------------------------------------
-
 \autsection{Mechanizmy bezpieczeństwa platformy Java SE}{Krzysztof Wilaszek}
 \label{sec:javaSE}
 
-	Architektura platformy Java zaprojektowana została z uwzględnieniem różnorodnych aspektów bezpieczeństwa aplikacji komputerowych. Najbardziej podstawowe mechanizmy bezpieczeństwa dotyczą poziomu języka programowania - można wśród nich wymienić bezpieczeństwo typów, mechanizm \textit{,,garbage collection''} czy też mechanizm bezpiecznego ładowania klas. Wraz z rozwojem platformy Java wprowadzano zmiany w architekturze bezpieczeństwa Javy wzbogacając funkcjonalności platformy o powszechnie wykorzystywane algorytmy, mechanizmy i protokoły. Należą do nich algorytmy kryptograficzne, interfejsy dla infrastruktury klucza publicznego, interfejsy uwierzytelniania i kontroli dostępu do zasobów aplikacji. Platforma Javy zapewnia niezależność aplikacji wykorzystujących API mechanizmów bezpieczeństwa od konkretnej, niejednokrotnie złożonej implementacji danego mechanizmu. Umożliwia również dostarczenie własnej realizacji dla różnych mechanizmów bezpieczeństwa. 
+	Architektura platformy Java zaprojektowana została z uwzględnieniem różnorodnych aspektów bezpieczeństwa aplikacji komputerowych. Najbardziej podstawowe mechanizmy bezpieczeństwa dotyczą poziomu języka programowania - można wśród nich wymienić bezpieczeństwo typów, automatyczne zarządzanie pamięcią, mechanizm \textit{,,garbage collection''} czy też mechanizm bezpiecznego ładowania klas. Składania języka Java umożliwia również definiowanie modyfikatorów dostępu do pól i metod klas. Kod napisany w języku Java kompilowany jest do niezależnego od platformy kodu bajtowego, który przed wykonaniem weryfikowany jest pod kątem składni, zarządzania pamięcią, operacji na stosie czy też bezpieczeństwa typów\cite{Oracle13}.
 
+	Wraz z rozwojem platformy Java wprowadzano zmiany w architekturze bezpieczeństwa Javy wzbogacając funkcjonalności platformy o powszechnie wykorzystywane algorytmy, mechanizmy i protokoły. Należą do nich algorytmy kryptograficzne, interfejsy dla infrastruktury klucza publicznego, interfejsy uwierzytelniania i kontroli dostępu do zasobów aplikacji. Platforma Javy zapewnia niezależność aplikacji wykorzystujących API mechanizmów bezpieczeństwa od konkretnej, niejednokrotnie złożonej implementacji danego mechanizmu. Umożliwia również dostarczenie własnej realizacji dla różnych mechanizmów bezpieczeństwa.
+
+	\subsection{Architektura platformy Java SE dla mechanizmów bezpieczeństwa}
+
+		Podstawowymi założeniami architektury platformy Javy dla mechanizmów bezpieczeństwa są niezależność aplikacji wykorzystującej konkretne mechanizmy bezpieczeństwa od ich implementacji, zdolność do współpracy pomiędzy różnymi aplikacjami i serwisami bezpieczeństwa oraz rozszerzalność zbioru dostarczanych mechanizmów bezpieczeństwa. Podstawowym elementem architektury bezpieczeństwa platformy Java realizującym te założenia jest klasa \textit{java.security.Provider}. Klasa dostarcza implementacji określonych usług bezpieczeństwa. Dostawcom usług bezpieczeństwa przyporządkowane mogą być priorytety - w przypadku kilku implementacji tego samego serwisu wybierany jest ten od dostawcy z najwyższym priorytetem. 
+
+		Implementacja platformy Java zawiera zbiór gotowych dostawców dla różnych usług bezpieczeństwa takich jak kryptografia, uwierzytelnianie, etc. Zgodnie z założeniami architektonicznymi zbiór funkcjonalności może być rozszerzany oraz wykorzystywany przez różnorodne współpracujące aplikacje. Usługi mogą być konfigurowane w celu ich dostosowania do potrzeb konkretnych aplikacji. 
+
+	\subsection{Usługi bezpieczeństwa platformy Java SE}
+
+		Platforma Java udostępnia szeroki wachlarz usług dostarczających funkcjonalności algorytmów kryptograficznych takich jak MDA, podpis cyfrowy, szyfrowanie symetryczne(blokowe i strumieniowe) oraz asymetryczne, szyfrowanie przy użyciu haseł, kryptografia krzywych eliptycznych, protokół uzgadniania kluczy, generator kluczy, kod uwierzytelniania wiadomości, generator liczb pseudolosowych. Dostarcza implementacji bezpiecznej wymiany wiadomości przy użyciu infrastruktury klucza publicznego(ang. \textit{Public Key Infrastructure}). Jest to podejście, w którym tożsamość klientów aplikacji potwierdzana jest przez certyfikaty cyfrowe generowane przez \textit{Certification Authorities}. Platforma Javy dostarcza implementacji wspierających certyfikaty X.509 oraz listy unieważnionych certyfikatów(ang. \textit{Certificate Revocation Lists}). Platforma dostarcza mechanizmów przechowywania kluczy i certyfikatów bezpieczeństwa w oparciu o różne standard. Dostarcza API i narzędzi umożliwiających operacje na zgromadzonych danych.
+
+		Platforma Javy dostarcza również API umożliwiające uwierzytelnianie klientów aplikacji przy użyciu modułów logowania. Architektura podsystemu uwierzytelniania umożliwia wprowadzanie nowych modułów logowania rozszerzających dostępne funkcjonalności uwierzytelniania. Domyślnie dostępne są metody uwierzytelniania oparte o protokoły LDAP i Kerberos oraz o dane zgromadzone w magazynach kluczy.
+
+		W ramach platformy Java zaimplementowane zostały mechanizmy zapewnienia bezpieczeństwa komunikacji sieciowej - gwarantowania poufności komunikacji oraz zapewnienia integralności danych. Jednym z tych mechanizmów są protokoły SSL oraz TLS dostarczające funkcjonalności  szyfrowania przesyłanych danych, weryfikacji ich integralności oraz uwierzytelniania klienta i serwera. Platforma dostarcza również implementacji standardu SASL opisującego proces uwierzytelniania w komunikacji między klientem i serwerem. 
+
+		Innym ważnym mechanizmem implementowanym w ramach usług bezpieczeństwa platformy Java jest mechanizm kontroli dostępu do zasobów aplikacji. Moduł kontroli dostępu oparty jest o managera bezpieczeństwa(ang. \textit{security manager})  podejmującego decyzję o przydzieleniu lub odmowie dostępu do określonych zasobów aplikacji. Decyzja ta podejmowana jest na podstawie informacji skojarzonych z kodem aplikacji na etapie jego ładowania przez \textit{class loadera}  takich jaki pochodzenie kodu, jednostka podpisująca kod oraz uprawnianie przyznane kodowi. W procesie podejmowania decyzji uwzględniane są polityki zdefiniowane w obrębie aplikacji. 
+
+		Platforma dostarcza również implementacji standardu cyfrowego podpisu XML gwarantującego integralność danych oraz uwierzytelnienie wiadomości i jej nadawcy.
+	
 %---------------------------------------------------------------------------
 
 
