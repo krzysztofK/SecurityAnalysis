@@ -39,11 +39,10 @@ Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picke
 	
 %---------------------------------------------------------------------------
 
-
-\section{Mechanizmy bezpieczenstwa platformy Java EE}
+\autsection{Mechanizmy bezpieczeństwa platformy Java EE}{Krzysztof Wilaszek}
 \label{sec:javaEE}
 
-Mechanizmy bezpieczenstwa platformy Java EE
+Specyfikacja Java EE definiuje mechanizmy bezpieczeństwa dla komponentów wchodzących w skład poszczególnych warstw aplikacji. Implementacja mechanizmów bezpieczeństwa dla komponentów dostarczana jest przez kontener aplikacji. Istnieją dwa rodzaje definiowania wymagań bezpieczeństwa aplikacji - deklarowalne i programowalne. Deklarowalna definicja bezpieczeństwa aplikacji oparta jest to opis wymagań bezpieczeństwa zapisany przy użyciu annotacji lub deskryptora aplikacji. Przy użyciu tej metody możliwe jest zdefiniowanie ról, ograniczeń dostępu do poszczególnych zasobów aplikacji oraz wymagań dotyczących procesu uwierzytelniania użytkowników. Drugie podejście - programowalna definicja bezpieczeństwa aplikacji jest opisem wymagań bezpieczeństwa zawartym w kodzie aplikacji, służącym podejmowaniu decyzji dotyczących bezpieczeństwa aplikacji na etapie realizacji jej funkcjonalności. Podejście to jest najczęściej wykorzystywane gdy metoda oparta o deklaracje jest niewystarczająca w danej sytuacji.
 
 %---------------------------------------------------------------------------
 
