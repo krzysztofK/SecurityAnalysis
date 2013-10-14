@@ -9,4 +9,43 @@
 	<artifactId>weather-service</artifactId>
 	<packaging>war</packaging>
 	<name>Security-Analysis :: weather-service</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>false</filtering>
+							<excludes>
+								<exclude>**/*.xml</exclude>
+							</excludes>
+						</resource>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/*.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<idp.url>http://localhost:8080/idp/</idp.url>
+		<weather.url>http://localhost:8080/weather/</weather.url>
+	</properties>
+	<profiles>
+		<profile>
+			<id>openshift</id>
+			<properties>
+				<idp.url>http://websso-tomash.rhcloud.com/idp/</idp.url>
+				<weather.url>http://websso-tomash.rhcloud.com/weather/</weather.url>
+			</properties>
+		</profile>
+	</profiles>
 </project>
