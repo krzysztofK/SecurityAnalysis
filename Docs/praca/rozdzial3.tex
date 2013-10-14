@@ -13,7 +13,7 @@
 
 %---------------------------------------------------------------------------
 
-\section{Najpopularniejsze standardy IdM}
+\autsection{Najpopularniejsze standardy IdM}{Krzysztof Wilaszek}
 \label{sec:standardyIdM}
 
 Implementacja systemów zarządzania tożsamościami jest obszarem, w którym standaryzacja procesów wykorzystywania danych osobowych przynosi istotne korzyści. Wprowadzenie standardowych rozwiązań upraszcza wdrożenie nowych aplikacji lub usług typu ,,Identity Provider''. Ujednoliceniu sposobu korzystania z funkcjonalności systemów zarządzania tożsamościami umożliwia tworzenie aplikacji klienckich używających podobnych rozwiązań dla dostępu do różnych usług. Rozwijanych jest wiele standardów realizujących wymagania stawiane systemom zarządzania tożsamościami. Najbardziej istotne z nich to SAML(Security Assertion Markup Language) oraz OpenID. 
@@ -110,7 +110,26 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 			
 \subsection{OpenID}
 
-OpenID
+	Standard \textit{OpenId} wykorzystuje podejście umożliwiające jednostkom dynamiczny wybór wykorzystywanej usługi typu textit{,,Identity Provide''}. Specyfikacja oparta jest na koncepcji reprezentowania tożsamości jednostek przy użyciu identyfikatora URI(ang. \textit{Universal Resource Indicator}, dzięki czemu tożsamość może być wykorzystywana w dowolnej aplikacji korzystającej z sieci internet. Specyfikacja OpenID definiuje np. mechanizmy uwierzytelniania, wymiany atrybutów tożsamości jednostek oraz rejestracji jednostek. Istnieje wiele podobieństw pomiędzy standardami \textit{OpenId} oraz SAML jednak głównym wyróżnikiem specyfikacji \textit{OpenId} jest funkcjonalność wyszukiwania i dynamicznego wyboru usługi typu \textit{IdP}. Specyfikacja SAML określa jedynie format opisu lokalizacji usługi \textit{IdP}. \textit{OpenId} jest znacznie prostszy niż standard SAML - korzysta z mniej złożonych informacji o transakcjach bezpieczeństwa. Specyfikacja \textit{OpenId} nie definiuje funkcjonalności federacji tożsamości\cite{Bertino11}.
+
+	\subsubsection{Uwierzytelnianie w standardzie OpenId}
+
+		Standard \textit{OpenId} definiuje sposób dostarczania wyników uwierzytelniania jednostek do serwisów korzystających z usług \textit{IdP}. Klienci korzystający z usług wykorzystują asercje opisujące procesy uwierzytelniania przeprowadzone przez usługę \textit{,,Identity Provider''}. Protokół uwzględnia możliwość wykorzystania protokołu Diffiego-Hellmana w celu zestawienia bezpiecznego kanału komunikacyjnego pomiędzy dostawcą usług a serwisem \textit{IdP}. Wynikiem procesu uwierzytelniania jest asercja określająca jedynie czy proces zakończył się powodzeniem czy błędem. 
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/OpenIdAuthentication.jpg}
+			\caption{Przebieg procesu uwierzytelniania w standardzie OpenId}
+			\label{OpenIdAuthentication}
+		\end{figure}
+
+		Klient przesyła żądanie dostarczenia usługi serwisu. Usługa wymaga uwierzytelnienia użytkownika - w tym celu przesyła żądanie dostarczenia identyfikatora \textit{OpenId} do klienta. Klient odpowiada przesyłając swój identyfikator. Serwis wyszukuje usługę \textit{IdP} na podstawie otrzymanego identyfikatora i przesyła do niej zapytanie o wynik procesu uwierzytelnienia. Usługa \textit{IdP} komunikuje się z klientem w celu przeprowadzenia procesu uwierzytelniania, generuje asercję zawierająca wynik oraz zwraca asercję do serwisu. Dostawca usług dokonuje weryfikacji otrzymanej asercji i na tej podstawie przyznaje klientowi dostęp do żądanych usług.
+
+	\subsubsection{Pozostałe funkcjonalności definiowane standardem OpenId}
+
+		Standard \textit{OpenId} definiuje rozszerzenia umożliwiające wymianę atrybutów zawartych w asercjach pomiędzy serwisem \textit{IdP} a dostawcą usług. Dostępne są dwie metody wymiany atrybutów - pobieranie wartości atrybutu z usługi \textit{Identity Provider} oraz ustawienie wartości atrybutu.
+
+		Inne z rozszerzeń standardu \textit{OpenId} definiuje przebieg komunikacji pomiędzy serwisem \textit{Identity Provider} a dostawcą usług w celu dostarczenia informacji o politykach uwierzytelniania, które powinny być stosowane. Inne z rozszerzeń umożliwia dostawcom usług pobieranie atrybutów klienta od usługi \textit{IdP} za zgodą klienta.
 
 \subsection{Liberty Identity Web Services Framework}
 
@@ -130,7 +149,7 @@ OpenID
 	
 %---------------------------------------------------------------------------
 
-\section{Przykłady frameworków zarządzających uwierzytelnianiem i autoryzacją użytkowników}
+\autsection{Przykłady frameworków zarządzających uwierzytelnianiem i autoryzacją użytkowników}{Krzysztof Wilaszek}
 \label{sec:frameworki}
 
 	\subsection{Protokół Kerberos}
