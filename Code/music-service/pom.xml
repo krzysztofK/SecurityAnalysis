@@ -9,4 +9,43 @@
 	<artifactId>music-service</artifactId>
 	<packaging>war</packaging>
 	<name>Security-Analysis :: music-service</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>false</filtering>
+							<excludes>
+								<exclude>**/*.xml</exclude>
+							</excludes>
+						</resource>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/*.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<idp.url>http://localhost:8080/idp/</idp.url>
+		<music.url>http://localhost:8080/music/</music.url>
+	</properties>
+	<profiles>
+		<profile>
+			<id>openshift</id>
+			<properties>
+				<idp.url>http://websso-tomash.rhcloud.com/idp/</idp.url>
+				<music.url>http://websso-tomash.rhcloud.com/music/</music.url>
+			</properties>
+		</profile>
+	</profiles>
 </project>

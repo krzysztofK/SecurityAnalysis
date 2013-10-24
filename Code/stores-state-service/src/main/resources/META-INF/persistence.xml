@@ -5,11 +5,10 @@
 	<persistence-unit name="persistenceUnit"
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 		<class>pl.edu.agh.security.store.state.objects.Product</class>
 		<class>pl.edu.agh.security.store.state.objects.Store</class>
 		<class>pl.edu.agh.security.store.state.objects.ProductCountInStore</class>
-
-		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
