@@ -54,6 +54,8 @@ Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picke
 
 		Zabezpieczenia warstwy transportowej dostarczane są przez mechanizmy przesyłania wiadomości pomiędzy dostawcami a klientami usług. Mechanizmy bezpieczeństwa warstwy transportowej platformy Java EE oparte są o szyfrowaną wersję protokołu HTTP - HTTPS wykorzystująca protokół SSL(\textit{Secure Sockets Layer}). Są to mechanizmy stosowane w połączeniach punkt - punkt pomiędzy nadawcą a odbiorcą. Umożliwiają uwierzytelnianie klienta i serwera, pozwalają gwarantować integralność i poufność przesyłanych informacji. Zawierają mechanizmy negocjacji algorytmów szyfrowania i kluczy kryptograficznych. Mechanizmy bezpieczeństwa warstwy transportowej gwarantują ochronę wiadomości na drodze pomiędzy nadawcą a odbiorcą. Rozwiązania oparte o protokół SSL wykorzystują certyfikaty cyfrowe. 
 
+		Zastosowanie mechanizmów bezpieczeństwa poziomu wiadomości polega na dołączeniu informacji bezpieczeństwa do przesyłanych wiadomości lub ich załączników. Informacja bezpieczeństwa może dotyczyć całości informacji lub jej części i jest z nią związana na całej drodze pomiędzy nadawcą a odbiorcą. Zastosowanie mechanizmów tego typu pozwala na bezpieczne przesyłania informacji pomiędzy nadawcą a odbiorcą z pośrednictwem dowolnych węzłów komunikacyjnych i ma na celu zagwarantowanie, że tylko odbiorca będzie w stanie odczytać zabezpieczone informacje.
+		
 %---------------------------------------------------------------------------
 
 \autsection{Protokół LDAP}{Krzysztof Wilaszek}
