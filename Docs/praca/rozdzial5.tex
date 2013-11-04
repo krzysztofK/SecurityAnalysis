@@ -5,7 +5,7 @@
 
 W celu realizacji wymagań stawianych opracowywanym aplikacjom wykorzystane zostały różne technologie umożliwiające implementację określonych aspektów dostarczanych funkcjonalności.
 
-Wdrożenie zabezpieczeń dostępu do aplikacji oparte o zostało na mechanizmach definiowanych przez serwer aplikacyjny JBoss. Serwer JBoss pozwala konfigurować systemy i domeny bezpieczeństwa oraz stosowane w ich obrębie mechanizmy uwierzytelniania i autoryzacji użytkowników usług. Proces uwierzytelniania klientów aplikacji wykorzystuje mechanizmy implementowane poprzez protokół LDAP. 
+Wdrożenie zabezpieczeń dostępu do aplikacji oparte zostało na mechanizmach bezpieczeństwa definiowanych przez specyfikację Java EE i dostarczanych przez serwer aplikacyjny JBoss. Serwer JBoss pozwala konfigurować systemy i domeny bezpieczeństwa oraz stosowane w ich obrębie mechanizmy uwierzytelniania i autoryzacji użytkowników usług. Proces uwierzytelniania klientów aplikacji wykorzystuje mechanizmy implementowane poprzez protokół LDAP. 
 
 Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picketlink. Picketlink definiuje model tożsamości wykorzystywana w procesie uwierzytelniania, pozwala na stosowanie standardu - WS-Trust w celu obsługi funkcjonalności federacji tożsamości. Dostarcza implementację modułów ,,Identity Provider'' oraz ,,Security Token Service''. 
 
@@ -55,6 +55,8 @@ Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picke
 		Zabezpieczenia warstwy transportowej dostarczane są przez mechanizmy przesyłania wiadomości pomiędzy dostawcami a klientami usług. Mechanizmy bezpieczeństwa warstwy transportowej platformy Java EE oparte są o szyfrowaną wersję protokołu HTTP - HTTPS wykorzystująca protokół SSL(\textit{Secure Sockets Layer}). Są to mechanizmy stosowane w połączeniach punkt - punkt pomiędzy nadawcą a odbiorcą. Umożliwiają uwierzytelnianie klienta i serwera, pozwalają gwarantować integralność i poufność przesyłanych informacji. Zawierają mechanizmy negocjacji algorytmów szyfrowania i kluczy kryptograficznych. Mechanizmy bezpieczeństwa warstwy transportowej gwarantują ochronę wiadomości na drodze pomiędzy nadawcą a odbiorcą. Rozwiązania oparte o protokół SSL wykorzystują certyfikaty cyfrowe w procesie uwierzytelniania uczestników komunikacji. 
 
 		Zastosowanie mechanizmów bezpieczeństwa poziomu wiadomości polega na dołączeniu informacji bezpieczeństwa do przesyłanych wiadomości lub ich załączników. Informacja bezpieczeństwa może dotyczyć całości informacji lub jej części i jest z nią związana na całej drodze pomiędzy nadawcą a odbiorcą. Zastosowanie mechanizmów tego typu pozwala na bezpieczne przesyłania informacji pomiędzy nadawcą a odbiorcą z pośrednictwem dowolnych węzłów komunikacyjnych i ma na celu zagwarantowanie, że tylko odbiorca będzie w stanie odczytać zabezpieczone informacje.
+
+	\subsection{Zastosowanie domen bezpieczeństwa w aplikacjach platformy Java EE}
 
 		Mechanizmy bezpieczeństwa platformy Java EE oparte są o koncepcję domen bezpieczeństwa. W ramach domen bezpieczeństwa istnieją użytkownicy przypisani do różnych ról oraz klasyfikowani w ramach grup. Zastosowanie ról pozwala na przyznanie dowolnym klientom uprawnień do określonych zasobów aplikacji. Dzięki użyciu grup możliwe jest zbiorcze określenie uprawnień użytkowników przypisanych do grup. Określenie uprawnień do zasobów aplikacji możliwe jest między innymi dzięki użyciu adnotacji - \textit{@RolesAllowed}, \textit{@ParmitAll}, \textit{@DenyAll}.
 		
