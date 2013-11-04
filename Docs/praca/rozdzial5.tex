@@ -42,7 +42,7 @@ Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picke
 \autsection{Mechanizmy bezpieczeństwa platformy Java EE}{Krzysztof Wilaszek}
 \label{sec:javaEE}
 
-	Specyfikacja Java EE definiuje mechanizmy bezpieczeństwa dla komponentów wchodzących w skład poszczególnych warstw aplikacji. Implementacja mechanizmów bezpieczeństwa dla komponentów dostarczana jest przez kontener aplikacji. Istnieją dwa rodzaje definiowania wymagań bezpieczeństwa aplikacji - deklarowalne i programowalne. Deklarowalna definicja bezpieczeństwa aplikacji oparta jest to opis wymagań bezpieczeństwa zapisany przy użyciu annotacji lub deskryptora aplikacji. Przy użyciu tej metody możliwe jest zdefiniowanie ról, ograniczeń dostępu do poszczególnych zasobów aplikacji oraz wymagań dotyczących procesu uwierzytelniania użytkowników. Drugie podejście - programowalna definicja bezpieczeństwa aplikacji jest opisem wymagań bezpieczeństwa zawartym w kodzie aplikacji, służącym podejmowaniu decyzji dotyczących bezpieczeństwa aplikacji na etapie realizacji jej funkcjonalności. Podejście to jest najczęściej wykorzystywane gdy metoda oparta o deklaracje jest niewystarczająca w danej sytuacji.
+	Specyfikacja Java EE definiuje mechanizmy bezpieczeństwa dla komponentów wchodzących w skład poszczególnych warstw aplikacji. Implementacja mechanizmów bezpieczeństwa dla komponentów dostarczana jest przez kontener aplikacji. Istnieją dwa rodzaje definiowania wymagań bezpieczeństwa aplikacji - deklarowalne i programowalne. Deklarowalna definicja bezpieczeństwa aplikacji oparta jest to opis wymagań bezpieczeństwa zapisany przy użyciu adnotacji lub deskryptora aplikacji. Przy użyciu tej metody możliwe jest zdefiniowanie ról, ograniczeń dostępu do poszczególnych zasobów aplikacji oraz wymagań dotyczących procesu uwierzytelniania użytkowników. Drugie podejście - programowalna definicja bezpieczeństwa aplikacji jest opisem wymagań bezpieczeństwa zawartym w kodzie aplikacji, służącym podejmowaniu decyzji dotyczących bezpieczeństwa aplikacji na etapie realizacji jej funkcjonalności. Podejście to jest najczęściej wykorzystywane gdy metoda oparta o deklaracje jest niewystarczająca w danej sytuacji.
 
 	Na aplikację Java EE mogą składać się zasoby chronione i niechronione. Kontrola dostępu do zasobów chronionych możliwa jest dzięki procesowi autoryzacji. Proces autoryzacji oparty jest o identyfikację tożsamości klienta aplikacji oraz uwierzytelnienie zidentyfikowanej tożsamości klienta. Rozwiązania dostarczana przez platformę Java EE skupiają się na aspektach bezpieczeństwa związanych z uwierzytelnianiem, autoryzacją dostępu do zasobów aplikacji, zapewnianiem integralności danych oraz poufności przekazywania informacji, logowaniem transakcji, audytami i zagadnieniami zapewniania jakości dostarczanych usług(ang. \textit{Quality of Service}). Mechanizmy bezpieczeństwa platformy Java EE dostarczane są przez kontener komponentów aplikacji. 
 
@@ -52,10 +52,30 @@ Przykładowe aplikację wykorzystują realizację standardu SAML - projekt Picke
 
 		Mechanizmy bezpieczeństwa na poziomie aplikacji to usługi bezpieczeństwa dostarczane przez kontener aplikacji do wykorzystania przez konkretne aplikacje. Mechanizmy tego typu charakteryzują się łatwością konfiguracji i implementacji oraz pozwalają na dokładne dopasowanie pomiędzy mechanizmami kontroli dostępu do aplikacji a aplikacjami. Wadą rozwiązań tego typu jest brak możliwości zapewnienia bezpieczeństwa zasobów aplikacji poza jej środowiskiem. Ma to szczególnie duże znaczenie dla aplikacji i usług sieciowych. Dlatego mechanizmy bezpieczeństwa warstwy aplikacji powinny być uzupełnione mechanizmami warstwy transportowej i mechanizmami na poziomie przesyłanych wiadomości. 
 
-		Zabezpieczenia warstwy transportowej dostarczane są przez mechanizmy przesyłania wiadomości pomiędzy dostawcami a klientami usług. Mechanizmy bezpieczeństwa warstwy transportowej platformy Java EE oparte są o szyfrowaną wersję protokołu HTTP - HTTPS wykorzystująca protokół SSL(\textit{Secure Sockets Layer}). Są to mechanizmy stosowane w połączeniach punkt - punkt pomiędzy nadawcą a odbiorcą. Umożliwiają uwierzytelnianie klienta i serwera, pozwalają gwarantować integralność i poufność przesyłanych informacji. Zawierają mechanizmy negocjacji algorytmów szyfrowania i kluczy kryptograficznych. Mechanizmy bezpieczeństwa warstwy transportowej gwarantują ochronę wiadomości na drodze pomiędzy nadawcą a odbiorcą. Rozwiązania oparte o protokół SSL wykorzystują certyfikaty cyfrowe. 
+		Zabezpieczenia warstwy transportowej dostarczane są przez mechanizmy przesyłania wiadomości pomiędzy dostawcami a klientami usług. Mechanizmy bezpieczeństwa warstwy transportowej platformy Java EE oparte są o szyfrowaną wersję protokołu HTTP - HTTPS wykorzystująca protokół SSL(\textit{Secure Sockets Layer}). Są to mechanizmy stosowane w połączeniach punkt - punkt pomiędzy nadawcą a odbiorcą. Umożliwiają uwierzytelnianie klienta i serwera, pozwalają gwarantować integralność i poufność przesyłanych informacji. Zawierają mechanizmy negocjacji algorytmów szyfrowania i kluczy kryptograficznych. Mechanizmy bezpieczeństwa warstwy transportowej gwarantują ochronę wiadomości na drodze pomiędzy nadawcą a odbiorcą. Rozwiązania oparte o protokół SSL wykorzystują certyfikaty cyfrowe w procesie uwierzytelniania uczestników komunikacji. 
 
 		Zastosowanie mechanizmów bezpieczeństwa poziomu wiadomości polega na dołączeniu informacji bezpieczeństwa do przesyłanych wiadomości lub ich załączników. Informacja bezpieczeństwa może dotyczyć całości informacji lub jej części i jest z nią związana na całej drodze pomiędzy nadawcą a odbiorcą. Zastosowanie mechanizmów tego typu pozwala na bezpieczne przesyłania informacji pomiędzy nadawcą a odbiorcą z pośrednictwem dowolnych węzłów komunikacyjnych i ma na celu zagwarantowanie, że tylko odbiorca będzie w stanie odczytać zabezpieczone informacje.
+
+		Mechanizmy bezpieczeństwa platformy Java EE oparte są o koncepcję domen bezpieczeństwa. W ramach domen bezpieczeństwa istnieją użytkownicy przypisani do różnych ról oraz klasyfikowani w ramach grup. Zastosowanie ról pozwala na przyznanie dowolnym klientom uprawnień do określonych zasobów aplikacji. Dzięki użyciu grup możliwe jest zbiorcze określenie uprawnień użytkowników przypisanych do grup. Określenie uprawnień do zasobów aplikacji możliwe jest między innymi dzięki użyciu adnotacji - \textit{@RolesAllowed}, \textit{@ParmitAll}, \textit{@DenyAll}.
 		
+		\lstset{language=Java}
+		\begin{lstlisting}
+@RolesAllowed("RoleA")
+public void forRoleA() {
+	// Metoda dostępna dla użytkowników przypisanych do roli RoleA
+}
+
+@PermitAll
+public void forAll(){
+	// Metoda dostępna dla wszystkich użytkowników
+}
+
+@DenyAll
+public void forbidden() {
+	// Metoda niedostępna dla wszystkich użytkowników
+}
+		\end{lstlisting}		
+
 %---------------------------------------------------------------------------
 
 \autsection{Protokół LDAP}{Krzysztof Wilaszek}
