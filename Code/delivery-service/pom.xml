@@ -25,19 +25,32 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
 		</dependency>
-		<!--  <dependency>
-			<groupId>pl.edu.agh.security</groupId>
-			<artifactId>security-analysis-common</artifactId>
-			<version>${project.version}</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>pl.edu.agh.security</groupId> <artifactId>security-analysis-common</artifactId> 
+			<version>${project.version}</version> </dependency> -->
 		<dependency>
 			<groupId>pl.edu.agh.security</groupId>
 			<artifactId>delivery-service-schema</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/sts-config.properties</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/sts-config.properties</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>

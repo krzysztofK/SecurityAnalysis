@@ -8,6 +8,10 @@
 	</parent>
 	<artifactId>financial-dep-service</artifactId>
 	<name>Security-Analysis :: ejb-weather-service</name>
+	
+	<properties>
+		<financial.uri>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</financial.uri>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -37,6 +41,22 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/sts-config.properties</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/sts-config.properties</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.jboss.ws.plugins</groupId>
@@ -50,7 +70,7 @@
 						<configuration>
 							<endpointClass>pl.edu.agh.security.deps.financial.service.FinancialOperationsBean</endpointClass>
 							<generateWsdl>true</generateWsdl>
-							<portSoapAddress>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</portSoapAddress>
+							<portSoapAddress>${financial.uri}</portSoapAddress>
 						</configuration>
 					</execution>
 				</executions>
@@ -64,4 +84,12 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>openshift</id>
+			<properties>
+				<financial.uri>http://orderprocess-tomash.rhcloud.com/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</financial.uri>
+			</properties>
+		</profile>
+	</profiles>
 </project>
