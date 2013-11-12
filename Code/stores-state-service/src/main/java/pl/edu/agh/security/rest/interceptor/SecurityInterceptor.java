@@ -25,7 +25,7 @@ public class SecurityInterceptor implements PreProcessInterceptor {
 	public ServerResponse preProcess(HttpRequest request, ResourceMethod method)
 			throws Failure, WebApplicationException {
 		try {
-		    LOGGER.info("Trying to authenticate "+request.getHttpMethod()+ " request");
+		    LOGGER.info("Trying to authenticate request");
 			LoginContext loginContext = new LoginContext("ws-ldap-saml");
 			loginContext.login();
 		} catch (LoginException e) {

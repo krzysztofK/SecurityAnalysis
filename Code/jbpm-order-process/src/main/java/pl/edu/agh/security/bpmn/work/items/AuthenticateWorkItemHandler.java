@@ -26,6 +26,7 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 	private static final String STS_SERVICE_NAME = "PicketLinkSTS";
 	private static final String STS_PORT = "PicketLinkSTSPort";
 	private static final String STS_ENDPOINT_URI = "http://sts.security.agh.edu.pl:8080/picketlink-sts/PicketLinkSTS";
+	private static final String STS_ENDPOINT_URI_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/picketlink-sts/PicketLinkSTS";
 
 	@Override
 	public void abortWorkItem(WorkItem arg0, WorkItemManager arg1) {
@@ -41,7 +42,7 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 		Element samlAssertion;
 		try {
 			samlAssertion = Utils.retrieveSamlAssertion(STS_SERVICE_NAME,
-					STS_PORT, STS_ENDPOINT_URI, user, password);
+					STS_PORT, STS_ENDPOINT_URI_OPENSHIFT, user, password);
 			String samlAssertionString = DocumentUtil
 					.getNodeAsString(samlAssertion);
 			LOGGER.info("Received saml assertion {}", samlAssertionString);

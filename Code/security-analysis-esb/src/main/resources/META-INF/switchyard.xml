@@ -19,7 +19,7 @@
 			multiplicity="0..1">
 			<soap:binding.soap>
 				<soap:contextMapper class="pl.edu.agh.security.esb.context.mappers.SOAPInScopeHeadersMapper" includes=".*Assertion.*" soapHeadersType="XML"/>
-				<soap:wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</soap:wsdl>
+				<soap:wsdl>${financial.wsdl}</soap:wsdl>
 			</soap:binding.soap>
  		</sca:reference>
  
@@ -35,7 +35,7 @@
 		    <rest:binding.rest>
 				<rest:contextMapper class="pl.edu.agh.security.esb.context.mappers.RESTInScopeHeadersMapper" includes="saml.*"/>
 		        <rest:interfaces>pl.edu.agh.security.esb.store.state.IStoreState</rest:interfaces> 
-		        <rest:address>http://stores-states.security.agh.edu.pl:8080</rest:address>
+		        <rest:address>${state.address}</rest:address>
 		        <rest:contextPath>stores-state-service</rest:contextPath>
 		    </rest:binding.rest>
 		</sca:reference>
@@ -53,7 +53,7 @@
 		    <rest:binding.rest>
 				<rest:contextMapper class="pl.edu.agh.security.esb.context.mappers.RESTInScopeHeadersMapper" includes="saml.*"/>
 		        <rest:interfaces>pl.edu.agh.security.esb.delivery.IDeliveryService</rest:interfaces> 
-		        <rest:address>http://delivery.security.agh.edu.pl:8080</rest:address>
+		        <rest:address>${delivery.address}</rest:address>
 		        <rest:contextPath>delivery-service/rest</rest:contextPath>
 		        <swyd:operationSelector operationName="registerDelivery" xmlns:swyd="urn:switchyard-config:switchyard:1.0"/>
 		    </rest:binding.rest>
@@ -99,7 +99,7 @@
 			</sca:service>
 			<sca:reference name="OrderService">
 				<sca:interface.wsdl
-					interface="http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl#wsdl.porttype(FinancialOperations)" />
+					interface="${financial.wsdl}#wsdl.porttype(FinancialOperations)" />
 			</sca:reference>
 		</sca:component>
 

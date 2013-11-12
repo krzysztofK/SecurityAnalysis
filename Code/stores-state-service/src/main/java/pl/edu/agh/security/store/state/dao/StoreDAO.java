@@ -11,24 +11,24 @@ import pl.edu.agh.security.store.state.objects.Store;
 /**
  * 
  * @author Krzysztof
- *
+ * 
  */
 @Stateless
 public class StoreDAO {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    private static final String FIND_STORE_QUERY = "select productCountInStore.store from ProductCountInStore ProductCountInStore"
+            + " where productCountInStore.count >= :count and productCountInStore.product.name = :name";
 
-	public Store findStoreByRequestedProduct(String productName, int count) {
-		@SuppressWarnings("unchecked")
-		List<Store> stores = (List<Store>) this.entityManager
-				.createQuery(
-						"select productCountInStore.store from ProductCountInStore ProductCountInStore where productCountInStore.count >= :count and productCountInStore.product.name = :name")
-				.setParameter("count", count).setParameter("name", productName)
-				.getResultList();
-		if (stores.size() > 0) {
-			return stores.get(0);
-		}
-		return null;
-	}
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public Store findStoreByRequestedProduct(String productName, int count) {
+        @SuppressWarnings("unchecked")
+        List<Store> stores = (List<Store>) entityManager.createQuery(FIND_STORE_QUERY).setParameter("count", count)
+                .setParameter("name", productName).getResultList();
+        if (stores.size() > 0) {
+            return stores.get(0);
+        }
+        return null;
+    }
 }

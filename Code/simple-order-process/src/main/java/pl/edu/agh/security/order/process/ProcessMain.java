@@ -16,7 +16,7 @@ public class ProcessMain {
 	public static void main(String[] args) throws ConfigurationException,
 			ProcessingException, ParsingException {
 		OrderProcessWithESB orderProcess = new OrderProcessWithESB(USER_NAME, PASSWORD,
-				ORDERED_PRODUCT, COUNT, INVOICE_REQUESTED);
+				ORDERED_PRODUCT, COUNT, INVOICE_REQUESTED, true);
 		orderProcess.execute();
 	}
 }

@@ -29,6 +29,7 @@ public class StoreStateRequestWorkItemHandler implements WorkItemHandler {
 	public static final String COUNT_PARAMETER = "Count";
 	public static final String PRODUCT_PARAMETER = "Product";
 	private static final String STORES_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-store-binding/state";
+	private static final String STORES_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-store-binding/state";
 
 	public static final String LOCATION_PARAMETER = "Location";
 	public static final String SERVICE_URL_PARAMETER = "ServiceURL";
@@ -88,7 +89,7 @@ public class StoreStateRequestWorkItemHandler implements WorkItemHandler {
 		// This initialization only needs to be done once per VM
 		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
 
-		return ProxyFactory.create(IStoreState.class, STORES_REQUEST_PATH,
+		return ProxyFactory.create(IStoreState.class, STORES_REQUEST_PATH_OPENSHIFT,
 				executor);
 	}
 

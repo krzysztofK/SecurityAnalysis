@@ -7,6 +7,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>security-analysis-esb</artifactId>
+	
+	<properties>
+		<financial.wsdl>http://financial-dep-service.security.agh.edu.pl:8080/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</financial.wsdl>
+		<state.address>http://stores-states.security.agh.edu.pl:8080</state.address>
+		<delivery.address>http://delivery.security.agh.edu.pl:8080</delivery.address>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -36,4 +43,33 @@
 			<version>${parent.version}</version>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/switchyard.xml</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/switchyard.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+	<profiles>
+		<profile>
+			<id>openshift</id>
+			<properties>
+				<financial.wsdl>http://orderprocess-tomash.rhcloud.com/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</financial.wsdl>
+				<state.address>http://orderprocess-tomash.rhcloud.com</state.address>
+				<delivery.address>http://orderprocess-tomash.rhcloud.com</delivery.address>
+			</properties>
+		</profile>
+	</profiles>
 </project>

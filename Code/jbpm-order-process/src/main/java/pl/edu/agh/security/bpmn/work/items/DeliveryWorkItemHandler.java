@@ -30,6 +30,7 @@ public class DeliveryWorkItemHandler implements WorkItemHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StoreStateRequestWorkItemHandler.class);
     private static final String DELIVERY_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-delivery-binding";
+    private static final String DELIVERY_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-delivery-binding";
     private static final String COMPANY_NAME = "ACME";
     
     public static final String LOCATION_PARAMETER = "Location";
@@ -93,7 +94,7 @@ public class DeliveryWorkItemHandler implements WorkItemHandler {
         RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
 
         return ProxyFactory.create(IDeliveryService.class,
-                DELIVERY_REQUEST_PATH, executor);
+                DELIVERY_REQUEST_PATH_OPENSHIFT, executor);
     }
 
 }

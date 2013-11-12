@@ -30,17 +30,23 @@ import pl.edu.agh.security.store.state.service.client.StoreStateRequest;
 
 public class OrderProcessWithESB {
     
-    private static final Logger LOGGER = Logger.getLogger(OrderProcess.class);
-	private static final String STORES_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-store-binding/state";
-	private static final String DELIVERY_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-delivery-binding";
-	private static final String FINANCE_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-binding/financial-service";
+    private static final Logger LOGGER = Logger.getLogger(OrderProcessWithESB.class);
+	private static final String STORES_REQUEST_PATH_LOCAL = "http://esb.security.agh.edu.pl:8080/rest-store-binding/state";
+	private static final String STORES_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-store-binding/state";
+	private static final String DELIVERY_REQUEST_PATH_LOCAL = "http://esb.security.agh.edu.pl:8080/rest-delivery-binding";
+	private static final String DELIVERY_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-delivery-binding";
+	private static final String FINANCE_REQUEST_PATH_LOCAL = "http://esb.security.agh.edu.pl:8080/rest-binding/financial-service";
+	private static final String FINANCE_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-binding/financial-service";
 
-	private static final String DELIVERY_HOST = "delivery.security.agh.edu.pl";
+	private static final String DELIVERY_HOST_LOCAL = "delivery.security.agh.edu.pl";
+	private static final String DELIVERY_HOST_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com";
 
-	private static final int PORT = 8080;
+	private static final int PORT_LOCAL = 8080;
+	private static final int PORT_OPENSHIFT = 80;
 	private static final String STS_SERVICE_NAME = "PicketLinkSTS";
 	private static final String STS_PORT = "PicketLinkSTSPort";
-	private static final String STS_ENDPOINT_URI = "http://localhost:8080/picketlink-sts/PicketLinkSTS";
+	private static final String STS_ENDPOINT_URI_LOCAL = "http://localhost:8080/picketlink-sts/PicketLinkSTS";
+	private static final String STS_ENDPOINT_URI_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/picketlink-sts/PicketLinkSTS";
 	private static final String COMPANY_NAME = "ACME";
 
 	private Element samlAssertion;
@@ -50,15 +56,31 @@ public class OrderProcessWithESB {
 	private final String orderedProduct;
 	private final int count;
 	private final boolean invoiceRequested;
+	
+	private final String storesUrl;
+    private final String deliveryUrl;
+    private final String financeUrl;
+    private final String stsUrl;
+    //private final String storesHost;
+    private final String deliveryHost;
+    private final int port;
 
 	public OrderProcessWithESB(String userName, String password,
-			String orderedProduct, int count, boolean invoiceRequested) {
+			String orderedProduct, int count, boolean invoiceRequested, boolean openshift) {
 		super();
 		this.userName = userName;
 		this.password = password;
 		this.orderedProduct = orderedProduct;
 		this.count = count;
 		this.invoiceRequested = invoiceRequested;
+		
+		this.storesUrl = openshift ? STORES_REQUEST_PATH_OPENSHIFT : STORES_REQUEST_PATH_LOCAL;
+        this.deliveryUrl = openshift ? DELIVERY_REQUEST_PATH_OPENSHIFT : DELIVERY_REQUEST_PATH_LOCAL;
+        this.financeUrl = openshift ? FINANCE_REQUEST_PATH_OPENSHIFT : FINANCE_REQUEST_PATH_LOCAL;
+        this.stsUrl = openshift ? STS_ENDPOINT_URI_OPENSHIFT : STS_ENDPOINT_URI_LOCAL;
+        //this.storesHost = openshift ? STORES_HOST_OPENSHIFT : STORES_HOST_LOCAL;
+        this.deliveryHost = openshift ? DELIVERY_HOST_OPENSHIFT : DELIVERY_HOST_LOCAL;
+        this.port = openshift ? PORT_OPENSHIFT : PORT_LOCAL;
 	}
 
 	public void execute() throws ConfigurationException, ProcessingException,
@@ -116,7 +138,7 @@ public class OrderProcessWithESB {
 	public void authenticate() throws ConfigurationException,
 			ProcessingException, ParsingException {
 		samlAssertion = Utils.retrieveSamlAssertion(STS_SERVICE_NAME, STS_PORT,
-				STS_ENDPOINT_URI, userName, password);
+				stsUrl, userName, password);
 		samlAssertionString = DocumentUtil.getNodeAsString(samlAssertion);
 	}
 
@@ -139,7 +161,7 @@ public class OrderProcessWithESB {
 		// This initialization only needs to be done once per VM
 		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
 
-		return ProxyFactory.create(IStoreState.class, STORES_REQUEST_PATH,
+		return ProxyFactory.create(IStoreState.class, storesUrl,
 				executor);
 	}
 
@@ -148,7 +170,7 @@ public class OrderProcessWithESB {
 			ParsingException {
 		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
 		defaultHttpClient.getCredentialsProvider().setCredentials(
-				new AuthScope(DELIVERY_HOST, PORT),
+				new AuthScope(deliveryHost, port),
 				new UsernamePasswordCredentials(userName, samlAssertionString));
 		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
 				defaultHttpClient) {
@@ -170,7 +192,7 @@ public class OrderProcessWithESB {
 		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
 
 		return ProxyFactory.create(IDeliveryService.class,
-				DELIVERY_REQUEST_PATH, executor);
+				deliveryUrl, executor);
 	}
 
 	public IFinancialService prepareFinancialServiceClient() {
@@ -191,7 +213,7 @@ public class OrderProcessWithESB {
 		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
 
 		return ProxyFactory.create(IFinancialService.class,
-				FINANCE_REQUEST_PATH, executor);
+				financeUrl, executor);
 	}
 
 }
