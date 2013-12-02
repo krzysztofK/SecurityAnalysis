@@ -7,7 +7,7 @@
 
 	W wielu systemach rozproszonych wykorzystywane są mechanizmy uwierzytelniania i autoryzacji oparte o koncepcje różne niż systemy zarządzania tożsamościami. Jednym z popularnie stosowanych standardów jest protokół Kerberos. System Kerberos realizuje mechanizmy jednokrotnego uwierzytelniania użytkowników aplikacji poprzez wprowadzenie koncepcji biletów ogólnego przeznaczenia, dzięki którym przyznawane są bilety dedykowane konkretnym usługom żądanym przez użytkownika.
 
-	Opracowano również szereg standardów ukierunkowanych na zapewnienie dostępu do bezpieczeństwa do usług webowych opartych o protokół SOAP. Wśród nich wymienić można - WS-Security(definiujący mechanizmy uwierzytelniania oraz sposoby gwarantowania poufności i integralności przesyłania komunikatów), WS-Trust(określający mechanizmy wymiany informacji o tożsamościach pomiędzy różnorodnymi usługami) oraz WS-Federation(umożliwiający współdzielenie tożsamości użytkowników pomiędzy różnymi domenami bezpieczeństwa). Innym powszechnie stosowanym standardem w kontekście zapewniania bezpieczeństwa dostępu do aplikacji jest specyfikacja OAuth - definiująca mechanizmy autoryzacji realizowane przy użyciu protokołu HTTP. 
+	Opracowano również szereg standardów ukierunkowanych na zapewnienie bezpieczeństwa dostępu do usług webowych opartych o protokół SOAP. Wśród nich wymienić można - WS-Security(definiujący mechanizmy uwierzytelniania oraz sposoby gwarantowania poufności i integralności przesyłania komunikatów), WS-Trust(określający mechanizmy wymiany informacji o tożsamościach pomiędzy różnorodnymi usługami) oraz WS-Federation(umożliwiający współdzielenie tożsamości użytkowników pomiędzy różnymi domenami bezpieczeństwa). Innym powszechnie stosowanym standardem w kontekście zapewniania bezpieczeństwa dostępu do aplikacji jest specyfikacja OAuth - definiująca mechanizmy autoryzacji realizowane przy użyciu protokołu HTTP. 
 
 }
 
@@ -16,7 +16,7 @@
 \autsection{Najpopularniejsze standardy IdM}{Krzysztof Wilaszek}
 \label{sec:standardyIdM}
 
-Implementacja systemów zarządzania tożsamościami jest obszarem, w którym standaryzacja procesów wykorzystywania danych osobowych przynosi istotne korzyści. Wprowadzenie standardowych rozwiązań upraszcza wdrożenie nowych aplikacji lub usług typu ,,Identity Provider''. Ujednoliceniu sposobu korzystania z funkcjonalności systemów zarządzania tożsamościami umożliwia tworzenie aplikacji klienckich używających podobnych rozwiązań dla dostępu do różnych usług. Rozwijanych jest wiele standardów realizujących wymagania stawiane systemom zarządzania tożsamościami. Najbardziej istotne z nich to SAML(Security Assertion Markup Language) oraz OpenID. 
+Implementacja systemów zarządzania tożsamościami jest obszarem, w którym standaryzacja procesów wykorzystywania danych osobowych przynosi istotne korzyści. Wprowadzenie standardowych rozwiązań upraszcza wdrożenie nowych aplikacji lub usług typu ,,Identity Provider''. Ujednolicenie sposobu korzystania z funkcjonalności systemów zarządzania tożsamościami umożliwia tworzenie aplikacji klienckich używających podobnych rozwiązań dla dostępu do różnych usług. Rozwijanych jest wiele standardów realizujących wymagania stawiane systemom zarządzania tożsamościami. Najbardziej istotne z nich to SAML(Security Assertion Markup Language) oraz OpenID. 
 
 \subsection{Security Assertion Markup Language}
 
@@ -40,7 +40,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 
 		\paragraph{Asercje}\mbox{}\\
 					
-			Asercje są to wiadomości zawierające dane identyfikacyjne jednostek w systemie. Składają się z deklaracji tożsamości opisujących jednostki wygenerowanych przez usługę ,,Identity Provider'' systemu SAML. Na podstawie otrzymanych deklaracji tożsamości jednostki dostawca usługi podejmuje decyzję o przyznaniu lub odmówieniu prawa dostępu do swoich zasobów. Również dostawcy usług mają możliwość tworzenia asercji w celu utworzenia zapytania do serwisu uwierzytelniającego o parametry transakcji określania tożsamości. 
+			Asercje są to wiadomości zawierające dane identyfikacyjne jednostek w systemie. Składają się z deklaracji tożsamości opisujących jednostki, wygenerowanych przez usługę ,,Identity Provider'' systemu SAML. Na podstawie otrzymanych deklaracji tożsamości jednostki dostawca usługi podejmuje decyzję o przyznaniu lub odmówieniu prawa dostępu do swoich zasobów. Również dostawcy usług mają możliwość tworzenia asercji w celu utworzenia zapytania do serwisu uwierzytelniającego o parametry transakcji określania tożsamości. 
 
 			\subparagraph{Struktura asercji}\mbox{}\\
 			
@@ -51,14 +51,14 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 				\label{Elementy asercji SAML}
 				\end{figure}
 
-				Asercja SAML zawiera informacje o wystawiającym asercję. Może zawierać również informację o dacie wygenerowania asercji. W celu zapewnienia integralności informacji do asercji dołączany jest cyfrowy podpis wystawiającego. W dalszej części asercji znajdują się dane opisujące jednostkę, względem której utworzono asercję. Następną sekcją wiadomości są warunki, pod którymi asercja może być wykorzystywana. W tym fragmencie mogą znajdować się informacje o okresie ważności asercji lub usługi, do których adresowana jest asercja. Ostatnim elementem jest deklaracja tożsamości, zawierające informacje kontekstowe o procesie uwierzytelniania, np. dotyczące zastosowanej metody uwierzytelniania.
+				Asercja SAML zawiera informacje o wystawiającym asercję. Może zawierać również informację o dacie wygenerowania asercji. W celu zapewnienia integralności informacji do asercji dołączany jest cyfrowy podpis wystawiającego. W dalszej części asercji znajdują się dane opisujące jednostkę, względem której utworzono asercję. Następną sekcją wiadomości są warunki, pod którymi asercja może być wykorzystywana. W tym fragmencie mogą znajdować się informacje o okresie ważności asercji lub usługi, do których adresowana jest asercja. Ostatnim elementem jest deklaracja tożsamości, zawierająca informacje kontekstowe o procesie uwierzytelniania, np. dotyczące zastosowanej metody uwierzytelniania.
 
 			\subparagraph{Typy deklaracji tożsamości}\mbox{}\\
 
 				Specyfikacja definuje następujące typy deklaracji tożsamości zawartych w asercjach SAML\cite{Wisniewski05}:
 
 				\begin{itemize}
-				  \item deklaracja uwierzytelniania - stwierdza, że opisana w asercji jednostka została uwierzytelniona w danym momencie przy użyciu mechanizmów opisanych w opisie kontekstu deklaracja
+				  \item deklaracja uwierzytelniania - stwierdza, że opisana w asercji jednostka została uwierzytelniona w danym momencie przy użyciu mechanizmów opisanych w opisie kontekstu deklaracji
 				  \item deklaracja atrybutu - stwierdza, że dany atrybut o zadanej wartości jest przypisany jednostce
 				  \item deklaracja autoryzacji - stwierdza, że jednostce opisanej w asercji przyznano lub odmówiono praw dostępu do zasobów pod określonymi warunkami
 				 \end{itemize}
@@ -110,7 +110,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 			
 \subsection{OpenID}
 
-	Standard \textit{OpenId} wykorzystuje podejście umożliwiające jednostkom dynamiczny wybór wykorzystywanej usługi typu textit{,,Identity Provide''}. Specyfikacja oparta jest na koncepcji reprezentowania tożsamości jednostek przy użyciu identyfikatora URI(ang. \textit{Universal Resource Indicator}, dzięki czemu tożsamość może być wykorzystywana w dowolnej aplikacji korzystającej z sieci internet. Specyfikacja OpenID definiuje np. mechanizmy uwierzytelniania, wymiany atrybutów tożsamości jednostek oraz rejestracji jednostek. Istnieje wiele podobieństw pomiędzy standardami \textit{OpenId} oraz SAML jednak głównym wyróżnikiem specyfikacji \textit{OpenId} jest funkcjonalność wyszukiwania i dynamicznego wyboru usługi typu \textit{IdP}. Specyfikacja SAML określa jedynie format opisu lokalizacji usługi \textit{IdP}. \textit{OpenId} jest znacznie prostszy niż standard SAML - korzysta z mniej złożonych informacji o transakcjach bezpieczeństwa. Specyfikacja \textit{OpenId} nie definiuje funkcjonalności federacji tożsamości\cite{Bertino11}.
+	Standard \textit{OpenId} wykorzystuje podejście umożliwiające jednostkom dynamiczny wybór wykorzystywanej usługi typu \textit{,,Identity Provide''}. Specyfikacja oparta jest na koncepcji reprezentowania tożsamości jednostek przy użyciu identyfikatora URI(ang. \textit{Universal Resource Indicator}, dzięki czemu tożsamość może być wykorzystywana w dowolnej aplikacji korzystającej z sieci internet. Specyfikacja OpenID definiuje np. mechanizmy uwierzytelniania, wymiany atrybutów tożsamości jednostek oraz rejestracji jednostek. Istnieje wiele podobieństw pomiędzy standardami \textit{OpenId} oraz SAML jednak głównym wyróżnikiem specyfikacji \textit{OpenId} jest funkcjonalność wyszukiwania i dynamicznego wyboru usługi typu \textit{IdP}. Specyfikacja SAML określa jedynie format opisu lokalizacji usługi \textit{IdP}. \textit{OpenId} jest znacznie prostszy niż standard SAML - korzysta z mniej złożonych informacji o transakcjach bezpieczeństwa. Specyfikacja \textit{OpenId} nie definiuje funkcjonalności federacji tożsamości\cite{Bertino11}.
 
 	\subsubsection{Uwierzytelnianie w standardzie OpenId}
 
@@ -123,7 +123,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 			\label{OpenIdAuthentication}
 		\end{figure}
 
-		Klient przesyła żądanie dostarczenia usługi serwisu. Usługa wymaga uwierzytelnienia użytkownika - w tym celu przesyła żądanie dostarczenia identyfikatora \textit{OpenId} do klienta. Klient odpowiada przesyłając swój identyfikator. Serwis wyszukuje usługę \textit{IdP} na podstawie otrzymanego identyfikatora i przesyła do niej zapytanie o wynik procesu uwierzytelnienia. Usługa \textit{IdP} komunikuje się z klientem w celu przeprowadzenia procesu uwierzytelniania, generuje asercję zawierająca wynik oraz zwraca asercję do serwisu. Dostawca usług dokonuje weryfikacji otrzymanej asercji i na tej podstawie przyznaje klientowi dostęp do żądanych usług.
+		Klient przesyła żądanie dostarczenia usługi serwisu. Usługa wymaga uwierzytelnienia użytkownika - w tym celu przesyła żądanie dostarczenia identyfikatora \textit{OpenId} do klienta. Klient odpowiada przesyłając swój identyfikator. Serwis wyszukuje usługę \textit{IdP} na podstawie otrzymanego identyfikatora i przesyła do niej zapytanie o wynik procesu uwierzytelnienia. Usługa \textit{IdP} komunikuje się z klientem w celu przeprowadzenia procesu uwierzytelniania, generuje asercję zawierającą wynik oraz zwraca asercję do serwisu. Dostawca usług dokonuje weryfikacji otrzymanej asercji i na tej podstawie przyznaje klientowi dostęp do żądanych usług.
 
 	\subsubsection{Pozostałe funkcjonalności definiowane standardem OpenId}
 
