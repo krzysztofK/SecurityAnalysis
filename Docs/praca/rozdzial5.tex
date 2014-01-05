@@ -42,9 +42,9 @@ Przykładowe aplikacje wykorzystują realizację standardu SAML - projekt Picket
 \autsection{Mechanizmy bezpieczeństwa platformy Java EE}{Krzysztof Wilaszek}
 \label{sec:javaEE}
 
-	Specyfikacja Java EE definiuje mechanizmy bezpieczeństwa dla komponentów wchodzących w skład poszczególnych warstw aplikacji. Implementacja mechanizmów bezpieczeństwa dla komponentów dostarczana jest przez kontener aplikacji. Istnieją dwa rodzaje definiowania wymagań bezpieczeństwa aplikacji - deklarowalne i programowalne\cite{Oracle12}. Deklarowalna definicja bezpieczeństwa aplikacji oparta jest to opis wymagań bezpieczeństwa zapisany przy użyciu adnotacji lub deskryptora aplikacji. Przy użyciu tej metody możliwe jest zdefiniowanie ról, ograniczeń dostępu do poszczególnych zasobów aplikacji oraz wymagań dotyczących procesu uwierzytelniania użytkowników. Drugie podejście - programowalna definicja bezpieczeństwa aplikacji jest opisem wymagań bezpieczeństwa zawartym w kodzie aplikacji, służącym podejmowaniu decyzji dotyczących bezpieczeństwa aplikacji na etapie realizacji jej funkcjonalności. Podejście to jest najczęściej wykorzystywane gdy metoda oparta o deklaracje jest niewystarczająca w danej sytuacji.
+	Specyfikacja Java EE definiuje mechanizmy bezpieczeństwa dla komponentów wchodzących w skład poszczególnych warstw aplikacji. Implementacja mechanizmów bezpieczeństwa dla komponentów dostarczana jest przez kontener aplikacji. Istnieją dwa rodzaje definiowania wymagań bezpieczeństwa aplikacji - deklarowalne i programowalne\cite{Oracle12}. Deklarowalna definicja bezpieczeństwa aplikacji jest to opis wymagań bezpieczeństwa zapisany przy użyciu adnotacji lub deskryptora aplikacji. Przy użyciu tej metody możliwe jest zdefiniowanie ról, ograniczeń dostępu do poszczególnych zasobów aplikacji oraz wymagań dotyczących procesu uwierzytelniania użytkowników. Drugie podejście - programowalna definicja bezpieczeństwa aplikacji jest opisem wymagań bezpieczeństwa zawartym w kodzie aplikacji, służącym podejmowaniu decyzji dotyczących bezpieczeństwa aplikacji na etapie realizacji jej funkcjonalności. Podejście to jest najczęściej wykorzystywane gdy metoda oparta o deklaracje jest niewystarczająca w danej sytuacji.
 
-	Na aplikację Java EE mogą składać się zasoby chronione i niechronione. Kontrola dostępu do zasobów chronionych możliwa jest dzięki procesowi autoryzacji. Proces autoryzacji oparty jest o identyfikację tożsamości klienta aplikacji oraz uwierzytelnienie zidentyfikowanej tożsamości klienta. Rozwiązania dostarczana przez platformę Java EE skupiają się na aspektach bezpieczeństwa związanych z uwierzytelnianiem, autoryzacją dostępu do zasobów aplikacji, zapewnianiem integralności danych oraz poufności przekazywania informacji, logowaniem transakcji, audytami i zagadnieniami zapewniania jakości dostarczanych usług(ang. \textit{Quality of Service}). Mechanizmy bezpieczeństwa platformy Java EE dostarczane są przez kontener komponentów aplikacji. 
+	Na aplikację Java EE mogą składać się zasoby chronione i niechronione. Kontrola dostępu do zasobów chronionych możliwa jest dzięki procesowi autoryzacji. Proces autoryzacji oparty jest o identyfikację tożsamości klienta aplikacji oraz uwierzytelnienie zidentyfikowanej tożsamości klienta. Rozwiązania dostarczane przez platformę Java EE skupiają się na aspektach bezpieczeństwa związanych z uwierzytelnianiem, autoryzacją dostępu do zasobów aplikacji, zapewnianiem integralności danych oraz poufności przekazywania informacji, logowaniem transakcji, audytami i zagadnieniami zapewniania jakości dostarczanych usług(ang. \textit{Quality of Service}). Mechanizmy bezpieczeństwa platformy Java EE dostarczane są przez kontener komponentów aplikacji. 
 
 	\subsection{Poziomy mechanizmów bezpieczeństwa platformy Java EE}
 
@@ -54,11 +54,11 @@ Przykładowe aplikacje wykorzystują realizację standardu SAML - projekt Picket
 
 		Zabezpieczenia warstwy transportowej dostarczane są przez mechanizmy przesyłania wiadomości pomiędzy dostawcami a klientami usług. Mechanizmy bezpieczeństwa warstwy transportowej platformy Java EE oparte są o szyfrowaną wersję protokołu HTTP - HTTPS wykorzystująca protokół SSL(\textit{Secure Sockets Layer}). Są to mechanizmy stosowane w połączeniach punkt - punkt pomiędzy nadawcą a odbiorcą. Umożliwiają uwierzytelnianie klienta i serwera, pozwalają gwarantować integralność i poufność przesyłanych informacji. Zawierają mechanizmy negocjacji algorytmów szyfrowania i kluczy kryptograficznych. Mechanizmy bezpieczeństwa warstwy transportowej gwarantują ochronę wiadomości na drodze pomiędzy nadawcą a odbiorcą. Rozwiązania oparte o protokół SSL wykorzystują certyfikaty cyfrowe w procesie uwierzytelniania uczestników komunikacji. 
 
-		Zastosowanie mechanizmów bezpieczeństwa poziomu wiadomości polega na dołączeniu informacji bezpieczeństwa do przesyłanych wiadomości lub ich załączników. Informacja bezpieczeństwa może dotyczyć całości informacji lub jej części i jest z nią związana na całej drodze pomiędzy nadawcą a odbiorcą. Zastosowanie mechanizmów tego typu pozwala na bezpieczne przesyłania informacji pomiędzy nadawcą a odbiorcą z pośrednictwem dowolnych węzłów komunikacyjnych i ma na celu zagwarantowanie, że tylko odbiorca będzie w stanie odczytać zabezpieczone informacje.
+		Zastosowanie mechanizmów bezpieczeństwa poziomu wiadomości polega na dołączeniu informacji bezpieczeństwa do przesyłanych wiadomości lub ich załączników. Informacja bezpieczeństwa może dotyczyć całości informacji lub jej części i jest z nią związana na całej drodze pomiędzy nadawcą a odbiorcą. Zastosowanie mechanizmów tego typu pozwala na bezpieczne przesyłanie informacji pomiędzy nadawcą a odbiorcą z pośrednictwem dowolnych węzłów komunikacyjnych. Ma na celu zagwarantowanie, że tylko odbiorca będzie w stanie odczytać zabezpieczone informacje.
 
 	\subsection{Zastosowanie domen bezpieczeństwa w aplikacjach platformy Java EE}
 
-		Mechanizmy bezpieczeństwa platformy Java EE oparte są o koncepcję domen bezpieczeństwa. W ramach domen bezpieczeństwa istnieją użytkownicy przypisani do różnych ról oraz klasyfikowani w ramach grup. Zastosowanie ról pozwala na przyznanie dowolnym klientom uprawnień do określonych zasobów aplikacji. Dzięki użyciu grup możliwe jest zbiorcze określenie uprawnień użytkowników przypisanych do grup. Określenie uprawnień do zasobów aplikacji możliwe jest między innymi dzięki użyciu adnotacji - \textit{@RolesAllowed}, \textit{@ParmitAll}, \textit{@DenyAll}.
+		Mechanizmy bezpieczeństwa platformy Java EE oparte są o koncepcję domen bezpieczeństwa. W ramach domen bezpieczeństwa istnieją użytkownicy przypisani do różnych ról oraz klasyfikowani w ramach grup. Zastosowanie ról pozwala na przyznanie dowolnym klientom uprawnień do określonych zasobów aplikacji. Dzięki użyciu grup możliwe jest zbiorcze określenie uprawnień użytkowników przypisanych do grup. Określenie uprawnień do zasobów aplikacji możliwe jest między innymi dzięki użyciu adnotacji - \textit{@RolesAllowed}, \textit{@PermitAll}, \textit{@DenyAll}.
 		
 		\lstset{language=Java}
 		\begin{lstlisting}
@@ -90,7 +90,7 @@ public void forbidden() {
 		\begin{figure}[h]
 			\centering
 			\includegraphics{img/ldap.jpg}
-			\caption{Schemat funkcjonowania protokolu  LDAP}
+			\caption{Schemat funkcjonowania protokołu  LDAP}
 			\label{Schemat funkcjonowania protokolu  LDAP}
 		\end{figure}
 
@@ -102,7 +102,7 @@ public void forbidden() {
 
 	\subsection{Uwierzytelnianie przy użyciu protokołu LDAP}
 
-		Usługa katalogowa LDAP może być wykorzystywana jako baza informacji o użytkownikach  i serwis uwierzytelniający. LDAP pozwala również na przechowywanie informacji o rolach użytkowników. 
+		Usługa katalogowa LDAP może być wykorzystywana jako baza informacji o użytkownikach i serwis uwierzytelniający. LDAP pozwala również na przechowywanie informacji o rolach użytkowników. 
 
 		Proces uwierzytelniania przy użyciu protokołu LDAP rozpoczyna się od pozyskania mapowania pomiędzy identyfikatorem użytkownika w systemie a elementem DN usługi katalogowej. Następnie wykonywana jest operacja uwierzytelniania w serwerze LDAP - ,,bind''. Aby wykonać operację ,,bind'' konieczne jest przesłanie nazwy DN i hasła użytkownika.  Innym sposobem uwierzytelnienia użytkownika może być porównanie przedstawionego przez niego hasła z hasłem przechowywanym przez usługę katalogową. Dla uwierzytelnionego użytkownika możliwe jest pobranie listy jego ról i uprawnień.
 
@@ -115,14 +115,14 @@ public void forbidden() {
 
 	\subsection{Podsystemy bezpieczeństwa serwera aplikacyjnego JBoss}
 
-		Usługi bezpieczeństwa dostarczane przez Picketbox są dostępne dla serwera aplikacyjnego poprzez podsystem bezpieczeństwa(ang. Security Subsystem).  Każdemu żądaniu klienta przypisywany jest kontekst bezpieczeństwa dostępny dla podsystemu bezpieczeństwa\cite{Lofthouse12}. 
+		Usługi bezpieczeństwa dostarczane przez Picketbox są dostępne dla serwera aplikacyjnego poprzez podsystem bezpieczeństwa(ang. Security Subsystem). Każdemu żądaniu klienta przypisywany jest kontekst bezpieczeństwa dostępny dla podsystemu bezpieczeństwa\cite{Lofthouse12}. 
 
 		Kontekst bezpieczeństwa udostępnia komponenty skonfigurowane dla domeny bezpieczeństwa. Możliwe komponenty to:
 
 		\begin{itemize}
 			\item Authentication Manager - dokonuje uwierzytelniania użytkowników na podstawie otrzymanych danych uwierzytelniających przy użyciu modułów logowania zdefiniowanych dla wykorzystywanej domeny bezpieczeństwa;
 			\item Authorization Manager - dostarcza informacji o rolach przypisanych użytkownikowi oraz dokonuje autoryzacji dostępu do zasobów dla uwierzytelnionych użytkowników;
-			\item Audit Manager - pozwala na logowanie zdarzeń zachodzących w systemie zapewnienia bezpeiczeństwa dostępu do aplikacji;
+			\item Audit Manager - pozwala na logowanie zdarzeń zachodzących w systemie zapewnienia bezpieczeństwa dostępu do aplikacji;
 			\item Mapping Manager - pozwala na przypisywanie uwierzytelnionemu użytkownikowi dodatkowych uprawnień, ról lub atrybutów.
 		\end{itemize}
 
@@ -137,7 +137,7 @@ public void forbidden() {
 
 		\begin{itemize}
 			\item security-management - pozwala nadpisywać domyślne parametry modułu PicketBox takie jak implementacje klas zarządców dla procesów uwierzytelniania, autoryzacji, audytów, mapowania danych tożsamości oraz tworzenia relacji zaufania.
-			\item security-domains - pozwala na konfiguracje domen bezpieczeństwa
+			\item security-domains - pozwala na konfigurację domen bezpieczeństwa
 			\item security-properties - pozwala definiować dodatkowe własności wymagane przez podsystem bezpieczeństwa.
 		\end{itemize}
 

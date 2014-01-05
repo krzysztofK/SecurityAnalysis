@@ -20,9 +20,9 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Zastosowanie wzorca ,,Message Interceptor Gateway'' w procesie uwierzytelniania klienta serwisu webowego}}{36}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Udzia\IeC {\l } magistrali ESB w procesie wywo\IeC {\l }a\IeC {\'n} us\IeC {\l }ug z mechanizmami uwierzytelniania opartymi o SAML}}{38}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Schemat funkcjonowania protokolu LDAP}}{43}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Schemat funkcjonowania protoko\IeC {\l }u LDAP}}{43}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Przebieg procesu jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}}{48}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania klient\IeC {\'o}w aplikacji webowych w protokole SAML}}{48}
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Uwierzytelnianie klient\IeC {\'o}w us\IeC {\l }ug webowych przy u\IeC {\.z}yciu asercji SAML}}{49}
 \contentsline {figure}{\numberline {6.3}{\ignorespaces Implementacja przetwarzania wiadomo\IeC {\'s}ci przez magistral\IeC {\k e} us\IeC {\l }ug}}{52}
 \contentsline {figure}{\numberline {6.4}{\ignorespaces Zastosowanie narz\IeC {\k e}dzi modelowania proces\IeC {\'o}w biznesowych z wykorzystaniem mechanizm\IeC {\'o}w jednokrotnego uwierzytelniania}}{53}
