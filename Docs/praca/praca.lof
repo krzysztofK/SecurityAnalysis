@@ -5,26 +5,26 @@
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Warstwy modelu architektury zorientowanej na us\IeC {\l }ugi, \IeC {\'z}r\IeC {\'o}d\IeC {\l }o - \textit {http://www.ibm.com/developerworks/library/ar-archtemp/}}}{14}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Schemat funkcjonowania magistrali us\IeC {\l }ug}}{16}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Elementy asercji SAML}}{22}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Schemat funkcjonowania mechanizmu jednokrotnego uwierzytelniania w SAML}}{23}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania w SAML}}{24}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Przebieg procesu uwierzytelniania w standardzie OpenId}}{25}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Przebieg procesu wykorzystywania informacji dzielonych w ID-WSF}}{27}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Przebieg procesu uwierzytelniania w protokole Kerberos}}{28}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Model zapewnienia bezpiecze\IeC {\'n}stwa dost\IeC {\k e}pu do aplikacji w standardzie WS-Trust}}{30}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Prosty scenariusz federacji serwisow}}{32}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Przebieg autoryzacji w standardzie OAuth}}{33}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Elementy asercji SAML}}{24}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Schemat funkcjonowania mechanizmu jednokrotnego uwierzytelniania w SAML}}{25}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania w SAML}}{26}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Przebieg procesu uwierzytelniania w standardzie OpenId}}{27}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Przebieg procesu wykorzystywania informacji dzielonych w ID-WSF}}{29}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Przebieg procesu uwierzytelniania w protokole Kerberos}}{30}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Model zapewnienia bezpiecze\IeC {\'n}stwa dost\IeC {\k e}pu do aplikacji w standardzie WS-Trust}}{32}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Prosty scenariusz federacji serwisow}}{34}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Przebieg autoryzacji w standardzie OAuth}}{35}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}}{35}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Uwierzytelnianie klienta serwisu webowego z wykorzystaniem SAML}}{35}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Zastosowanie wzorca ,,Message Interceptor Gateway'' w procesie uwierzytelniania klienta serwisu webowego}}{36}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Udzia\IeC {\l } magistrali ESB w procesie wywo\IeC {\l }a\IeC {\'n} us\IeC {\l }ug z mechanizmami uwierzytelniania opartymi o SAML}}{38}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Jednokrotne uwierzytelnianie aplikacji webowych w protokole SAML}}{37}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Uwierzytelnianie klienta serwisu webowego z wykorzystaniem SAML}}{37}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Zastosowanie wzorca ,,Message Interceptor Gateway'' w procesie uwierzytelniania klienta serwisu webowego}}{38}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Udzia\IeC {\l } magistrali ESB w procesie wywo\IeC {\l }a\IeC {\'n} us\IeC {\l }ug z mechanizmami uwierzytelniania opartymi o SAML}}{40}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Schemat funkcjonowania protoko\IeC {\l }u LDAP}}{43}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Schemat funkcjonowania protoko\IeC {\l }u LDAP}}{45}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania klient\IeC {\'o}w aplikacji webowych w protokole SAML}}{48}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Uwierzytelnianie klient\IeC {\'o}w us\IeC {\l }ug webowych przy u\IeC {\.z}yciu asercji SAML}}{49}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Implementacja przetwarzania wiadomo\IeC {\'s}ci przez magistral\IeC {\k e} us\IeC {\l }ug}}{52}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Zastosowanie narz\IeC {\k e}dzi modelowania proces\IeC {\'o}w biznesowych z wykorzystaniem mechanizm\IeC {\'o}w jednokrotnego uwierzytelniania}}{53}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania klient\IeC {\'o}w aplikacji webowych w protokole SAML}}{50}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Uwierzytelnianie klient\IeC {\'o}w us\IeC {\l }ug webowych przy u\IeC {\.z}yciu asercji SAML}}{51}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Implementacja przetwarzania wiadomo\IeC {\'s}ci przez magistral\IeC {\k e} us\IeC {\l }ug}}{54}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Zastosowanie narz\IeC {\k e}dzi modelowania proces\IeC {\'o}w biznesowych z wykorzystaniem mechanizm\IeC {\'o}w jednokrotnego uwierzytelniania}}{55}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
