@@ -191,6 +191,17 @@ Enterprise Service Bus
 \section{OpenShift}
 \label{sec:openShift}
 
-OpenShift
+OpenShift jest środowiskiem typu Platform as a Service rozwijanym przez firmę Red Hat. Tworząc warstwę abstrakcji nad infrastrukturą z wykorzystaniem oprogramowania typu middleware i udostępniając zestaw odpowiednich narzędzi, platforma ta ułatwia tworzenie, wdrażanie i zarządzanie aplikacjami w wielu językach programowania. 
+
+Środowisko OpenShift jest dostępne dla użytkowników w co najmniej dwóch postaciach. OpenShift Online to komercyjna usługa sieciowa, udostępniająca tworzenie aplikacji w chmurze publicznej. OpenShift Origin to otwarta wersja środowiska, która może być uruchomiona w dowolnej lokacji i w całości zarządzana przez użytkownika.
+OpenShift jest zbudowany w oparciu o system Red Hat Enterprise Linux i może zostać uruchomiony wszędzie tam gdzie system ten działa, a więc także na np. maszynach wirtualnych. Architektura środowiska wyróżnia dwa rodzaje instancji systemu RHEL - node służy do uruchamiania aplikacji użytkowników, zaś broker ma za zadanie zarządzanie i orkiestrację instancji typu node. W ramach pojedynczej instancji node jest dostępnych wiele komponentów gear, które stanowią środowisko użytkownika końcowego, z zasobami ograniczonymi przy użyciu mechanizmów jądra systemu - Control Groups. Poszczególne komponenty gear są izolowane od siebie(multi-tenancy) za pomocą modułu SELinux. 
+
+Z punktu widzenia użytkownika końcowego zasoby udostępniane przez OpenShift są zgrupowane w dwóch rodzajach komponentów.
+Wspomniany wcześniej gear to komponent udostępniający fizyczne zasoby systemu takie jak przestrzeń dyskowa, zasoby procesora, pamięć operacyjna, łączność sieciowa. OpenShift Online udostępnia obecnie trzy wersje tego komponentu, różniące się rozmiarem dostępnej przestrzeni dyskowej i pamięci operacyjnej.
+Cartridge jest komponentem zapewniającym możliwość uruchomienia aplikacji danego typu. Istnieją dwie klasy komponentu cartrige: primary oraz embedded. 
+Cartridge typu primary kontrolują cykl życia aplikacji i udostępniają interfejs dostępny dla użytkownika tworzonej aplikacji, np. w postaci aplikacji internetowej lub usługi sieciowej. Zazwyczaj umożliwiają one budowę oraz uruchomienie aplikacji napisanej w konkretnym języku programowania, dostarczając interpretery i środowiska uruchomieniowe oraz serwer aplikacji. OpenShift Online dostarcza gotowych komponentów, pozwalających na tworzenie aplikacji w językach Java, Ruby, Python, PHP, Perl, Go, a także z wykorzystaniem popularnych frameworków dla tych języków takich jak Django czy Ruby on Rails. Maksymalnie jeden cartridge typu primary może być uruchomiony w danym komponencie gear. 
+Cartridge embedded mogą korzystać z osobnego komponentu gear ale mogą również być współdzielić go z cartridgem typu primary. Zazwyczaj dostarczają one funkcji które nie są bezpośrednio dostępne dla końcowego użytkownika aplikacji, a są jedynie wykorzystywane przez aplikacje uruchomione w cartridge’ach primary. Przykłady tego komponentów tego typu to bazy danych MySQL, PostgreSQL, MongoDB czy framework SwitchYard.
+W przypadku gdy język bądź aplikacja nie jest wspierana przez OpenShift, użytkownik platformy może utworzyć nowy typ cartridge’u lub wykorzystać cartridge DIY(Do-It-Yourself), który pozwala na uruchomienie aplikacji zgodnej z systemem Linux. W obu przypadkach trzeba jednak mieć świadomość znacznych ograniczeń narzucanych przez system dla zachowania izolacji pomiędzy aplikacjami różnych użytkowników.
+
 
 %---------------------------------------------------------------------------
