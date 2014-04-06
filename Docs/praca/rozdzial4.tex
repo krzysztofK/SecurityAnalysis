@@ -52,6 +52,40 @@ Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorien
 
 		Zastosowanie koncepcji systemów zarządzania tożsamościami w architekturze zorientowanej na usługi przedstawione zostało na przykładzie prostego systemu obsługi zamówień sklepu internetowego. Opracowane zostały różne usługi realizujące poszczególne etapy dokonywania zamówienia. Serwisy zaimplementowane zostały przy użyciu różnych standardów dostarczania usług webowych(REST i SOAP). Wykorzystują schemat przebiegu procesu uwierzytelniania opisany w rozdziale ,,Komponenty systemu uwierzytelniania klientów usług webowych w oparciu o standard SAML'' niniejszej pracy. Proces uwierzytelniania oparty jest na mechanizmach opisanych standardem WS-Trust - wykorzystuje usługę ,,Security Token Service''. Proces zamówienia realizowany jest przez usługi odpowiedzialne za sprawdzanie stanu magazynu, zlecenie dostawy towaru, zlecenie wydania towaru  oraz rejestrację transakcji w serwisie księgowym. Usługi zlokalizowane są w różnych domenach. Uwierzytelnianie klientów usług opiera się na otrzymywanych asercjach SAML i wykorzystuje mechanizm weryfikacji tokenów bezpieczeństwa dostarczany przez usługę STS. 
 
+	\subsection{Komponenty przykładowego systemu obsługi zamówień}	
+		
+		Stworzony system obsługi zleceń w sklepie internetowym stanowi „proof of concept” niniejszej pracy. Ponieważ dostarczane przez niego funkcje nie są szczególnie istotne z punktu widzenia analizy mechanizmów bezpieczeństwa, zostaną one opisane bez szczegółowej analizy. StoresStateService jest usługą udostępniającą informacje na temat stanu magazynowego sklepu. Przyjmuje ona nazwę oraz ilość egzemplarzy zamówionego produktu, a odpowiedź usługi zawiera lokację magazynu który posiada wymagany towar. WarehouseService rejestruje zamówienie w magazynie, zwracając potwierdzenie rejestracji. FinancialDepartmentService obsługuje system fakturowania, który zwraca identyfikator faktury. Ostatnim komponentem funkcjonalnym jest DeliveryService, który ma stanowić usługę dostarczaną przez zewnętrznego partnera biznesowego sklepu. Przyjmuje ona informacje o planowanej przesyłce, zwracając systemowi identyfikator przesyłki. 
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/KomponentySystemu.png}
+			\caption{Diagram komponentów przykładowego systemu obsługi zamówień}
+			\label{Komponenty}
+		\end{figure}	
+		
+%---------------------------------------------------------------------------
+
+\section{Środowisko wdrożenia}
+\label{sec:srodowiskoWdrozenia}
+
+Jednym z wymagań pracy było uruchomienie stworzonego przykładowego systemu w środowisku chmury obliczeniowej. Ponieważ system ten był tworzony przy użyciu standardowych i dobrze wspieranych narzędzi(język programowania i biblioteki), naturalnym wyborem było wykorzystanie modelu Platform as a Service. Model pozwala na łatwiejsze wdrożenie aplikacji w porównaniu z IaaS, zachowując poziom elastyczności wymagany do zrealizowania postawionych wymagań projektowych, w przeciwieństwie do SaaS.
+
+Użycie chmury obliczeniowej pozwala na łatwe przenoszenie poszczególnych komponentów pomiędzy serwerami i dynamiczne tworzenie domen bezpieczeństwa, pozwalając tym samym na przetestowanie zachowania systemu w środowisku wielodomenowym. Większość komponentów systemu może być uruchomiona wewnątrz jednego serwera aplikacji, w tej samej domenie bezpieczeństwa. Z punktu widzenia modelowania środowiska wielodomenowego, istotne jest jedynie to aby przynajmniej jeden komponent znalazł się w osobnej domenie.
+Wykorzystane środowisko powinno udostępniać możliwość zewnętrznej komunikacji z wykorzystaniem protokołu HTTP, w celu udostępnienia usług sieciowych opartych o wzorzec REST i protokół SOAP. Chmura musi także umożliwiać komunikację pomiędzy usługą Security Token Service i serwerem LDAP. Z powodu ograniczeń technicznych serwer LDAP został uruchomiony na innym węźle niż tym na którym jest pracuje serwer aplikacji z systemem obsługi sklepu internetowego.
+Końcową strukturę wdrożenia systemu obrazuje poniższy diagram.
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/DeploymentDiagram1.png}
+			\caption{Diagram wdrożenia przykładowego systemu obsługi zamówień w środowisku chmury obliczeniowej}
+			\label{DeploymentDiagram}
+		\end{figure}
+
+%---------------------------------------------------------------------------
+
+\section{Zastosowane mechanizmy integracji}
+\label{sec:integracja}
+
 		\begin{figure}[h]
 			\centering
 			\includegraphics{img/esbAndSAML.jpg}
@@ -59,20 +93,19 @@ Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorien
 			\label{ESB i SAML}
 		\end{figure}
 
-		Do architektury proponowanego systemu wprowadzono dodatkową warstwę - magistralę usług(ESB). Magistrala usług pośredniczy w wywołaniach usług udostępnianych przez serwisy - otrzymuje wiadomości wraz z załączonymi tokenami bezpieczeństwa kierowane do przyłączonych serwisów. Magistrala dostosowuje otrzymywane wiadomości do formatu wykorzystywanego przez daną usługę. Zadania magistrali usług w kontekście obsługi tokenów bezpieczeństwa są ograniczone. Moduł ESB nie dokonuje analizy ani przetwarzania otrzymywanych asercji SAML. Jedynym zadaniem magistrali w procesie obsługi tokenów bezpieczeństwa jest dołączenie tokenu do nagłówka odpowiedniego typu dla danego formatu wiadomości akceptowanych przez usługę.
+		Do architektury proponowanego systemu wprowadzono dodatkową warstwę - magistralę usług(Enterprise Serial Bus). Magistrala usług pośredniczy w wywołaniach usług udostępnianych przez serwisy - otrzymuje wiadomości wraz z załączonymi tokenami bezpieczeństwa kierowane do przyłączonych serwisów. 
 		
-%---------------------------------------------------------------------------
+		Ponieważ klient serwisu odnosi się wyłącznie magistrali usług w celu skorzystania z usługi, nie musi on nic wiedzieć o rzeczywistym dostawcy usługi. Zapewnia to przezroczystość lokalizacji(ang. location transparency), która jest szczególnie istotna w środowisku chmury obliczeniowej, w którym rzeczywista lokacja usługi może dynamicznie się zmieniać. Podejście to ułatwia także zapewnienie skalowalności poprzez umożliwienie zwielokrotnienia instancji dostawców usług.
+		Jednym z głównych cech większości rozwiązań typu ESB jest pośredniczenie w transformacji wiadomości i konwersji protokołów pomiędzy nadawcą a odbiorcą wiadomości. Magistrala dostosowuje otrzymywane wiadomości do formatu wykorzystywanego przez daną usługę. W przypadku stworzonego przykładowego systemu obsługi zamówień, magistrala udostępnia zasoby REST stanowiące interfejs kliencki do usług realizowanych przez serwisy uruchomione w systemie.
+		
+		Zadania magistrali usług w kontekście obsługi tokenów bezpieczeństwa są ograniczone. Moduł ESB nie dokonuje analizy ani przetwarzania otrzymywanych asercji SAML. Jedynym zadaniem magistrali w procesie obsługi tokenów bezpieczeństwa jest dołączenie tokenu do nagłówka odpowiedniego typu dla danego formatu wiadomości akceptowanych przez usługę.
+		Strukturę komponentów po wprowadzeniu magistrali usług przedstawia poniższy diagram.
 
-\section{Środowisko wdrożenia}
-\label{sec:srodowiskoWdrozenia}
-
-Środowisko wdrożenia
-
-%---------------------------------------------------------------------------
-
-\section{Zastosowane mechanizmy integracji}
-\label{sec:integracja}
-
-Zastosowane mechanizmy integracji
-
+		\begin{figure}[h]
+			\centering
+			\includegraphics{img/KomponentySystemuESB.png}
+			\caption{Diagram komponentów przykładowego systemu obsługi zamówień z wykorzystaniem ESB}
+			\label{KomponentyESB}
+		\end{figure}
+		
 %---------------------------------------------------------------------------
