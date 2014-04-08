@@ -24,7 +24,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 		
 	Kiedy użytkownik chce uzyskać dostęp do zasobów, usługa sprawdza czy klient jest uwierzytelniony. Jeśli nie jest uwierzytelniony następuje przekierowanie do usługi ,,Identity Provider''. Klient podaje swoje dane uwierzytelniające a IdP weryfikuje ich poprawność. Gdy dane są prawidłowe generowana jest asercja SAML i następuje przekierowanie do usługi. Usługa weryfikuje otrzymaną asercję i przydziela lub odmawia prawa dostępu do zasobu. Gdy klient chce uzyskać dostęp do zasobów innej aplikacji nie musi ponownie podawać swoich danych uwierzytelniających, usługa IdP nie dokonuje ponownie procesu uwierzytelniania w usłudze katalogowej LDAP.
 	
-	W oparciu o przedstawiony schemat zaimplementowane zostały przykładowe usługi dostarczające funkcjonalności poszczególnych etapów realizacji zamówienia w sklepie internetowym. Opracowano serwisy umożliwiające sprawdzanie stanu magazynu, zlecenie dostawy, obsługę wydawania towarów oraz rejestrację transakcji w serwisie finansowym. Zaimplementowane usługi wykorzystują różne standardy dostarczania usług sieciowych - REST lub SOAP. 
+	W oparciu o przedstawiony schemat zaimplementowane zostały przykładowe usługi dostarczające funkcjonalności realizacji poszczególnych etapów  zamówienia w sklepie internetowym. Opracowano serwisy umożliwiające sprawdzanie stanu magazynu, zlecenie dostawy, obsługę wydawania towarów oraz rejestrację transakcji w serwisie finansowym. Zaimplementowane usługi wykorzystują różne standardy dostarczania usług sieciowych - REST lub SOAP. 
 
 %---------------------------------------------------------------------------
 
