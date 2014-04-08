@@ -24,10 +24,11 @@
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Diagram komponent\IeC {\'o}w przyk\IeC {\l }adowego systemu obs\IeC {\l }ugi zam\IeC {\'o}wie\IeC {\'n} z wykorzystaniem ESB}}{44}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Schemat funkcjonowania protoko\IeC {\l }u LDAP}}{49}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Elementy deskryptora aplikacji SwitchYard}}{54}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania klient\IeC {\'o}w aplikacji webowych w protokole SAML}}{55}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Uwierzytelnianie klient\IeC {\'o}w us\IeC {\l }ug webowych przy u\IeC {\.z}yciu asercji SAML}}{56}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Implementacja przetwarzania wiadomo\IeC {\'s}ci przez magistral\IeC {\k e} us\IeC {\l }ug}}{59}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Zastosowanie narz\IeC {\k e}dzi modelowania proces\IeC {\'o}w biznesowych z wykorzystaniem mechanizm\IeC {\'o}w jednokrotnego uwierzytelniania}}{60}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania klient\IeC {\'o}w aplikacji webowych w protokole SAML}}{57}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Uwierzytelnianie klient\IeC {\'o}w us\IeC {\l }ug webowych przy u\IeC {\.z}yciu asercji SAML}}{58}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Implementacja przetwarzania wiadomo\IeC {\'s}ci przez magistral\IeC {\k e} us\IeC {\l }ug}}{61}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Zastosowanie narz\IeC {\k e}dzi modelowania proces\IeC {\'o}w biznesowych z wykorzystaniem mechanizm\IeC {\'o}w jednokrotnego uwierzytelniania}}{62}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

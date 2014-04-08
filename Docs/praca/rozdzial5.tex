@@ -174,17 +174,42 @@ Narzędzia Picketlink dostarczają implementacji specyfikacji WS-Trust - za oper
 
 %---------------------------------------------------------------------------
 
-\section{Business Process Management}
+\section{jBPM}
 \label{sec:bpm}
 
-Business Process Management
+jBPM jest narzędziem służącym do zarządzania procesami biznesowymi(Business Process Management). Pozwala ono na modelowanie, wykonywanie i monitorowanie procesów biznesowych. jBPM koncentruje się na wykonywalnych procesach biznesowych, a więc procesach napisanych w formalnych językach, które mogą być uruchomione przy pomocy silnika BPM.
+Główną częścią jBPM jest silnik procesów biznesowych pozwalający na uruchomienie procesu zgodnego z językiem BPMN 2.0. Proces może być uruchomiony z poziomu języka Java, w dowolnym środowisku obsługującym tę platformę, także np. wewnątrz usługi w aplikacji typu SOA. 
+
+Oprócz tego jBPM oferuje szereg innych komponentów w celu wspierania całego cyklu życia procesów biznesowych. Niektóre procesy biznesowe mogą zawierać zadania, które muszą zostać wykonane przez człowieka, np. potwierdzenie decyzji o przyznaniu kredytu lub uzyskanie podpisu klienta. jBPM oferuje wsparcie dla tego typu zadań, m.in. przy pomocy standardu WS-HumanTask. Framework pozwala na zdefiniowanie typu zadania, aktorów i danych związanych z zadaniem. Udostępnia również API, które może służyć do budowy aplikacji pośredniczącej w interakcji pomiędzy użytkownikami(aktorami) a systemem. API umożliwia np.  uzyskanie listy zadań zleconych danemu użytkownikowi, przypisanie zadania do innego użytkownika czy zmianę stanu zadania.
+Niezawodność wykonywania procesów biznesowych jest krytyczna z punktu widzenia organizacji. Każdy rozpoczęty proces musi zostać zakończony, nawet w przypadku awarii systemu. Wykonanie niektórych złożonych procesów, szczególnie tych wykorzystujących aktorów ludzkich,  może zabierać długi okres czasu, liczony nawet w dniach. Co za tym idzie, bardzo ważną rzeczą jest zapewnienie persystencji i transakcyjności procesów. jBPM pozwala na zautomatyzowany zapis bieżącego stanu procesu w bazie danych. Gwarantuje także transakcyjność przy użyciu JTA lub systemu transakcji frameworku Spring.
+
+Środowisko jBPM oferuje dwa zestawy narzędzi: workbench sieciowy, pozwalający na modelowanie, wykonywanie, zarządzanie i raportowanie procesów biznesowych oraz plug-in do środowiska Eclipse ułatwiający modelowanie, tworzenie, testowanie i debugowanie procesów.
+jBPM udostępnia także API które służy do udostępniania procesu jako usługi, przy użyciu REST, RMI lub JMS. Integruje się z biblioteką Drools, dzięki której można definiować złożone reguły biznesowe i umieszczać je w ramach procesów.
+
 
 %---------------------------------------------------------------------------
 
-\section{Enterprise Service Bus}
-\label{sec:esb}
+\section{SwitchYard}
+\label{sec:switchyard}
 
-Enterprise Service Bus
+SwitchYard jest lekkim frameworkiem wspierającym tworzenie, wdrażanie i zarządzanie aplikacjami zrealizowanymi zgodnie z paradygmatem SOA. Framework ten oferuje większość funkcji przypisywanych typowym rozwiązaniom typu Enterprise Service Bus i jest przez samych twórców określany jako, bardziej zorientowany na obsługę całego cyklu życia serwisów, następca projektu JBoss ESB. Dostarcza on środowiska uruchomieniowego pozwalającego na łatwą integrację różnorodnych komponentów systemu i udostępnienie ich w postaci wymaganej przez klienta.
+
+SwitchYard wspiera strukturyzację systemu poprzez oddzielenie komponentów odpowiedzialnych za  przekształcanie i walidację wiadomości oraz tzw. cross-cutting concerns(np. transakcyjność) od kodu realizującego logikę biznesową. Framework udostępnia możliwość deklaratywnej transformacji wiadomości pomiędzy formatami JSON, XML(z wykorzystaniem JAXB lub transformat XSLT) i obiektami Javy lub dowolnym innym formatem dzięki użyciu konwerterów użytkownika. Umożliwia również walidację wiadomości z XML Schema lub przy użyciu własnych walidatorów. Framework pozwala też deklarować polityki np. dotyczące transakcyjności i bezpieczeństwa. Dzięki temu wiadomości które nie spełniają podanych kryteriów, przykładowo nie zawierają kontekstu transakcji, są automatycznie odrzucane. 
+
+Każda aplikacja wykorzystująca framework SwitchYard zawiera deskryptor napisany w języku XML, zgodny ze standardem SCA (Service Component Architecture). Deskryptor ten opisuje ogólną strukturę aplikacji z podziałem na usługi, z wyszczególnieniem usług udostępnianych przez aplikację oraz zewnętrznych usług wykorzystywanych przez aplikację. 
+Całość aplikacji zawarta jest w elemencie o nazwie kompozyt, który tworzy również nową przestrzeń nazw dla danej aplikacji. 
+Podstawowym elementem warstwy wnętrza aplikacji jest komponent. Reprezentuje on fragment logiki aplikacji, dostarczany przez osobny element - implementację. Komponent może zostać zaimplementowany przy pomocy ścieżki przetwarzania z frameworku Apache Camel, procesu biznesowego z wykorzystaniem jBPM, zestawu reguł Drools lub klasy Javy. Komponent może dostarczać pewnej usługi(element component service) zdefiniowanej poprzez interfejs. Interfejs ten musi być zaimplementowany przez dany komponent. Komponent może także zdefiniować referencje do innych usług(component reference), które są wykorzystywane w jego implementacji. Mogą być to zarówno usługi lokalne jak i zewnętrzne.
+Usługa kompozytu opisuje serwis dostępny z zewnątrz aplikacji, spełniający dany interfejs realizowany przez komponent zawarty w aplikacji. Usługa deklaruje sposób komunikacji z klientami zewnętrznymi poprzez element dowiązania usługi (service binding). 
+Analogicznie, warstwa usług wymaganych przez aplikację składa się z referencji kompozytu, połączonych z referencjami komponentów, oraz dowiązań referencji, definiujących mechanizm komunikacji z usługami zewnętrznymi.
+Łączenie ze sobą poszczególnych elementów systemu jest ułatwione dzięki zastosowaniu wzorca wstrzykiwania zależności, zgodnym ze standardem CDI(Contexts and Dependency Injection for Java EE).
+SwitchYard udostępnia zestaw narzędzi do środowiska Eclipse, pozwalających na wizualizację struktury aplikacji. Poniższa grafika przedstawia opis poszczególnych elementów deskryptora aplikacji.
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\textwidth]{img/switchyard2.png}
+			\caption{Elementy deskryptora aplikacji SwitchYard}
+			\label{Elementy deskryptora aplikacji SwitchYard}
+		\end{figure}
 
 %---------------------------------------------------------------------------
 
