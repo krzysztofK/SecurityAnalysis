@@ -11,7 +11,7 @@ Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorien
 
 %---------------------------------------------------------------------------
 
-\autsection{Podział na komponenty}{Krzysztof Wilaszek}
+\autsection{Podział na komponenty}{Krzysztof Wilaszek, Tomasz Wójcik}
 \label{sec:komponenty}
 
 	\subsection{Komponenty architektury aplikacji webowych z mechanizmem jednokrotnego uwierzytelniania}
@@ -58,14 +58,14 @@ Zastosowanie mechanizmów bezpieczeństwa protokołu SAML w architekturze zorien
 		
 		\begin{figure}[h]
 			\centering
-			\includegraphics{img/KomponentySystemu.png}
+			\includegraphics[width=\textwidth]{img/KomponentySystemu.png}
 			\caption{Diagram komponentów przykładowego systemu obsługi zamówień}
 			\label{Komponenty}
 		\end{figure}	
 		
 %---------------------------------------------------------------------------
 
-\section{Środowisko wdrożenia}
+\autsection{Środowisko wdrożenia}{Tomasz Wójcik}
 \label{sec:srodowiskoWdrozenia}
 
 Jednym z wymagań pracy było uruchomienie stworzonego przykładowego systemu w środowisku chmury obliczeniowej. Ponieważ system ten był tworzony przy użyciu standardowych i dobrze wspieranych narzędzi(język programowania i biblioteki), naturalnym wyborem było wykorzystanie modelu Platform as a Service. Model pozwala na łatwiejsze wdrożenie aplikacji w porównaniu z IaaS, zachowując poziom elastyczności wymagany do zrealizowania postawionych wymagań projektowych, w przeciwieństwie do SaaS.
@@ -83,7 +83,7 @@ Końcową strukturę wdrożenia systemu obrazuje poniższy diagram.
 
 %---------------------------------------------------------------------------
 
-\section{Zastosowane mechanizmy integracji}
+\autsection{Zastosowane mechanizmy integracji}{Tomasz Wójcik}
 \label{sec:integracja}
 
 		\begin{figure}[h]
@@ -103,7 +103,7 @@ Końcową strukturę wdrożenia systemu obrazuje poniższy diagram.
 
 		\begin{figure}[h]
 			\centering
-			\includegraphics{img/KomponentySystemuESB.png}
+			\includegraphics[width=\textwidth]{img/KomponentySystemuESB.png}
 			\caption{Diagram komponentów przykładowego systemu obsługi zamówień z wykorzystaniem ESB}
 			\label{KomponentyESB}
 		\end{figure}
