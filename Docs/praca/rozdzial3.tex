@@ -280,7 +280,7 @@ Warstwa record obsługuje podprotokół o tej samej nazwie. Służy on do właś
 
 \subsubsection{Przebieg typowej negocjacji parametrów sesji przy użyciu protokołu handshake}
 
-		\begin{figure}[h]
+		\begin{figure}[!htb]
 			\centering
 				\includegraphics{img/HandshakeTLS.png}
 			\caption{Wiadomości wymieniane między klientem i serwerem podczas procedury handshake w protokole Transport Layer Security}
@@ -304,13 +304,43 @@ Protokół Transport Layer Security może zapewnić bezpieczeństwo komunikacji 
 Jednym ze standardów tego typu jest XML Encryption. Opisuje on reguły szyfrowania wiadomości w języku XML. Standard ten umożliwia szyfrowanie wybranych fragmentów wiadomości, zachowuje składnię języka XML, pozwalając na przetwarzanie wiadomości przez węzły nie obsługujące standardu oraz pozwala na dodanie metadanych opisujących jakie mechanizmy szyfrowania zostały, grupując w wiadomości wszystkie elementy potrzebne do jej odszyfrowania.\cite{kanneganti2008soa}
 Tym samym XML Encryption pozwala na zagwarantowanie poufności danych przetwarzanych przez złożone usługi w modelu SOA.
 
+\lstset{language=XML, caption={Struktura przykładowego elementu zaszyfrowanego przy użyciu XML Encryption}, captionpos=b, label=XMLEncryption}
+		\begin{lstlisting}
+<EncryptedKey xmlns="http://www.w3.org/2001/04/xmlenc#">
+	<EncryptionMethod 
+	Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+	<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+		<ds:KeyName>Nazwa klucza</ds:KeyName>
+	</ds:KeyInfo>
+	<CipherData>
+		<CipherValue>S0xVQ1pQVUJMSUNaTlk=</CipherValue>
+	</CipherData>
+	<ReferenceList>
+		<DataReference URI="#ZaszyfrowaneDane1"/>
+	</ReferenceList>
+</EncryptedKey>
+		
+		
+<EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#"
+	Type="http://www.w3.org/2001/04/xmlenc#Element"
+	Id="ZaszyfrowaneDane1"/>
+	<EncryptionMethod 
+	Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+	<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+		<ds:KeyName>Nazwa klucza</ds:KeyName>
+	</ds:KeyInfo>
+	<CipherData>
+		<CipherValue>VEFKTkVEQU5F</CipherValue>
+	</CipherData>
+</EncryptedData>
+\end{lstlisting}
+
 XML Encryption pozwala na zastosowanie szyfrowania symetrycznego, asymetrycznego lub hybrydowego. 
-Zaszyfrowane dane są zamieniane na element XML o nazwie EncryptedData. Atrybut Type tego elementu wskazuje na typ zaszyfrowanych danych. Standard umożliwia szyfrowanie całego elementu XML lub jego zawartości. Element ten zawiera też swój unikalny identyfikator, który pozwala na odnoszenie się do niego z innych elementów zawierających metadane na temat szyfrowania. EncryptedData zawiera element EncryptionMethod który informuje o algorytmie szyfrującym. Dostępne są zarówno algorytmy symetryczne(np. AES) jak i asymetryczne(np. RSA). Element CipherData przechowuje zaszyfrowane dane wewnątrz elementu CipherValue lub referencje do tych danych znajdujących się w zewnętrznej lokalizacji przy pomocy elementu CipherReference.
-Jeżeli klucz służący do szyfrowania danych nie jest został uprzednio ustalony, konieczne jest zastosowanie elementu EncryptedKey. Element ten może zostać umieszczony wewnątrz elementu EncryptedData lub w dowolnym innym miejscu w dokumencie, w przypadku wiadomości SOAP najczęściej w nagłówku WS-Security.
-W najbardziej typowym przypadku wykorzystania szyfrowania hybrydowego, EncryptedKey zawiera wygenerowany przez nadawcę klucz sesji zaszyfrowany przy pomocy klucza publicznego odbiorcy. Element EncryptionMethod wskazuje na algorytm szyfrujący. Element KeyInfo służy do identyfikacji klucza którym został zaszyfrowany klucz sesyjny. Możliwe jest przesłanie całości wykorzystanego do certyfikatu(wewnątrz tego elementu lub w załączniku SOAP) lub wskazanie na konkretny klucz przy użyciu jego identyfikatora lub Distinguished Name certyfikatu zawierającego ten klucz. 
-Element CipherData zawiera zaszyfrowany klucz sesyjny. 
-Ponieważ wiadomość może zawierać części przeznaczone do odszyfrowania przez różnych nadawców istotne jest wskazanie które elementy EncryptedData powinny zostać odszyfrowane przez danego nadawcę. Element ReferenceList zawiera listę elementów DataReference zawierających numery identyfikacyjne elementów EncryptedData. 
-Każdemu z odbiorców zaszyfrowanej części wiadomości odpowiada jeden element EncryptedKey. Odbiorca jest identyfikowany na podstawie danych z elementu KeyInfo lub opcjonalnego elementu Recipient, który jednak nie ma standardowej postaci. \cite{Eastlake:02:XES} 
+Zaszyfrowane dane są zamieniane na element XML o nazwie \texttt{EncryptedData}. Atrybut \texttt{Type} tego elementu wskazuje na typ zaszyfrowanych danych. Standard umożliwia szyfrowanie całego elementu XML lub jego zawartości. Element ten zawiera też swój unikalny identyfikator, który pozwala na odnoszenie się do niego z innych elementów zawierających metadane na temat szyfrowania. \texttt{EncryptedData} zawiera element \texttt{EncryptionMethod} który informuje o algorytmie szyfrującym. Dostępne są zarówno algorytmy symetryczne(np. AES) jak i asymetryczne(np. RSA). Element \texttt{CipherData} przechowuje zaszyfrowane dane, zakodowane przy użyciu Base64 wewnątrz elementu \texttt{CipherValue}. Możliwe jest też odniesienie się do danych znajdujących się w zewnętrznej lokalizacji przy pomocy elementu \texttt{CipherReference}.
+Jeżeli klucz służący do szyfrowania danych nie jest został uprzednio ustalony, konieczne jest zastosowanie elementu \texttt{EncryptedKey}. Element ten może zostać umieszczony wewnątrz elementu \texttt{EncryptedData} lub w dowolnym innym miejscu w dokumencie, w przypadku wiadomości SOAP najczęściej w nagłówku WS-Security.
+W najbardziej typowym przypadku wykorzystania szyfrowania hybrydowego, \texttt{EncryptedKey} zawiera wygenerowany przez nadawcę klucz sesji zaszyfrowany przy pomocy klucza publicznego odbiorcy. Element \texttt{EncryptionMethod} wskazuje na algorytm, którym został zaszyfrowany klucz sesyjny, zaś element \texttt{KeyInfo} służy do identyfikacji klucza publicznego użytego w tym algorytmie. Możliwe jest przesłanie wykorzystanego certyfikatu(wewnątrz tego elementu lub w załączniku SOAP) lub wskazanie na konkretny klucz przy użyciu jego identyfikatora lub Distinguished Name certyfikatu zawierającego ten klucz. Wynik działania algorytmu szyfrującego jest umieszczony w elemencie \texttt{CipherData}, zawiera on zaszyfrowany asymetrycznie klucz sesyjny. 
+Ponieważ wiadomość może zawierać części przeznaczone do odszyfrowania przez różnych nadawców istotne jest wskazanie które elementy \texttt{EncryptedData} powinny zostać odszyfrowane przez danego nadawcę. Element \texttt{ReferenceList} zawiera listę elementów \texttt{DataReference} zawierających numery identyfikacyjne elementów \texttt{EncryptedData}. 
+Każdemu z odbiorców zaszyfrowanej części wiadomości odpowiada jeden element \texttt{EncryptedKey}. Odbiorca jest identyfikowany na podstawie danych z elementu \texttt{KeyInfo} lub opcjonalnego atrybutu \texttt{Recipient}, który jednak nie ma standardowej postaci. \cite{Eastlake:02:XES} 
 Standard umożliwia jednokrotne szyfrowanie wiadomości przeznaczonej dla wielu odbiorców, jednak klucz szyfrujący musi zostać zaszyfrowany wielokrotnie przy pomocy kluczy publicznych wszystkich odbiorców lub ustalony wcześniej. 
 
 
@@ -338,6 +368,21 @@ Operacja ta jest zdefiniowana w standardzie XML canonicalization. Przyjmuje ona 
 \item Usunięcie nadmiarowych definicji przestrzeni nazw, sortowanie tak samo jak w przypadku atrybutów
 \end{itemize}
 
-Najbardziej  problematyczną częścią sprowadzania XML do postaci kanonicznej jest obsługa przestrzeni nazw. Twórcy standardu XML canonicalization zadecydowali, że dokumenty różniące się wyłącznie prefiksami elementów, mimo, że prefiksy w obu dokumentach odnoszą się do przestrzeni nazw z tym samym URI, będą traktowane jak różne dokumenty. Poważniejszy problem pojawia się w sytuacji, gdy jedynie fragment wiadomości ma zostać sprowadzony do postaci kanonicznej, co występuje często podczas użycia XML Signature. Pierwotny standard przewidywał dopisanie do głównego elementu danego fragmentu wszystkich przestrzeni nazw zdefiniowanych w elementach nadrzędnych, także tych nieużywanych przez dany fragment wiadomości. W przypadku gdy taki fragment zostanie umieszczony w innej wiadomości, wewnątrz elementu korzystającego z innych przestrzeni nazw, postać kanoniczna tego fragmentu zmieni się, mimo tego, że zawartość fragmentu nie uległa zmianie. Problem ten wymusił stworzenie standardu Exclusive XML Canonicalization, który uwzględnia w wyniku tylko te przestrzenie nazw, które są używane w prefiksach elementów i atrybutów fragmentu wiadomości na którym przeprowadzana jest ta operacja\cite{Boyer:02:EXC}. Przestrzenie nazw mogą być także używane w sposób niebezpośredni w wartościach elementów, co może stanowić lukę bezpieczeństwa. Dlatego przestrzenie takie powinny zostać uwzględnione w dodatkowym parametrze InclusiveNamespaces, który wymusza ich dodanie do postaci kanonicznej.
+\lstset{language=XML, caption={Przykład zastosowania XML Inclusive Canonicalization}, captionpos=b, label=InclusiveCanonicalization}
+		\begin{lstlisting}
+<quote xmlns:ns1="http://manning.com/xmlns/samples/soasecimpl" 
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:type="xsd:float">103.25</quote>
+		\end{lstlisting}
+		
+\lstset{language=XML, caption={Przykład zastosowania XML Exclusive Canonicalization}, captionpos=b, label=ExclusiveCanonicalization}
+		\begin{lstlisting}
+<quote xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:type="xsd:float">103.25</quote>
+		\end{lstlisting}
 
-Dane związane z podpisem cyfrowym są przechowywane w elemencie Signature\cite{Eastlake:08:XSS}, który w przypadku wiadomości SOAP jest najczęściej umiejscowiony w nagłówku SOAP definiowanym przez WS-Security. Z uwagi na ilość metadanych opisujących co i w jaki sposób jest podpisywane, struktura tego elementu jest złożona. Element SignatureInfo zawiera listę elementów Reference, które odpowiadają poszczególnym podpisywanym fragmentom wiadomości. Każdy taki element posiada odnośnik do podpisanego elementu i określa sposób sprowadzenia do postaci kanonicznej, a także zastosowaną funkcję skrótu i wartość skrótu elementu zapisaną przy użyciu Base64, gdyż względy wydajnościowe związane z kryptografią asymetryczną powodują, że najczęściej fragmenty XML nie są bezpośrednio podpisywane. Elementem na którym w rzeczywistości jest przeprowadzana operacja podpisywania jest SignedInfo. W związku z tym, musi on również zdefiniować swoją formę kanoniczną oraz zastosowaną funkcję skrótu. Obliczona wartość podpisu tego elementu, również zakodowana w Base64,  jest umieszczana wewnątrz znacznika SignatureValue. Element KeyInfo zawiera klucz publiczny podpisującego lub referencję do niego, stanowiąc ostatni wymagany element do zweryfikowania podpisu po stronie nadawcy.
+Najbardziej  problematyczną częścią sprowadzania XML do postaci kanonicznej jest obsługa przestrzeni nazw. Twórcy standardu XML canonicalization zadecydowali, że dokumenty różniące się wyłącznie prefiksami elementów, mimo, że prefiksy w obu dokumentach odnoszą się do przestrzeni nazw z tym samym URI, będą traktowane jak różne dokumenty. Poważniejszy problem pojawia się w sytuacji, gdy jedynie fragment wiadomości ma zostać sprowadzony do postaci kanonicznej, co występuje często podczas użycia XML Signature. Pierwotny standard przewidywał dopisanie do głównego elementu danego fragmentu wszystkich przestrzeni nazw zdefiniowanych w elementach nadrzędnych, także tych nieużywanych przez dany fragment wiadomości. W przypadku gdy taki fragment zostanie umieszczony w innej wiadomości, wewnątrz elementu korzystającego z innych przestrzeni nazw, postać kanoniczna tego fragmentu zmieni się, mimo tego, że zawartość fragmentu nie uległa zmianie. Problem ten wymusił stworzenie standardu Exclusive XML Canonicalization, który uwzględnia w wyniku tylko te przestrzenie nazw, które są używane w prefiksach elementów i atrybutów fragmentu wiadomości na którym przeprowadzana jest ta operacja\cite{Boyer:02:EXC}. Przestrzenie nazw mogą być także używane w sposób niebezpośredni w wartościach elementów, co może stanowić lukę bezpieczeństwa. Dlatego przestrzenie takie powinny zostać uwzględnione w dodatkowym parametrze InclusiveNamespaces, który wymusza ich dodanie do postaci kanonicznej.
+	
+Dane związane z podpisem cyfrowym są przechowywane w elemencie \texttt{Signature}\cite{Eastlake:08:XSS}, który w przypadku wiadomości SOAP jest najczęściej umiejscowiony w nagłówku SOAP definiowanym przez WS-Security. Z uwagi na ilość metadanych opisujących co i w jaki sposób jest podpisywane, struktura tego elementu jest złożona. Element \texttt{SignatureInfo} zawiera listę elementów \texttt{Reference}, które odpowiadają poszczególnym podpisywanym fragmentom wiadomości. Każdy taki element posiada odnośnik do podpisanego elementu i określa sposób sprowadzenia do postaci kanonicznej, a także zastosowaną funkcję skrótu i wartość skrótu elementu zapisaną przy użyciu Base64, gdyż względy wydajnościowe związane z kryptografią asymetryczną powodują, że najczęściej fragmenty XML nie są bezpośrednio podpisywane. Elementem na którym w rzeczywistości jest przeprowadzana operacja podpisywania jest \texttt{SignedInfo}. W związku z tym, musi on również zdefiniować swoją formę kanoniczną oraz zastosowaną funkcję skrótu. Obliczona wartość podpisu tego elementu, również zakodowana w Base64,  jest umieszczana wewnątrz znacznika \texttt{SignatureValue}. Element \texttt{KeyInfo} zawiera klucz publiczny podpisującego lub referencję do niego, stanowiąc ostatni wymagany element do zweryfikowania podpisu po stronie nadawcy.
