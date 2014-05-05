@@ -15,7 +15,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 	Przy pomocy mechanizmów udostępnianych przez narzędzia \textit{Picketlink} zaimplementowana została usługa ,,Identity Provider'' odpowiedzialna za uwierzytelnianie użytkowników systemu. Stosując usługę IdP możliwe jest jednokrotne uwierzytelnianie klientów aplikacji webowych. Zaimplementowane zostały również aplikacje wykorzystujące usługę IdP jako mechanizm uwierzytelniania klientów żądających dostępu do zasobów aplikacji.
 
-	\begin{figure}[h]
+	\begin{figure}[!htb]
 		\centering
 		\includegraphics{img/samlWebSSO.png}
 		\caption{Przebieg procesu jednokrotnego uwierzytelniania klientów aplikacji webowych w protokole SAML}
@@ -32,7 +32,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 	Implementacja mechanizmów uwierzytelniania klientów usług sieciowych oparta jest na modelu systemu prezentowanym w rozdziale opisującym architekturę dla proponowanych rozwiązań. Zaimplementowane zostały usługi różnych standardów(SOAP i REST) wykorzystujące asercje SAML w procesie uwierzytelniania swoich klientów. Zgodnie z zaproponowanym modelem w systemie istnieje usługa ,,Security Token Service'' odpowiedzialna za przydzielanie tokenów bezpieczeństwa użytkownikom. Otrzymany token bezpieczeństwa dołączany jest do żądania przesyłanego do serwisu. Przed przyznaniem dostępu do żądanych funkcjonalności treść wiadomości przechwytywana jest przez mechanizm specyficzny dla danego typu serwisu. Dla usług opartych o standard SOAP są to mechanizmy typu \textit{,,Handler''}. Dla usług dostarczanych w standardzie REST jest to mechanizm typu \textit{,,Interceptor''} dostarczany przez bibliotekę RESTEasy - implementację technologi dostarczania usług sieciowych typu REST. Mechanizmy dostarczane przez RESTEasy grupują \textit{interceptory} na klasy o różnych priorytetach. Klasą o najwyższym priorytecie(której metody wykonywane są najwcześniej) są \textit{interceptory} bezpieczeństwa. Dzięki zastosowaniu tej grupy możliwa jest realizacja wymagania przeprowadzenia procesu uwierzytelniania klienta na samym początku przetwarzania jego żądania i uniemożliwienia dostępu do jakichkolwiek zasobów dla nieuwierzytelnionych użytkowników.
 
-	\begin{figure}[h]
+	\begin{figure}[!htb]
 		\centering
 		\includegraphics{img/interceptorGatewayImplementation.png}
 		\caption{Uwierzytelnianie klientów usług webowych przy użyciu asercji SAML}
@@ -52,7 +52,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 	Implementacja mechanizmu magistrali usług wykorzystuje framework ,,Switchyard''. Przy pomocy narzędzi ,,Switchyard'' konfigurowane są punkty końcowe, na których nasłuchiwane są nadchodzące komunikaty. Przetwarzanie otrzymanych wiadomości realizowane jest przy użyciu narzędzi ,,Camel''. ,,Camel'' dostarcza mechanizmy zarządzania ścieżką jaką kierowane są wiadomości oraz implementuje wzorce EIP(\textit{Enterprise Integration Patterns}). Implementacja mechanizmu przetwarzania wiadomości magistrali usług przedstawiona zostanie na przykładzie wywołań serwisów webowych dostarczanych przy użyciu technologii SOAP(rysunek \textit{,,Implementacja przetwarzania wiadomości przez magistralę usług''}).
 
-	\begin{figure}[h]
+	\begin{figure}[!htb]
 		\centering
 		\includegraphics{img/esbRoute.png}
 		\caption{Implementacja przetwarzania wiadomości przez magistralę usług}
@@ -67,7 +67,7 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 
 	Serwisy udostępniane poprzez moduł magistrali usług dostarczają funkcjonalności realizujących poszczególne etapy przetwarzania zamówienia w sklepie internetowym. Przy użyciu narzędzi zarządzania procesami biznesowymi \textit{jBPM} opracowany został model procesu biznesowego wykorzystujący usługi udostępnianie poprzez moduł magistrali \textit{ESB} w celu realizacji zamówienia w sklepie internetowym. Model zakłada zastosowanie mechanizmów jednokrotnego uwierzytelniania z użyciem standardu \textit{SAML} w procesie uzyskiwania dostępu do usług poszczególnych serwisów realizujących kolejne etapy zamówienia. 
 
-		\begin{figure}[h]
+		\begin{figure}[!htb]
 			\centering
 			\includegraphics[width=18cm,height=4cm]{img/jbpm_order_process.png}
 			\caption{Zastosowanie narzędzi modelowania procesów biznesowych z wykorzystaniem mechanizmów jednokrotnego uwierzytelniania}
@@ -78,5 +78,87 @@ Implementacja mechanizmów jednokrotnego uwierzytelniania klientów aplikacji we
 %---------------------------------------------------------------------------
 
 \autsection{Wdrożenie systemu w środowisku OpenShift}{Tomasz Wójcik}
-Wdrożenie systemu w środowisku OpenShift
 
+	Stworzony system został uruchomiony w środowisku chmury obliczeniowej, na platformie OpenShift, której podstawy zostały opisane w jednym z wcześniejszych rozdziałów pracy.  
+	
+		\begin{figure}[!htb]
+			\centering
+			\hspace*{-0.7in}
+			\includegraphics{img/OpenShiftDeployment.png}
+			\caption{Diagram wdrożenia systemu na platformie OpenShift}
+			\label{OpenShiftDeployment}
+		\end{figure}
+	
+	System wykorzystuje trzy komponenty small gear, które dostarczają zwirtualizowanych zasobów sprzętowych niezbędnych do uruchomienia aplikacji. Z komponentami tymi powiązane są trzy cartridge typu primary, przystosowane do konkretnych technologii. Usługi webowe pozostające pod kontrolą sklepu internetowego wykorzystują cartridge typu JBoss Application Server 7 oraz plug-in SwitchYard 0.8.0. Serwer usługi katalogowej Apache Directory Server, przechowujący dane uwierzytelniające użytkowników, jest uruchomiony w cartridge’u typu Do-It-Yourself. Aplikacje webowe dostępne z poziomu przeglądarki WWW oraz usługa DeliveryService, reprezentująca zewnętrzny system, wykorzystują oddzielny cartridge JBoss AS.
+	
+	Cartridge JBoss Application Server udostępnia gotową strukturę szkieletu projektu zgodną z Apache Maven. Pozwala na zdalną budowę aplikacji na serwerze lub wykorzystanie już zbudowanych lokalnie artefaktów. Umożliwia dostosowanie konfiguracji serwera aplikacji do własnych potrzeb, udostępniając jego pliki konfiguracyjne. Pozwala także na dodawanie podsystemów do serwera JBoss – tworzona aplikacja wymagała dodania podsystemu Picketlink.
+	
+
+	Cartridge Do-It-Yourself pozwala na uruchomienie dowolnego programu zgodnego z systemem Linux. Udostępnia adres IP i numer portu na którym nasłuchiwać może dana aplikacja i który jest dostępny z zewnątrz. Niestety dopuszczone są wyłącznie żądania i odpowiedzi zgodne z protokołem HTTP. 
+	
+	Ograniczenie to uniemożliwia bezpośrednie połączenie serwera Apache Directory, wykorzystującego do komunikacji protokół LDAP,  z serwerami JBoss gdzie uruchomione są usługi Security Token Service oraz Identity Provider. W celu połączenia tych komponentów zostało wykorzystanie przekierowanie portów przy pomocy protokołu SSH(SSH Port Forwarding). Wiadomości LDAP są tunelowane wewnątrz bezpiecznego kanału transmisji zapewnianego przez SSH. Tunel jest tworzony przy starcie aplikacji przez mechanizm action hooks w odpowiedzi na zdarzenie uruchomienia systemu.  Dzięki temu port do którego dowiązana jest usługa LDAP jest widoczny na pozostałych węzłach jako port lokalny. 
+
+
+\autsection{Analiza bezpieczeństwa systemu w kontekście typowych ataków}{Tomasz Wójcik}
+
+	Zagadnienia związane z bezpieczeństwem systemów informatycznych zrealizowanych w paradygmacie SOA są głównym tematem niniejszej pracy.  W poprzednich rozdziałach zaprezentowane zostały zarówno standardy i protokoły opisujące schematy bezpiecznej komunikacji, uwierzytelniania i autoryzacji użytkowników jak również konkretne rozwiązania technologiczne  stanowiące implementację tych standardów lub w inny sposób wpływające na bezpieczeństwo systemu. Znaczna część opisanych mechanizmów ma na celu zapobieganie potencjalnie szkodliwemu użyciu zasobów udostępnianych przez system. 
+	
+	W tym rozdziale zaprezentowane zostaną typowe zagrożenia bezpieczeństwa dotyczące systemów SOA wraz z analizą możliwości wykorzystania ich w utworzonym przykładowym systemie obsługi zamówień. Z uwagi na ilość potencjalnych luk zabezpieczeń oraz złożoność niektórych ataków, już sama ich klasyfikacja  przysparza dużo trudności. W związku z tym rozważania ograniczają się do najpopularniejszych zagrożeń z listy OWASP Top10\cite{OWASP:2013}  związanych bezpośrednio z tematem pracy.
+
+\subsection{Wstrzyknięcie kodu}
+
+	Ataki tego typu polegają na zmuszeniu aplikacji do wykonania kodu przesłanego przez atakującego w miejscu zwykłych danych przyjmowanych przez aplikację. Każda aplikacja która wykorzystuje dane przesłane przez użytkownika w tworzeniu poleceń lub zapytań przekazywanych do interpreterów (np. funkcje typu eval, silniki SQL) jest narażona na ten typ ataku.  
+	
+	Istnieje kilka sposobów zapobiegania atakom tego typu. Jeden z najlepszych polega na zastąpieniu API przyjmującego polecenia tekstowe wraz z ich argumentami w postaci pojedynczego parametru przez interfejs sparametryzowany, w którym polecenie do interpretera i jego parametry są od siebie wyraźnie oddzielone. Niestety  parametryczne API nie są  dostępne dla wszystkich interpreterów. W takiej sytuacji należy zastosować walidację danych wejściowych oraz ominięcie(ang. escaping) znaków specjalnych danego interpretera.
+	
+	Prawdopodobnie najbardziej znanym przykładem ataku tego typu jest SQL Injection. Jeżeli zapytanie przekazywane do RDBMS jest konstruowane poprzez proste łączenie łańcuchów znaków, atakujący może łatwo wykonać dowolną instrukcję SQL lub powiększyć zbiór otrzymanych wyników. 
+	
+	\lstset{language=Java}
+	
+	Dla przykładu, rozważmy aplikację która przechowuje poufne dane różnych użytkowników w tej samej tabeli w bazie danych. Konstruuje ona zapytanie SQL w następujący sposób:
+	
+	\lstinline|String zapytanie = "SELECT tajnedane FROM tabela " +| 
+	\lstinline|"WHERE wlasciciel = '" + uzytkownik + "'";|
+	
+	Co za tym idzie, możliwy jest atak SQL Injection. W celu jego przeprowadzenia, atakujący podaje ciąg znaków \lstinline|"' OR '1' = '1"| jako nazwę użytkownika. Jeżeli zmienna \texttt{uzytkownik} będzie zawierać te dane, zapytanie przekazane do silnika SQL będzie miało postać
+	\lstset{language=SQL}
+	\lstinline|SELECT tajnedane FROM tabela WHERE wlasciciel = '' OR '1' = '1'| 
+	co jest równoważne prostszemu zapytaniu
+	\lstinline|SELECT tajnedane FROM tabela|.
+	Jak widać, z bazy zwrócone zostaną także dane dotyczące innych użytkowników. Co gorsze, jeżeli uprawnienia aplikacji pozwalają na to, możliwa jest także modyfikacja i usunięcie danych.
+
+	Zabezpieczeniem przed tym atakiem jest zastosowanie sparametryzowanego API wykorzystującego zmienne wiązane (ang. bind variables) i prepared statements\cite{BindVariables}. W porównaniu do konstruowania całych zapytań w postaci ciągów znaków podejście to może dodatkowo zwiększyć wydajność, ponieważ przekazanie parametrów do bazy pozwala na ponowne wykorzystanie planu wykonania zapytania różniącego się tylko tymi parametrami.
+
+	W stworzonym w ramach pracy systemie obsługi zamówień  zapytania SQL nie są bezpośrednio wykorzystywane. W komunikacji z bazą danych pośredniczy framework mapowania obiektowo-relacyjnego Hibernate. Framework ten pozwala na konstruowanie zapytań w języku Hibernate Query Language oraz jego podzbiorze, standaryzowanym przez JPA, Java Persistence Query Language. Podobnie do SQL, w celu zminimalizowania możliwości ataku, w obu przypadkach zalecane jest stosowanie sparametryzowanych zapytań. W systemie wykorzystywane są wyłącznie sparametryzowane zapytania JPQL, a co za tym idzie w ramach testów nie udało się wykonać wstrzykniętego kodu.
+	
+	\lstset{language=make, caption={Struktura wiadomości LDAP Bind}, captionpos=b, label=LDAPBind}
+	\begin{lstlisting}
+version: 3
+name: uid=uzytkownik,ou=people,dc=example,dc=com
+authentication: simple
+simple: haslo
+	\end{lstlisting}
+	
+	LDAP Injection jest atakiem typu injection wykorzystującym protokół LDAP. W utworzonym systemie protokół ten służy do weryfikacji danych uwierzytelniających użytkownika oraz uzyskania grup których jest on członkiem w celu dalszej autoryzacji dostępu do zasobów.  Operacja ta jest przeprowadzana w usłudze Security Token Service z wykorzystaniem modułu uwierzytelniającego JAAS LdapLoginModule dostarczanego z serwerem JBoss. Moduł ten nie konstruuje zapytań do serwera LDAP bezpośrednio, są one mapowane na żądania LDAP przy użyciu API Java Naming and Directory Interface. Co ciekawe, moduł ten nie przestrzega zaleceń dotyczących usuwania znaków specjalnych i przesyła je bez żadnych zmian do serwera. Jednak z uwagi na dobrze zdefiniowaną strukturę operacji bind, luki tej nie da się w praktyce wykorzystać. 
+	
+	\lstset{language=XML, caption={Przykład ataku XML External Entity Processing}, captionpos=b, label=XXE}
+	\begin{lstlisting}
+<!DOCTYPE root [  
+<!ELEMENT root ANY >
+<!ENTITY random SYSTEM "file:///dev/random" >]><root>&random;</root>
+	\end{lstlisting}
+	
+	Kolejnym atakiem tej klasy na który potencjalnie mógłby być narażony opisywany system jest XML External Entity Processing. Standard XML pozwala na definiowanie kilku rodzajów encji z wykorzystaniem Document Type Definition. Dane encji wewnętrznej są zawarte w jej definicji, z kolei encja zewnętrzna może wskazywać na zewnętrzną lokację przy pomocy URI. Funkcja ta może być przydatna np. do strukturyzowania plików konfiguracyjnych ale w przypadku usług sieciowych wprowadza nowe możliwości ataku. Atakujący może odnieść się do zasobu który zwróci znaczną ilość danych, naruszając wydajność i stabilność systemu. Jeżeli odpowiedź serwisu zawiera fragmenty otrzymanego żądania, atak może ujawnić zawartość plików do których aplikacja ma dostęp. Argumenty te przemawiają za wyłączeniem możliwości przetwarzania zewnętrznych encji. Dodatkowo, standard SOAP 1.1 ustala, że wiadomość SOAP nie może zawierać elementów DTD. Zgodnie z tym, framework Apache CXF wykorzystywany w serwerze JBoss odrzuca wszystkie wiadomości zawierające DTD\cite{ApacheCXF}, uniemożliwiając opisywany atak.
+	
+	Ponieważ REST nie jest formalnym standardem i nie definiuje struktury obsługiwanych wiadomości, inaczej przedstawia się sprawa z frameworkiem RESTEasy. Domyślnie stara się on obsłużyć referencje do zewnętrznych encji, umożliwiając opisany atak. W celu wyłączenia tej opcji należy ustawić zmienną konfiguracyjną \texttt{resteasy.document.expand.entity.references} na wartość \texttt{false}. Podobne zachowują się wszystkie domyślne implementacje parserów definiowanych przez JAXP(DOM, SAX, StAX)  oraz domyślna implementacja JAXB. Również one dostarczają możliwości wyłączenia obsługi zewnętrznych encji.
+
+\subsection{Nieprawidłowe uwierzytelnianie i zarządzanie sesją}
+
+	Do kategorii tej należą luki bezpieczeństwa w mechanizmach uwierzytelniania i zarządzania sesją, które pozwalają atakującym na przechwycenie haseł, kluczy, tokenów sesji lub przejęcie tożsamości innych użytkowników.
+	Duża część problemów zaliczanych przez OWASP do tej kategorii dotyczy raczej aplikacji WWW niż usług sieciowych. Przykładowo, zgodnie z zaleceniami SOA większość usług sieciowych, wliczając w to także opisywany w pracy system, jest bezstanowa, a więc zagadnienia związane z obsługą sesji ich nie dotyczą. 
+
+	Stworzony system wykorzystuje do uwierzytelniania standard SAML i protokół WS-Trust. Dane uwierzytelniające są weryfikowane przez implementację usługi Security Token Service pochodzącą z biblioteki Picketlink z wykorzystaniem serwera LDAP. Komunikacja pomiędzy klientem, STS i usługami jest zabezpieczana na poziomie kanału komunikacji przez TLS, co zapewnia wysoki poziom zabezpieczeń przeciwko atakom typu man-in-the-middle.
+
+	W opisanym scenariuszu, wciąż jednak istnieje możliwość ataku przez klienta usługi sieciowej. Jedną z takich możliwości jest atak typu XML Signature Wrapping. Asercje SAML wystawiane przez Security Token Service są podpisywane kluczem prywatnym tej usługi, co umożliwia ich weryfikację przez Relying Party. Do podpisywania asercji wykorzystywany jest opisywany wcześniej standard XML Signature. Niestety złożoność tego standardu powoduje duże problemy z poprawną implementacją rozwiązań o niego opartych. Element XML Signature zawierający podpis wskazuje na podpisywane elementy podając wartość ich atrybutów Id. Atakujący może wprowadzić drugi element z takim samym Id i manipulując strukturą wiadomości spowodować, że usługa sprawdzi poprawność oryginalnego, podpisanego elementu, a do przetwarzania biznesowego wykorzysta wprowadzony później element. Podatność ta, wraz z innymi błędami implementacyjnymi, pozwalała na uzyskanie dowolnej tożsamości w większości popularnych frameworków obsługujących standard SAML\cite{Somorovsky}. Framework Picketlink, użyty w opisywanym w pracy systemie jest odporny na atak tego typu. 
+
+	Jednym z pozostałych zagadnień zaliczanych do tej kategorii jest bezpieczeństwo przechowywania haseł użytkowników. Jeżeli atakujący uzyska dostęp do bazy danych, która przechowuje hasła w postaci tekstowej, może dzięki temu przejąć kontrolę nad kontami użytkowników w zaatakowanym serwisie oraz potencjalnie w innych usługach.  Przechowywanie haseł w postaci funkcji skrótu również nie gwarantuje bezpieczeństwa. Atakujący może wykorzystać stablicowane wartości funkcji skrótu(tzw. tęczowe tablice) do szybkiego odtworzenia hasła na podstawie jego skrótu. Poprawnym podejściem jest obliczanie funkcji skrótu dla hasła i pewnej losowej wartości (ang. salt), zapisywanej razem ze skrótem do bazy. W celu odczytania tak zapisanego hasła, atakujący musiałby posiadać tęczowe tablice dla każdej losowej wartości skojarzonej z hasłem co jest w praktyce niewykonalne. Apache Directory umożliwia bezpieczne przechowywanie hasła z wykorzystaniem np. Salted SHA-2.
