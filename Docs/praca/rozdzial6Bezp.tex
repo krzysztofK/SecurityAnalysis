@@ -1,0 +1,68 @@
+\chapter{Analiza bezpieczeństwa systemu w kontekście typowych ataków}
+\label{cha:bezpieczenstwo}
+
+{\it
+
+	Zagadnienia związane z bezpieczeństwem systemów informatycznych zrealizowanych w paradygmacie SOA są głównym tematem niniejszej pracy.  W poprzednich rozdziałach zaprezentowane zostały zarówno standardy i protokoły opisujące schematy bezpiecznej komunikacji, uwierzytelniania i autoryzacji użytkowników jak również konkretne rozwiązania technologiczne  stanowiące implementację tych standardów lub w inny sposób wpływające na bezpieczeństwo systemu. Znaczna część opisanych mechanizmów ma na celu zapobieganie potencjalnie szkodliwemu użyciu zasobów udostępnianych przez system. 
+	
+	W tym rozdziale zaprezentowane zostaną typowe zagrożenia bezpieczeństwa dotyczące systemów SOA wraz z analizą możliwości wykorzystania ich w utworzonym przykładowym systemie obsługi zamówień. Z uwagi na ilość potencjalnych luk zabezpieczeń oraz złożoność niektórych ataków, już sama ich klasyfikacja  przysparza dużo trudności. W związku z tym rozważania ograniczają się do najpopularniejszych zagrożeń z listy OWASP Top10\cite{OWASP:2013}  związanych bezpośrednio z tematem pracy.
+
+}
+
+\autsection{Wstrzyknięcie kodu}{Tomasz Wójcik}
+
+	Ataki tego typu polegają na zmuszeniu aplikacji do wykonania kodu przesłanego przez atakującego w miejscu zwykłych danych przyjmowanych przez aplikację. Każda aplikacja która wykorzystuje dane przesłane przez użytkownika w tworzeniu poleceń lub zapytań przekazywanych do interpreterów (np. funkcje typu eval, silniki SQL) jest narażona na ten typ ataku.  
+	
+	Istnieje kilka sposobów zapobiegania atakom tego typu. Jeden z najlepszych polega na zastąpieniu API przyjmującego polecenia tekstowe wraz z ich argumentami w postaci pojedynczego parametru przez interfejs sparametryzowany, w którym polecenie do interpretera i jego parametry są od siebie wyraźnie oddzielone. Niestety  parametryczne API nie są  dostępne dla wszystkich interpreterów. W takiej sytuacji należy zastosować walidację danych wejściowych oraz ominięcie(ang. escaping) znaków specjalnych danego interpretera.
+	
+	Prawdopodobnie najbardziej znanym przykładem ataku tego typu jest SQL Injection. Jeżeli zapytanie przekazywane do RDBMS jest konstruowane poprzez proste łączenie łańcuchów znaków, atakujący może łatwo wykonać dowolną instrukcję SQL lub powiększyć zbiór otrzymanych wyników. 
+	
+	\lstset{language=Java}
+	
+	Dla przykładu, rozważmy aplikację która przechowuje poufne dane różnych użytkowników w tej samej tabeli w bazie danych. Konstruuje ona zapytanie SQL w następujący sposób:
+	
+	\lstinline|String zapytanie = "SELECT tajnedane FROM tabela " +| 
+	\lstinline|"WHERE wlasciciel = '" + uzytkownik + "'";|
+	
+	Co za tym idzie, możliwy jest atak SQL Injection. W celu jego przeprowadzenia, atakujący podaje ciąg znaków \lstinline|"' OR '1' = '1"| jako nazwę użytkownika. Jeżeli zmienna \texttt{uzytkownik} będzie zawierać te dane, zapytanie przekazane do silnika SQL będzie miało postać
+	\lstset{language=SQL}
+	\lstinline|SELECT tajnedane FROM tabela WHERE wlasciciel = '' OR '1' = '1'| 
+	co jest równoważne prostszemu zapytaniu
+	\lstinline|SELECT tajnedane FROM tabela|.
+	Jak widać, z bazy zwrócone zostaną także dane dotyczące innych użytkowników. Co gorsze, jeżeli uprawnienia aplikacji pozwalają na to, możliwa jest także modyfikacja i usunięcie danych.
+
+	Zabezpieczeniem przed tym atakiem jest zastosowanie sparametryzowanego API wykorzystującego zmienne wiązane (ang. bind variables) i prepared statements\cite{BindVariables}. W porównaniu do konstruowania całych zapytań w postaci ciągów znaków podejście to może dodatkowo zwiększyć wydajność, ponieważ przekazanie parametrów do bazy pozwala na ponowne wykorzystanie planu wykonania zapytania różniącego się tylko tymi parametrami.
+
+	W stworzonym w ramach pracy systemie obsługi zamówień  zapytania SQL nie są bezpośrednio wykorzystywane. W komunikacji z bazą danych pośredniczy framework mapowania obiektowo-relacyjnego Hibernate. Framework ten pozwala na konstruowanie zapytań w języku Hibernate Query Language oraz jego podzbiorze, standaryzowanym przez JPA, Java Persistence Query Language. Podobnie do SQL, w celu zminimalizowania możliwości ataku, w obu przypadkach zalecane jest stosowanie sparametryzowanych zapytań. W systemie wykorzystywane są wyłącznie sparametryzowane zapytania JPQL, a co za tym idzie w ramach testów nie udało się wykonać wstrzykniętego kodu.
+	
+	\lstset{language=make, caption={Struktura wiadomości LDAP Bind}, captionpos=b, label=LDAPBind}
+	\begin{lstlisting}
+version: 3
+name: uid=uzytkownik,ou=people,dc=example,dc=com
+authentication: simple
+simple: haslo
+	\end{lstlisting}
+	
+	LDAP Injection jest atakiem typu injection wykorzystującym protokół LDAP. W utworzonym systemie protokół ten służy do weryfikacji danych uwierzytelniających użytkownika oraz uzyskania grup których jest on członkiem w celu dalszej autoryzacji dostępu do zasobów.  Operacja ta jest przeprowadzana w usłudze Security Token Service z wykorzystaniem modułu uwierzytelniającego JAAS LdapLoginModule dostarczanego z serwerem JBoss. Moduł ten nie konstruuje zapytań do serwera LDAP bezpośrednio, są one mapowane na żądania LDAP przy użyciu API Java Naming and Directory Interface. Co ciekawe, moduł ten nie przestrzega zaleceń dotyczących usuwania znaków specjalnych i przesyła je bez żadnych zmian do serwera. Jednak z uwagi na dobrze zdefiniowaną strukturę operacji bind, luki tej nie da się w praktyce wykorzystać. 
+	
+	\lstset{language=XML, caption={Przykład ataku XML External Entity Processing}, captionpos=b, label=XXE}
+	\begin{lstlisting}
+<!DOCTYPE root [  
+<!ELEMENT root ANY >
+<!ENTITY random SYSTEM "file:///dev/random" >]><root>&random;</root>
+	\end{lstlisting}
+	
+	Kolejnym atakiem tej klasy na który potencjalnie mógłby być narażony opisywany system jest XML External Entity Processing. Standard XML pozwala na definiowanie kilku rodzajów encji z wykorzystaniem Document Type Definition. Dane encji wewnętrznej są zawarte w jej definicji, z kolei encja zewnętrzna może wskazywać na zewnętrzną lokację przy pomocy URI. Funkcja ta może być przydatna np. do strukturyzowania plików konfiguracyjnych ale w przypadku usług sieciowych wprowadza nowe możliwości ataku. Atakujący może odnieść się do zasobu który zwróci znaczną ilość danych, naruszając wydajność i stabilność systemu. Jeżeli odpowiedź serwisu zawiera fragmenty otrzymanego żądania, atak może ujawnić zawartość plików do których aplikacja ma dostęp. Argumenty te przemawiają za wyłączeniem możliwości przetwarzania zewnętrznych encji. Dodatkowo, standard SOAP 1.1 ustala, że wiadomość SOAP nie może zawierać elementów DTD. Zgodnie z tym, framework Apache CXF wykorzystywany w serwerze JBoss odrzuca wszystkie wiadomości zawierające DTD\cite{ApacheCXF}, uniemożliwiając opisywany atak.
+	
+	Ponieważ REST nie jest formalnym standardem i nie definiuje struktury obsługiwanych wiadomości, inaczej przedstawia się sprawa z frameworkiem RESTEasy. Domyślnie stara się on obsłużyć referencje do zewnętrznych encji, umożliwiając opisany atak. W celu wyłączenia tej opcji należy ustawić zmienną konfiguracyjną \texttt{resteasy.document.expand.entity.references} na wartość \texttt{false}. Podobne zachowują się wszystkie domyślne implementacje parserów definiowanych przez JAXP(DOM, SAX, StAX)  oraz domyślna implementacja JAXB. Również one dostarczają możliwości wyłączenia obsługi zewnętrznych encji.
+
+\autsection{Nieprawidłowe uwierzytelnianie i zarządzanie sesją}{Tomasz Wójcik}
+
+	Do kategorii tej należą luki bezpieczeństwa w mechanizmach uwierzytelniania i zarządzania sesją, które pozwalają atakującym na przechwycenie haseł, kluczy, tokenów sesji lub przejęcie tożsamości innych użytkowników.
+	Duża część problemów zaliczanych przez OWASP do tej kategorii dotyczy raczej aplikacji WWW niż usług sieciowych. Przykładowo, zgodnie z zaleceniami SOA większość usług sieciowych, wliczając w to także opisywany w pracy system, jest bezstanowa, a więc zagadnienia związane z obsługą sesji ich nie dotyczą. 
+
+	Stworzony system wykorzystuje do uwierzytelniania standard SAML i protokół WS-Trust. Dane uwierzytelniające są weryfikowane przez implementację usługi Security Token Service pochodzącą z biblioteki Picketlink z wykorzystaniem serwera LDAP. Komunikacja pomiędzy klientem, STS i usługami jest zabezpieczana na poziomie kanału komunikacji przez TLS, co zapewnia wysoki poziom zabezpieczeń przeciwko atakom typu man-in-the-middle.
+
+	W opisanym scenariuszu, wciąż jednak istnieje możliwość ataku przez klienta usługi sieciowej. Jedną z takich możliwości jest atak typu XML Signature Wrapping. Asercje SAML wystawiane przez Security Token Service są podpisywane kluczem prywatnym tej usługi, co umożliwia ich weryfikację przez Relying Party. Do podpisywania asercji wykorzystywany jest opisywany wcześniej standard XML Signature. Niestety złożoność tego standardu powoduje duże problemy z poprawną implementacją rozwiązań o niego opartych. Element XML Signature zawierający podpis wskazuje na podpisywane elementy podając wartość ich atrybutów Id. Atakujący może wprowadzić drugi element z takim samym Id i manipulując strukturą wiadomości spowodować, że usługa sprawdzi poprawność oryginalnego, podpisanego elementu, a do przetwarzania biznesowego wykorzysta wprowadzony później element. Podatność ta, wraz z innymi błędami implementacyjnymi, pozwalała na uzyskanie dowolnej tożsamości w większości popularnych frameworków obsługujących standard SAML\cite{Somorovsky}. Framework Picketlink, użyty w opisywanym w pracy systemie jest odporny na atak tego typu. 
+
+	Jednym z pozostałych zagadnień zaliczanych do tej kategorii jest bezpieczeństwo przechowywania haseł użytkowników. Jeżeli atakujący uzyska dostęp do bazy danych, która przechowuje hasła w postaci tekstowej, może dzięki temu przejąć kontrolę nad kontami użytkowników w zaatakowanym serwisie oraz potencjalnie w innych usługach.  Przechowywanie haseł w postaci funkcji skrótu również nie gwarantuje bezpieczeństwa. Atakujący może wykorzystać stablicowane wartości funkcji skrótu(tzw. tęczowe tablice) do szybkiego odtworzenia hasła na podstawie jego skrótu. Poprawnym podejściem jest obliczanie funkcji skrótu dla hasła i pewnej losowej wartości (ang. salt), zapisywanej razem ze skrótem do bazy. W celu odczytania tak zapisanego hasła, atakujący musiałby posiadać tęczowe tablice dla każdej losowej wartości skojarzonej z hasłem co jest w praktyce niewykonalne. Apache Directory umożliwia bezpieczne przechowywanie hasła z wykorzystaniem np. Salted SHA-2.
