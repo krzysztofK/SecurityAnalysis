@@ -8,6 +8,8 @@
 	W wielu systemach rozproszonych wykorzystywane są mechanizmy uwierzytelniania i autoryzacji oparte o koncepcje różne niż systemy zarządzania tożsamościami. Jednym z popularnie stosowanych standardów jest protokół Kerberos. System Kerberos realizuje mechanizmy jednokrotnego uwierzytelniania użytkowników aplikacji poprzez wprowadzenie koncepcji biletów ogólnego przeznaczenia, dzięki którym przyznawane są bilety dedykowane konkretnym usługom żądanym przez użytkownika.
 
 	Opracowano również szereg standardów ukierunkowanych na zapewnienie bezpieczeństwa dostępu do usług webowych opartych o protokół SOAP. Wśród nich wymienić można - WS-Security(definiujący mechanizmy uwierzytelniania oraz sposoby gwarantowania poufności i integralności przesyłania komunikatów), WS-Trust(określający mechanizmy wymiany informacji o tożsamościach pomiędzy różnorodnymi usługami) oraz WS-Federation(umożliwiający współdzielenie tożsamości użytkowników pomiędzy różnymi domenami bezpieczeństwa). Innym powszechnie stosowanym standardem w kontekście zapewniania bezpieczeństwa dostępu do aplikacji jest specyfikacja OAuth - definiująca mechanizmy autoryzacji realizowane przy użyciu protokołu HTTP. 
+	
+	Ostatnią grupę opisywaną w tym rozdziale stanowią standardy dotyczące zapewniania bezpieczeństwa komunikacji. W systemach typu SOA może istnieć wymaganie dotyczące zagwarantowania poufności danych wymienianych między komponentami systemu, tak aby krytyczne dane jak np. hasła nie mogły zostać odczytane przez nikogo poza ich odbiorcą. Innym wymaganiem jest zapewnienie integralności danych, czyli uniemożliwienie ich podmiany na skutek ataku lub awarii. Mechanizmy zapewniające te cechy komunikacji mogą działać na poziomie kanału transmisji pomiędzy nadawcą i odbiorcą lub na poziomie wiadomości. 
 
 }
 
@@ -148,7 +150,7 @@ Implementacja systemów zarządzania tożsamościami jest obszarem, w którym st
 	
 %---------------------------------------------------------------------------
 
-\autsection{Przykłady frameworków zarządzających uwierzytelnianiem i autoryzacją użytkowników}{Krzysztof Wilaszek}
+\autsection{Przykłady standardów zarządzających uwierzytelnianiem i autoryzacją użytkowników}{Krzysztof Wilaszek}
 \label{sec:frameworki}
 
 	\subsection{Protokół Kerberos}
