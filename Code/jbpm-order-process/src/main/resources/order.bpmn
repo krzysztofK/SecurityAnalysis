@@ -1,330 +1,391 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<definitions id="Definition"
-             targetNamespace="http://www.jboss.org/drools"
-             typeLanguage="http://www.java.com/javaTypes"
-             expressionLanguage="http://www.mvel.org/2.0"
-             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
-             xmlns:g="http://www.jboss.org/drools/flow/gpd"
-             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-             xmlns:tns="http://www.jboss.org/drools">
-
-  <itemDefinition id="_userItem" structureRef="String" />
-  <itemDefinition id="_passwordItem" structureRef="String" />
-  <itemDefinition id="_assertionItem" structureRef="String" />
-  <itemDefinition id="_countItem" structureRef="Integer" />
-  <itemDefinition id="_productItem" structureRef="String" />
-  <itemDefinition id="_locationItem" structureRef="String" />
-  <itemDefinition id="_serviceURLItem" structureRef="String" />
-  <itemDefinition id="_invoiceRequestedItem" structureRef="Boolean" />
-  <itemDefinition id="_invoiceIdentifierItem" structureRef="String" />
-  <itemDefinition id="_dueDateItem" structureRef="java.util.Date" />
-  <itemDefinition id="_deliveryIDItem" structureRef="String" />
-
-  <itemDefinition id="_1-userItem" structureRef="String" />
-  <itemDefinition id="_1-passwordItem" structureRef="String" />
-  <itemDefinition id="_1-assertionItem" structureRef="String" />
-  <itemDefinition id="_1-countItem" structureRef="Integer" />
-  <itemDefinition id="_1-productItem" structureRef="String" />
-  <itemDefinition id="_1-locationItem" structureRef="String" />
-  <itemDefinition id="_1-serviceURLItem" structureRef="String" />
-  <itemDefinition id="_1-invoiceRequestedItem" structureRef="Boolean" />
-  <itemDefinition id="_1-invoiceIdentifierItem" structureRef="String" />
-  <itemDefinition id="_1-dueDateItem" structureRef="java.util.Date" />
-  <itemDefinition id="_1-deliveryIDItem" structureRef="String" />
-
-  <itemDefinition id="_5-userItem" structureRef="String" />
-  <itemDefinition id="_5-passwordItem" structureRef="String" />
-  <itemDefinition id="_5-assertionItem" structureRef="String" />
-  <itemDefinition id="_5-countItem" structureRef="Integer" />
-  <itemDefinition id="_5-productItem" structureRef="String" />
-  <itemDefinition id="_5-locationItem" structureRef="String" />
-  <itemDefinition id="_5-serviceURLItem" structureRef="String" />
-  <itemDefinition id="_5-invoiceRequestedItem" structureRef="Boolean" />
-  <itemDefinition id="_5-invoiceIdentifierItem" structureRef="String" />
-  <itemDefinition id="_5-dueDateItem" structureRef="java.util.Date" />
-  <itemDefinition id="_5-deliveryIDItem" structureRef="String" />
-
-  <itemDefinition id="_7-userItem" structureRef="String" />
-  <itemDefinition id="_7-passwordItem" structureRef="String" />
-  <itemDefinition id="_7-assertionItem" structureRef="String" />
-  <itemDefinition id="_7-countItem" structureRef="Integer" />
-  <itemDefinition id="_7-productItem" structureRef="String" />
-  <itemDefinition id="_7-locationItem" structureRef="String" />
-  <itemDefinition id="_7-serviceURLItem" structureRef="String" />
-  <itemDefinition id="_7-invoiceRequestedItem" structureRef="Boolean" />
-  <itemDefinition id="_7-invoiceIdentifierItem" structureRef="String" />
-  <itemDefinition id="_7-dueDateItem" structureRef="java.util.Date" />
-  <itemDefinition id="_7-deliveryIDItem" structureRef="String" />
-
-  <itemDefinition id="_10-userItem" structureRef="String" />
-  <itemDefinition id="_10-passwordItem" structureRef="String" />
-  <itemDefinition id="_10-assertionItem" structureRef="String" />
-  <itemDefinition id="_10-countItem" structureRef="Integer" />
-  <itemDefinition id="_10-productItem" structureRef="String" />
-  <itemDefinition id="_10-locationItem" structureRef="String" />
-  <itemDefinition id="_10-serviceURLItem" structureRef="String" />
-  <itemDefinition id="_10-invoiceRequestedItem" structureRef="Boolean" />
-  <itemDefinition id="_10-invoiceIdentifierItem" structureRef="String" />
-  <itemDefinition id="_10-dueDateItem" structureRef="java.util.Date" />
-  <itemDefinition id="_10-deliveryIDItem" structureRef="String" />
-
-  <process processType="Private" isExecutable="true" id="pl.edu.agh.security.bpmn.order" name="Order Process" >
-
-    <!-- process variables -->
-    <property id="user" itemSubjectRef="_userItem"/>
-    <property id="password" itemSubjectRef="_passwordItem"/>
-    <property id="assertion" itemSubjectRef="_assertionItem"/>
-    <property id="count" itemSubjectRef="_countItem"/>
-    <property id="product" itemSubjectRef="_productItem"/>
-    <property id="location" itemSubjectRef="_locationItem"/>
-    <property id="serviceURL" itemSubjectRef="_serviceURLItem"/>
-    <property id="invoiceRequested" itemSubjectRef="_invoiceRequestedItem"/>
-    <property id="invoiceIdentifier" itemSubjectRef="_invoiceIdentifierItem"/>
-    <property id="dueDate" itemSubjectRef="_dueDateItem"/>
-    <property id="deliveryID" itemSubjectRef="_deliveryIDItem"/>
-
-    <!-- nodes -->
-    <task id="_1" name="Authenticate" tns:taskName="Authenticate" >
-      <ioSpecification>
-        <dataInput id="_1_UserInput" name="User" />
-        <dataInput id="_1_PasswordInput" name="Password" />
-        <dataOutput id="_1_AssertionOutput" name="Assertion" />
-        <inputSet>
-          <dataInputRefs>_1_UserInput</dataInputRefs>
-          <dataInputRefs>_1_PasswordInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-          <dataOutputRefs>_1_AssertionOutput</dataOutputRefs>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>user</sourceRef>
-        <targetRef>_1_UserInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>password</sourceRef>
-        <targetRef>_1_PasswordInput</targetRef>
-      </dataInputAssociation>
-      <dataOutputAssociation>
-        <sourceRef>_1_AssertionOutput</sourceRef>
-        <targetRef>assertion</targetRef>
-      </dataOutputAssociation>
-    </task>
-    <startEvent id="_2" name="Start" />
-    <endEvent id="_3" name="End" >
-        <terminateEventDefinition />
-    </endEvent>
-    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
-    <task id="_5" name="StoresStateRequest" tns:taskName="StoresStateRequest" >
-      <ioSpecification>
-        <dataInput id="_5_AssertionInput" name="Assertion" />
-        <dataInput id="_5_CountInput" name="Count" />
-        <dataInput id="_5_ProductInput" name="Product" />
-        <dataOutput id="_5_ServiceURLOutput" name="ServiceURL" />
-        <dataOutput id="_5_LocationOutput" name="Location" />
-        <inputSet>
-          <dataInputRefs>_5_AssertionInput</dataInputRefs>
-          <dataInputRefs>_5_CountInput</dataInputRefs>
-          <dataInputRefs>_5_ProductInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-          <dataOutputRefs>_5_ServiceURLOutput</dataOutputRefs>
-          <dataOutputRefs>_5_LocationOutput</dataOutputRefs>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>assertion</sourceRef>
-        <targetRef>_5_AssertionInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>count</sourceRef>
-        <targetRef>_5_CountInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>product</sourceRef>
-        <targetRef>_5_ProductInput</targetRef>
-      </dataInputAssociation>
-      <dataOutputAssociation>
-        <sourceRef>_5_ServiceURLOutput</sourceRef>
-        <targetRef>serviceURL</targetRef>
-      </dataOutputAssociation>
-      <dataOutputAssociation>
-        <sourceRef>_5_LocationOutput</sourceRef>
-        <targetRef>location</targetRef>
-      </dataOutputAssociation>
-    </task>
-    <endEvent id="_6" name="End" >
-        <terminateEventDefinition />
-    </endEvent>
-    <task id="_7" name="RegisterFinancialTransaction" tns:taskName="RegisterFinancialTransaction" >
-      <ioSpecification>
-        <dataInput id="_7_AssertionInput" name="Assertion" />
-        <dataInput id="_7_CountInput" name="Count" />
-        <dataInput id="_7_ProductInput" name="Product" />
-        <dataInput id="_7_InvoiceRequestedInput" name="InvoiceRequested" />
-        <dataOutput id="_7_DueDateOutput" name="DueDate" />
-        <dataOutput id="_7_InvoiceIdentifierOutput" name="InvoiceIdentifier" />
-        <inputSet>
-          <dataInputRefs>_7_AssertionInput</dataInputRefs>
-          <dataInputRefs>_7_CountInput</dataInputRefs>
-          <dataInputRefs>_7_ProductInput</dataInputRefs>
-          <dataInputRefs>_7_InvoiceRequestedInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-          <dataOutputRefs>_7_DueDateOutput</dataOutputRefs>
-          <dataOutputRefs>_7_InvoiceIdentifierOutput</dataOutputRefs>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>assertion</sourceRef>
-        <targetRef>_7_AssertionInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>count</sourceRef>
-        <targetRef>_7_CountInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>product</sourceRef>
-        <targetRef>_7_ProductInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>invoiceRequested</sourceRef>
-        <targetRef>_7_InvoiceRequestedInput</targetRef>
-      </dataInputAssociation>
-      <dataOutputAssociation>
-        <sourceRef>_7_DueDateOutput</sourceRef>
-        <targetRef>dueDate</targetRef>
-      </dataOutputAssociation>
-      <dataOutputAssociation>
-        <sourceRef>_7_InvoiceIdentifierOutput</sourceRef>
-        <targetRef>invoiceIdentifier</targetRef>
-      </dataOutputAssociation>
-    </task>
-    <exclusiveGateway id="_8" name="Gateway" gatewayDirection="Diverging" />
-    <endEvent id="_9" name="End" >
-        <terminateEventDefinition />
-    </endEvent>
-    <task id="_10" name="Delivery" tns:taskName="Delivery" >
-      <ioSpecification>
-        <dataInput id="_10_AssertionInput" name="Assertion" />
-        <dataInput id="_10_LocationInput" name="Location" />
-        <dataOutput id="_10_DeliveryIDOutput" name="DeliveryID" />
-        <inputSet>
-          <dataInputRefs>_10_AssertionInput</dataInputRefs>
-          <dataInputRefs>_10_LocationInput</dataInputRefs>
-        </inputSet>
-        <outputSet>
-          <dataOutputRefs>_10_DeliveryIDOutput</dataOutputRefs>
-        </outputSet>
-      </ioSpecification>
-      <dataInputAssociation>
-        <sourceRef>assertion</sourceRef>
-        <targetRef>_10_AssertionInput</targetRef>
-      </dataInputAssociation>
-      <dataInputAssociation>
-        <sourceRef>location</sourceRef>
-        <targetRef>_10_LocationInput</targetRef>
-      </dataInputAssociation>
-      <dataOutputAssociation>
-        <sourceRef>_10_DeliveryIDOutput</sourceRef>
-        <targetRef>deliveryID</targetRef>
-      </dataOutputAssociation>
-    </task>
-
-    <!-- connections -->
-    <sequenceFlow id="_2-_1" sourceRef="_2" targetRef="_1" />
-    <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" name="User not authenticated" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" >return assertion == null;</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
-    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" name="User authenticated" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" >return assertion != null;</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_8-_6" sourceRef="_8" targetRef="_6" name="productNotAvailable" tns:priority="1" >
-      <conditionExpression xsi:type="tFormalExpression" >return serviceURL == null;</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="_10-_7" sourceRef="_10" targetRef="_7" />
-    <sequenceFlow id="_5-_8" sourceRef="_5" targetRef="_8" />
-    <sequenceFlow id="_7-_9" sourceRef="_7" targetRef="_9" />
-    <sequenceFlow id="_8-_10" sourceRef="_8" targetRef="_10" name="productAvailable" >
-      <conditionExpression xsi:type="tFormalExpression" >return serviceURL != null;</conditionExpression>
-    </sequenceFlow>
-
-  </process>
-
-  <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="pl.edu.agh.security.bpmn.order" >
-      <bpmndi:BPMNShape bpmnElement="_1" >
-        <dc:Bounds x="96" y="56" width="100" height="48" />
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="_userItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_passwordItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_assertionItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_countItem" structureRef="Integer"/>
+  <bpmn2:itemDefinition id="_productItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_locationItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_serviceURLItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_invoiceRequestedItem" structureRef="Boolean"/>
+  <bpmn2:itemDefinition id="_invoiceIdentifierItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_dueDateItem" structureRef="java.util.Date"/>
+  <bpmn2:itemDefinition id="_deliveryIDItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_warehouseResponse" structureRef="Enum"/>
+  <bpmn2:itemDefinition id="_1-userItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_1-passwordItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_1-assertionItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_1-countItem" structureRef="Integer"/>
+  <bpmn2:itemDefinition id="_1-productItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_1-locationItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_1-serviceURLItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_1-invoiceRequestedItem" structureRef="Boolean"/>
+  <bpmn2:itemDefinition id="_1-invoiceIdentifierItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_1-dueDateItem" structureRef="java.util.Date"/>
+  <bpmn2:itemDefinition id="_1-deliveryIDItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-userItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-passwordItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-assertionItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-countItem" structureRef="Integer"/>
+  <bpmn2:itemDefinition id="_5-productItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-locationItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-serviceURLItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-invoiceRequestedItem" structureRef="Boolean"/>
+  <bpmn2:itemDefinition id="_5-invoiceIdentifierItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_5-dueDateItem" structureRef="java.util.Date"/>
+  <bpmn2:itemDefinition id="_5-deliveryIDItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-userItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-passwordItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-assertionItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-countItem" structureRef="Integer"/>
+  <bpmn2:itemDefinition id="_7-productItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-locationItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-serviceURLItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-invoiceRequestedItem" structureRef="Boolean"/>
+  <bpmn2:itemDefinition id="_7-invoiceIdentifierItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_7-dueDateItem" structureRef="java.util.Date"/>
+  <bpmn2:itemDefinition id="_7-deliveryIDItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-userItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-passwordItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-assertionItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-countItem" structureRef="Integer"/>
+  <bpmn2:itemDefinition id="_10-productItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-locationItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-serviceURLItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-invoiceRequestedItem" structureRef="Boolean"/>
+  <bpmn2:itemDefinition id="_10-invoiceIdentifierItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_10-dueDateItem" structureRef="java.util.Date"/>
+  <bpmn2:itemDefinition id="_10-deliveryIDItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="StringDataType"/>
+  <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="EnumDataType"/>
+  <bpmn2:process id="pl.edu.agh.security.bpmn.order" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="Order Process" isExecutable="true" processType="Private">
+    <bpmn2:property id="user" itemSubjectRef="_userItem"/>
+    <bpmn2:property id="password" itemSubjectRef="_passwordItem"/>
+    <bpmn2:property id="assertion" itemSubjectRef="_assertionItem"/>
+    <bpmn2:property id="count" itemSubjectRef="_countItem"/>
+    <bpmn2:property id="product" itemSubjectRef="_productItem"/>
+    <bpmn2:property id="location" itemSubjectRef="_locationItem"/>
+    <bpmn2:property id="serviceURL" itemSubjectRef="_serviceURLItem"/>
+    <bpmn2:property id="invoiceRequested" itemSubjectRef="_invoiceRequestedItem"/>
+    <bpmn2:property id="invoiceIdentifier" itemSubjectRef="_invoiceIdentifierItem"/>
+    <bpmn2:property id="dueDate" itemSubjectRef="_dueDateItem"/>
+    <bpmn2:property id="deliveryID" itemSubjectRef="_deliveryIDItem"/>
+    <bpmn2:property id="warehouseResponse" itemSubjectRef="_warehouseResponse"/>
+    <bpmn2:exclusiveGateway id="_8" name="Gateway" gatewayDirection="Diverging">
+      <bpmn2:incoming>_5-_8</bpmn2:incoming>
+      <bpmn2:outgoing>_8-_6</bpmn2:outgoing>
+      <bpmn2:outgoing>_8-_10</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="_8-_6" tns:priority="1" name="productNotAvailable" sourceRef="_8" targetRef="_6">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">return serviceURL == null;</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_8-_10" tns:priority="1" name="productAvailable" sourceRef="_8" targetRef="_10">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_4">return serviceURL != null;</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:endEvent id="_6" name="End">
+      <bpmn2:incoming>_8-_6</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_2"/>
+    </bpmn2:endEvent>
+    <bpmn2:exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging">
+      <bpmn2:incoming>_1-_4</bpmn2:incoming>
+      <bpmn2:outgoing>_4-_3</bpmn2:outgoing>
+      <bpmn2:outgoing>_4-_5</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="_4-_3" tns:priority="1" name="User not authenticated" sourceRef="_4" targetRef="_3">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1">return assertion == null;</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_4-_5" tns:priority="1" name="User authenticated" sourceRef="_4" targetRef="_5">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_2">return assertion != null;</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:endEvent id="_3" name="End">
+      <bpmn2:incoming>_4-_3</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_1"/>
+    </bpmn2:endEvent>
+    <bpmn2:task id="_1" tns:taskName="Authenticate" name="Authenticate">
+      <bpmn2:incoming>_2-_1</bpmn2:incoming>
+      <bpmn2:outgoing>_1-_4</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_1">
+        <bpmn2:dataInput id="_1_UserInput" name="User"/>
+        <bpmn2:dataInput id="_1_PasswordInput" name="Password"/>
+        <bpmn2:dataOutput id="_1_AssertionOutput" name="Assertion"/>
+        <bpmn2:inputSet id="InputSet_1">
+          <bpmn2:dataInputRefs>_1_UserInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_1_PasswordInput</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_1">
+          <bpmn2:dataOutputRefs>_1_AssertionOutput</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_1">
+        <bpmn2:sourceRef>user</bpmn2:sourceRef>
+        <bpmn2:targetRef>_1_UserInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_2">
+        <bpmn2:sourceRef>password</bpmn2:sourceRef>
+        <bpmn2:targetRef>_1_PasswordInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
+        <bpmn2:sourceRef>_1_AssertionOutput</bpmn2:sourceRef>
+        <bpmn2:targetRef>assertion</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="_1-_4" tns:priority="1" name="" sourceRef="_1" targetRef="_4"/>
+    <bpmn2:task id="_10" tns:taskName="Delivery" name="Delivery">
+      <bpmn2:incoming>_8-_10</bpmn2:incoming>
+      <bpmn2:outgoing>_10-_7</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_4">
+        <bpmn2:dataInput id="_10_AssertionInput" name="Assertion"/>
+        <bpmn2:dataInput id="_10_LocationInput" name="Location"/>
+        <bpmn2:dataOutput id="_10_DeliveryIDOutput" name="DeliveryID"/>
+        <bpmn2:inputSet id="InputSet_4">
+          <bpmn2:dataInputRefs>_10_AssertionInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_10_LocationInput</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_4">
+          <bpmn2:dataOutputRefs>_10_DeliveryIDOutput</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_10">
+        <bpmn2:sourceRef>assertion</bpmn2:sourceRef>
+        <bpmn2:targetRef>_10_AssertionInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_11">
+        <bpmn2:sourceRef>location</bpmn2:sourceRef>
+        <bpmn2:targetRef>_10_LocationInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_6">
+        <bpmn2:sourceRef>_10_DeliveryIDOutput</bpmn2:sourceRef>
+        <bpmn2:targetRef>deliveryID</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="_10-_7" tns:priority="1" name="" sourceRef="_10" targetRef="_7"/>
+    <bpmn2:task id="_5" tns:taskName="StoresStateRequest" name="StoresStateRequest">
+      <bpmn2:incoming>_4-_5</bpmn2:incoming>
+      <bpmn2:outgoing>_5-_8</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_2">
+        <bpmn2:dataInput id="_5_AssertionInput" name="Assertion"/>
+        <bpmn2:dataInput id="_5_CountInput" name="Count"/>
+        <bpmn2:dataInput id="_5_ProductInput" name="Product"/>
+        <bpmn2:dataOutput id="_5_ServiceURLOutput" name="ServiceURL"/>
+        <bpmn2:dataOutput id="_5_LocationOutput" name="Location"/>
+        <bpmn2:inputSet id="InputSet_2">
+          <bpmn2:dataInputRefs>_5_AssertionInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_5_CountInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_5_ProductInput</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_2">
+          <bpmn2:dataOutputRefs>_5_ServiceURLOutput</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_5_LocationOutput</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_3">
+        <bpmn2:sourceRef>assertion</bpmn2:sourceRef>
+        <bpmn2:targetRef>_5_AssertionInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_4">
+        <bpmn2:sourceRef>count</bpmn2:sourceRef>
+        <bpmn2:targetRef>_5_CountInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_5">
+        <bpmn2:sourceRef>product</bpmn2:sourceRef>
+        <bpmn2:targetRef>_5_ProductInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_2">
+        <bpmn2:sourceRef>_5_ServiceURLOutput</bpmn2:sourceRef>
+        <bpmn2:targetRef>serviceURL</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_3">
+        <bpmn2:sourceRef>_5_LocationOutput</bpmn2:sourceRef>
+        <bpmn2:targetRef>location</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="_5-_8" tns:priority="1" name="" sourceRef="_5" targetRef="_8"/>
+    <bpmn2:startEvent id="_2" name="Start">
+      <bpmn2:outgoing>_2-_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="_2-_1" tns:priority="1" name="" sourceRef="_2" targetRef="_1"/>
+    <bpmn2:task id="_7" tns:taskName="RegisterFinancialTransaction" name="RegisterFinancialTransaction">
+      <bpmn2:incoming>_10-_7</bpmn2:incoming>
+      <bpmn2:outgoing>_7-_9</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="InputOutputSpecification_3">
+        <bpmn2:dataInput id="_7_AssertionInput" name="Assertion"/>
+        <bpmn2:dataInput id="_7_CountInput" name="Count"/>
+        <bpmn2:dataInput id="_7_ProductInput" name="Product"/>
+        <bpmn2:dataInput id="_7_InvoiceRequestedInput" name="InvoiceRequested"/>
+        <bpmn2:dataOutput id="_7_DueDateOutput" name="DueDate"/>
+        <bpmn2:dataOutput id="_7_InvoiceIdentifierOutput" name="InvoiceIdentifier"/>
+        <bpmn2:inputSet id="InputSet_3">
+          <bpmn2:dataInputRefs>_7_AssertionInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_7_CountInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_7_ProductInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_7_InvoiceRequestedInput</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="OutputSet_3">
+          <bpmn2:dataOutputRefs>_7_DueDateOutput</bpmn2:dataOutputRefs>
+          <bpmn2:dataOutputRefs>_7_InvoiceIdentifierOutput</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_6">
+        <bpmn2:sourceRef>assertion</bpmn2:sourceRef>
+        <bpmn2:targetRef>_7_AssertionInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_7">
+        <bpmn2:sourceRef>count</bpmn2:sourceRef>
+        <bpmn2:targetRef>_7_CountInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_8">
+        <bpmn2:sourceRef>product</bpmn2:sourceRef>
+        <bpmn2:targetRef>_7_ProductInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_9">
+        <bpmn2:sourceRef>invoiceRequested</bpmn2:sourceRef>
+        <bpmn2:targetRef>_7_InvoiceRequestedInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_4">
+        <bpmn2:sourceRef>_7_DueDateOutput</bpmn2:sourceRef>
+        <bpmn2:targetRef>dueDate</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_5">
+        <bpmn2:sourceRef>_7_InvoiceIdentifierOutput</bpmn2:sourceRef>
+        <bpmn2:targetRef>invoiceIdentifier</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="_7-_9" tns:priority="1" name="" sourceRef="_7" targetRef="Task_2"/>
+    <bpmn2:endEvent id="_9" name="End">
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_3"/>
+    </bpmn2:endEvent>
+    <bpmn2:task id="Task_2" tns:taskName="RegisterWarehouseTransaction" tns:displayName="RegisterWarehouseTransaction" tns:icon="icons/palet03.png" name="RegisterWarehouseTransaction">
+      <bpmn2:incoming>_7-_9</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_InputOutputSpecification_2">
+        <bpmn2:dataInput id="_DataInput_2" itemSubjectRef="ItemDefinition_1" name="Count"/>
+        <bpmn2:dataInput id="_DataInput_3" itemSubjectRef="ItemDefinition_1" name="Product"/>
+        <bpmn2:dataInput id="DataInput_1" itemSubjectRef="_10-deliveryIDItem" name="Assertion"/>
+        <bpmn2:dataOutput id="_DataOutput_2" itemSubjectRef="ItemDefinition_2" name="WarehouseResponse"/>
+        <bpmn2:inputSet id="_InputSet_2" name="New Input Set">
+          <bpmn2:dataInputRefs>_DataInput_2</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_DataInput_3</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>DataInput_1</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_OutputSet_2" name="New Output Set">
+          <bpmn2:dataOutputRefs>_DataOutput_2</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_2">
+        <bpmn2:sourceRef>count</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_2</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_DataInputAssociation_3">
+        <bpmn2:sourceRef>product</bpmn2:sourceRef>
+        <bpmn2:targetRef>_DataInput_3</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="DataInputAssociation_12">
+        <bpmn2:sourceRef>assertion</bpmn2:sourceRef>
+        <bpmn2:targetRef>DataInput_1</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_9">
+        <bpmn2:sourceRef>_DataOutput_2</bpmn2:sourceRef>
+        <bpmn2:targetRef>warehouseResponse</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="Task_2" targetRef="_9"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="pl.edu.agh.security.bpmn.order">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_2">
+        <dc:Bounds height="48.0" width="48.0" x="105.0" y="0.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_2" >
-        <dc:Bounds x="16" y="56" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="_3">
+        <dc:Bounds height="48.0" width="48.0" x="321.0" y="144.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_3" >
-        <dc:Bounds x="353" y="16" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="_4">
+        <dc:Bounds height="48.0" width="48.0" x="106.0" y="144.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_4" >
-        <dc:Bounds x="228" y="56" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_2" bpmnElement="_6">
+        <dc:Bounds height="48.0" width="48.0" x="343.0" y="294.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_5" >
-        <dc:Bounds x="309" y="96" width="137" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_2" bpmnElement="_8">
+        <dc:Bounds height="48.0" width="48.0" x="105.0" y="294.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_6" >
-        <dc:Bounds x="630" y="56" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_3" bpmnElement="_9">
+        <dc:Bounds height="48.0" width="48.0" x="105.0" y="664.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_7" >
-        <dc:Bounds x="752" y="147" width="191" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_1" bpmnElement="_1">
+        <dc:Bounds height="48.0" width="100.0" x="80.0" y="84.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_8" >
-        <dc:Bounds x="478" y="96" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_4" bpmnElement="_10">
+        <dc:Bounds height="48.0" width="100.0" x="80.0" y="394.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_9" >
-        <dc:Bounds x="968" y="150" width="48" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="_5">
+        <dc:Bounds height="48.0" width="137.0" x="60.0" y="224.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_10" >
-        <dc:Bounds x="584" y="145" width="100" height="48" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="_7">
+        <dc:Bounds height="48.0" width="191.0" x="35.0" y="494.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="_2-_1" >
-        <di:waypoint x="40" y="80" />
-        <di:waypoint x="146" y="80" />
+      <bpmndi:BPMNShape id="BPMNShape_Task_6" bpmnElement="Task_2">
+        <dc:Bounds height="50.0" width="207.0" x="27.0" y="580.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="_2-_1">
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="48.0"/>
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="64.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="64.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="84.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_4-_3" >
-        <di:waypoint x="252" y="80" />
-        <di:waypoint x="377" y="40" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="_4-_3">
+        <di:waypoint xsi:type="dc:Point" x="155.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="229.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="229.0" y="168.0"/>
+        <di:waypoint xsi:type="dc:Point" x="321.0" y="168.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_1-_4" >
-        <di:waypoint x="146" y="80" />
-        <di:waypoint x="252" y="80" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="_1-_4">
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="132.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="137.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="137.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="144.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
-        <di:waypoint x="252" y="80" />
-        <di:waypoint x="377" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="_4-_5">
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="193.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="206.0"/>
+        <di:waypoint xsi:type="dc:Point" x="128.0" y="206.0"/>
+        <di:waypoint xsi:type="dc:Point" x="128.0" y="224.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_8-_6" >
-        <di:waypoint x="502" y="120" />
-        <di:waypoint x="654" y="80" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="_8-_6">
+        <di:waypoint xsi:type="dc:Point" x="154.0" y="318.0"/>
+        <di:waypoint xsi:type="dc:Point" x="239.0" y="318.0"/>
+        <di:waypoint xsi:type="dc:Point" x="239.0" y="318.0"/>
+        <di:waypoint xsi:type="dc:Point" x="343.0" y="318.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_10-_7" >
-        <di:waypoint x="634" y="169" />
-        <di:waypoint x="847" y="171" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="_10-_7">
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="442.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="465.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="465.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="494.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_5-_8" >
-        <di:waypoint x="377" y="120" />
-        <di:waypoint x="502" y="120" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="_5-_8">
+        <di:waypoint xsi:type="dc:Point" x="128.0" y="272.0"/>
+        <di:waypoint xsi:type="dc:Point" x="128.0" y="281.0"/>
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="281.0"/>
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="294.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_7-_9" >
-        <di:waypoint x="847" y="171" />
-        <di:waypoint x="992" y="174" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="_7-_9" targetElement="BPMNShape_Task_6">
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="542.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="559.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="559.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="580.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_8-_10" >
-        <di:waypoint x="502" y="120" />
-        <di:waypoint x="634" y="169" />
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="_8-_10">
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="343.0"/>
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="365.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="365.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="394.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_Task_6" targetElement="BPMNShape_EndEvent_3">
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="630.0"/>
+        <di:waypoint xsi:type="dc:Point" x="130.0" y="645.0"/>
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="645.0"/>
+        <di:waypoint xsi:type="dc:Point" x="129.0" y="664.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-
-</definitions>
+</bpmn2:definitions>

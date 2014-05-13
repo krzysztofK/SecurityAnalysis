@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<jboss-web>
+	<!-- SAML Authentication -->
+	<security-domain>ws-ldap-saml</security-domain>
+</jboss-web>

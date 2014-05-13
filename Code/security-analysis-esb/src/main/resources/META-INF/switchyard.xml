@@ -58,6 +58,22 @@
 		        <swyd:operationSelector operationName="registerDelivery" xmlns:swyd="urn:switchyard-config:switchyard:1.0"/>
 		    </rest:binding.rest>
 		</sca:reference>
+		
+		<sca:service name="RestWarehouseService" promote="RestWarehouseService">
+			<rest:binding.rest>
+				<rest:contextMapper class="org.switchyard.component.resteasy.composer.RESTEasyContextMapper" includes="saml.*"/>
+				<rest:interfaces>pl.edu.agh.security.esb.warehouse.rest.IWarehouseService</rest:interfaces>
+				<rest:contextPath>rest-binding</rest:contextPath>
+			</rest:binding.rest>
+		</sca:service>
+
+		<sca:reference name="WarehouseService" promote="RestWarehouseService/WarehouseService"
+			multiplicity="0..1">
+			<soap:binding.soap>
+				<soap:contextMapper class="pl.edu.agh.security.esb.context.mappers.SOAPInScopeHeadersMapper" includes=".*Assertion.*" soapHeadersType="XML"/>
+				<soap:wsdl>${warehouse.wsdl}</soap:wsdl>
+			</soap:binding.soap>
+ 		</sca:reference>
 
 		<sca:component name="RestDeliveryServiceProxy">
 
@@ -100,6 +116,20 @@
 			<sca:reference name="OrderService">
 				<sca:interface.wsdl
 					interface="${financial.wsdl}#wsdl.porttype(FinancialOperations)" />
+			</sca:reference>
+		</sca:component>
+		
+		<sca:component name="RestWarehouseService">
+			<implementation.camel xmlns="urn:switchyard-component-camel:config:1.0">
+				<java class="pl.edu.agh.security.esb.routes.WarehouseServiceRoute" />
+			</implementation.camel>
+ 			<sca:service name="RestWarehouseService">
+				<sca:interface.java
+					interface="pl.edu.agh.security.esb.warehouse.rest.IWarehouseService" />
+			</sca:service>
+			<sca:reference name="WarehouseService">
+				<sca:interface.wsdl
+					interface="${warehouse.wsdl}#wsdl.porttype(Warehouse)" />
 			</sca:reference>
 		</sca:component>
 

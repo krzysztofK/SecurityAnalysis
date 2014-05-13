@@ -22,6 +22,8 @@ import pl.edu.agh.security.bpmn.work.items.AuthenticateWorkItemHandler;
 import pl.edu.agh.security.bpmn.work.items.DeliveryWorkItemHandler;
 import pl.edu.agh.security.bpmn.work.items.RegisterFinancialTransactionWorkItemHandler;
 import pl.edu.agh.security.bpmn.work.items.StoreStateRequestWorkItemHandler;
+import pl.edu.agh.security.bpmn.work.items.WarehouseWorkItemHandler;
+import pl.edu.agh.security.warehouse.client.WarehouseResponse;
 
 /**
  * This is a sample file to launch a process.
@@ -29,6 +31,7 @@ import pl.edu.agh.security.bpmn.work.items.StoreStateRequestWorkItemHandler;
 public class ProcessMain {
 
 	public static final void main(String[] args) throws Exception {
+		System.setProperty("jsse.enableSNIExtension", "false");
 		// load up the knowledge base
 		KnowledgeBase kbase = readKnowledgeBase();
 		StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
@@ -40,6 +43,9 @@ public class ProcessMain {
 		ksession.getWorkItemManager().registerWorkItemHandler(
 				"RegisterFinancialTransaction",
 				new RegisterFinancialTransactionWorkItemHandler());
+		ksession.getWorkItemManager().registerWorkItemHandler(
+				"RegisterWarehouseTransaction",
+				new WarehouseWorkItemHandler());
 		// start a new process instance
 		ksession.addEventListener(new ProcessEventListener() {
 
@@ -98,8 +104,10 @@ public class ProcessMain {
 						.getVariable("dueDate");
 				String invoiceIdentifier = (String) workflowProcessInstance
 						.getVariable("invoiceIdentifier");
+				WarehouseResponse warehouseResponse = (WarehouseResponse) workflowProcessInstance
+						.getVariable("warehouseResponse");
 				System.out.println("Store: " + location + ", deliveryID: " + deliveryID + ", due date: "
-						+ dueDate + ", invoice number: " + invoiceIdentifier);
+						+ dueDate + ", invoice number: " + invoiceIdentifier + ", warehouseResponse: "+warehouseResponse);
 			}
 
 			@Override

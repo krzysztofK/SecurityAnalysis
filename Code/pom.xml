@@ -21,7 +21,7 @@
 		<camelVersion>2.10.0</camelVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jaxb2.commons.collection-setter-injector>0.1</jaxb2.commons.collection-setter-injector>
-		<sts.url>http://sts.security.agh.edu.pl:8080/picketlink-sts/PicketLinkSTS</sts.url>
+		<sts.url>https://sts.security.agh.edu.pl:8080/picketlink-sts/PicketLinkSTS</sts.url>
 	</properties>
 
 	<modules>

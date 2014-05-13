@@ -6,12 +6,12 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Schemat funkcjonowania magistrali us\IeC {\l }ug}}{17}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Elementy asercji SAML}}{25}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Schemat funkcjonowania mechanizmu jednokrotnego uwierzytelniania w SAML}}{26}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Schemat funkcjonowania mechanizmu jednokrotnego uwierzytelniania w SAML}}{27}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Przebieg procesu jednokrotnego uwierzytelniania w SAML}}{27}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Przebieg procesu uwierzytelniania w standardzie OpenId}}{28}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Przebieg procesu wykorzystywania informacji dzielonych w ID-WSF}}{30}
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Przebieg procesu uwierzytelniania w protokole Kerberos}}{31}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Model zapewnienia bezpiecze\IeC {\'n}stwa dost\IeC {\k e}pu do aplikacji w standardzie WS-Trust}}{33}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Model zapewnienia bezpiecze\IeC {\'n}stwa dost\IeC {\k e}pu do aplikacji w standardzie WS-Trust}}{34}
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Prosty scenariusz federacji serwisow}}{35}
 \contentsline {figure}{\numberline {3.9}{\ignorespaces Przebieg autoryzacji w standardzie OAuth}}{36}
 \contentsline {figure}{\numberline {3.10}{\ignorespaces Wiadomo\IeC {\'s}ci wymieniane mi\IeC {\k e}dzy klientem i serwerem podczas procedury handshake w protokole Transport Layer Security}}{38}

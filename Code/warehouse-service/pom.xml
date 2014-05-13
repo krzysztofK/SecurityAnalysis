@@ -11,6 +11,10 @@
 	<artifactId>warehouse-service</artifactId>
 	<name>Security-Analysis :: warehouse-service</name>
 
+	<properties>
+		<warehouse.uri>http://warehouse-service.security.agh.edu.pl:8080/warehouse-service-0.0.1-SNAPSHOT/WarehouseService/Warehouse</warehouse.uri>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>
@@ -25,9 +29,37 @@
 			<artifactId>jbossws-cxf-client</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.picketlink.distribution</groupId>
+			<artifactId>picketlink-jbas7</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.picketlink</groupId>
+			<artifactId>picketlink-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.as</groupId>
+			<artifactId>jboss-as-web</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/sts-config.properties</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/sts-config.properties</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.jboss.ws.plugins</groupId>
@@ -41,6 +73,7 @@
 						<configuration>
 							<endpointClass>pl.edu.agh.security.deps.warehouse.WarehouseBean</endpointClass>
 							<generateWsdl>true</generateWsdl>
+							<portSoapAddress>${financial.uri}</portSoapAddress>
 						</configuration>
 					</execution>
 				</executions>
@@ -54,4 +87,12 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>openshift</id>
+			<properties>
+				<financial.uri>https://orderprocess-tomash.rhcloud.com/warehouse-service-0.0.1-SNAPSHOT/WarehouseService/Warehouse</financial.uri>
+			</properties>
+		</profile>
+	</profiles>
 </project>

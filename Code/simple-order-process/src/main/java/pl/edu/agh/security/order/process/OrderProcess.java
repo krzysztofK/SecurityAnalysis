@@ -38,30 +38,30 @@ import pl.edu.agh.security.store.state.service.client.StoreStateRequest;
 public class OrderProcess {
 
     private static final Logger LOGGER = Logger.getLogger(OrderProcess.class);
-    private static final String USER_NAME = "magister";
-    private static final String PASSWORD = "inzynier";
+    protected static final String USER_NAME = "magister";
+    protected static final String PASSWORD = "inzynier";
 
-    private static final String ORDERED_PRODUCT = "woda";
-    private static final int COUNT = 3;
-    private static final boolean INVOICE_REQUESTED = true;
-    private static final String COMPANY_NAME = "ACME";
+    protected static final String ORDERED_PRODUCT = "woda";
+    protected static final int COUNT = 3;
+    protected static final boolean INVOICE_REQUESTED = true;
+    protected static final String COMPANY_NAME = "ACME";
 
-    private static final String STS_SERVICE_NAME = "PicketLinkSTS";
-    private static final String STS_PORT = "PicketLinkSTSPort";
+    protected static final String STS_SERVICE_NAME = "PicketLinkSTS";
+    protected static final String STS_PORT = "PicketLinkSTSPort";
 
-    private static final String STORES_REQUEST_PATH_LOCAL = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
-    private static final String DELIVERY_REQUEST_PATH_LOCAL = "http://delivery.security.agh.edu.pl:8080/delivery-service/rest";
-    private static final String STS_ENDPOINT_URI_LOCAL = "http://localhost:8080/picketlink-sts/PicketLinkSTS";
-    private static final String STORES_HOST_LOCAL = "stores-states.security.agh.edu.pl";
-    private static final String DELIVERY_HOST_LOCAL = "delivery.security.agh.edu.pl";
-    private static final int PORT_LOCAL = 8080;
+    protected static final String STORES_REQUEST_PATH_LOCAL = "http://stores-states.security.agh.edu.pl:8080/stores-state-service/state";
+    protected static final String DELIVERY_REQUEST_PATH_LOCAL = "http://delivery.security.agh.edu.pl:8080/delivery-service/rest";
+    protected static final String STS_ENDPOINT_URI_LOCAL = "http://localhost:8080/picketlink-sts/PicketLinkSTS";
+    protected static final String STORES_HOST_LOCAL = "stores-states.security.agh.edu.pl";
+    protected static final String DELIVERY_HOST_LOCAL = "delivery.security.agh.edu.pl";
+    protected static final int PORT_LOCAL = 8080;
 
-    private static final String STORES_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/stores-state-service/state";
-    private static final String DELIVERY_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/delivery-service/rest";
-    private static final String STS_ENDPOINT_URI_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/picketlink-sts/PicketLinkSTS";
-    private static final String STORES_HOST_OPENSHIFT = "orderprocess-tomash.rhcloud.com";
-    private static final String DELIVERY_HOST_OPENSHIFT = "orderprocess-tomash.rhcloud.com";
-    private static final int PORT_OPENSHIFT = 80;
+    protected static final String STORES_REQUEST_PATH_OPENSHIFT = "https://orderprocess-tomash.rhcloud.com/stores-state-service/state";
+    protected static final String DELIVERY_REQUEST_PATH_OPENSHIFT = "https://websso-tomash.rhcloud.com/delivery-service/rest";
+    protected static final String STS_ENDPOINT_URI_OPENSHIFT = "https://orderprocess-tomash.rhcloud.com/picketlink-sts/PicketLinkSTS";
+    protected static final String STORES_HOST_OPENSHIFT = "orderprocess-tomash.rhcloud.com";
+    protected static final String DELIVERY_HOST_OPENSHIFT = "orderprocess-tomash.rhcloud.com";
+    protected static final int PORT_OPENSHIFT = 80;
     
     private Element samlAssertion;
     private String samlAssertionString;
@@ -131,10 +131,17 @@ public class OrderProcess {
             transactionRequest.setInvoiceRequested(invoiceRequested);
 
             TransactionResponse transactionResponse = financialOperations.registerTransaction(transactionRequest);
+            
+            Warehouse warehouse = prepareWarehouseServiceClient();
+            WarehouseRequest request = new WarehouseRequest();
+            request.setCount(count);
+            request.setProduct(orderedProduct);
+            WarehouseResponse warehouseResponse = warehouse.registerTransaction(request);
+            
             if (transactionResponse != null) {
                 LOGGER.info("Transaction successful. Due date: " + transactionResponse.getDueDate()
                         + ", delivery number: " + deliveryId + ", invoice number: "
-                        + transactionResponse.getInvoiceIdentifier() + ", store: " + store.getLocation());
+                        + transactionResponse.getInvoiceIdentifier() + ", store: " + store.getLocation() + "warehouse response: "+warehouseResponse);
             }
         } else {
             LOGGER.warn("Requested count of the product not available");
@@ -212,8 +219,25 @@ public class OrderProcess {
         bindingProvider.getBinding().setHandlerChain(handlers);
         return financialOperations;
     }
+    
+    public Warehouse prepareWarehouseServiceClient() {
+        Warehouse warehouse = new WarehouseService().getWarehousePort();
+
+        BindingProvider bindingProvider = (BindingProvider) warehouse;
+        Map<String, List<String>> headers = new HashMap<String, List<String>>();
+        headers.put("samlAssertion", Collections.singletonList(samlAssertionString));
+        bindingProvider.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, headers);
+
+        bindingProvider.getRequestContext().put(SAML2Constants.SAML2_ASSERTION_PROPERTY, samlAssertion);
+
+        List<Handler> handlers = bindingProvider.getBinding().getHandlerChain();
+        handlers.add(new SAML2Handler());
+        bindingProvider.getBinding().setHandlerChain(handlers);
+        return warehouse;
+    }
 
     public static void main(String[] args) throws ConfigurationException, ProcessingException, ParsingException {
+    	System.setProperty("jsse.enableSNIExtension", "false");
         OrderProcess orderProcess = new OrderProcess(USER_NAME, PASSWORD, ORDERED_PRODUCT, COUNT, INVOICE_REQUESTED, true);
         orderProcess.execute();
     }

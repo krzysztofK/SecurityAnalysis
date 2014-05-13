@@ -88,7 +88,7 @@
 		<profile>
 			<id>openshift</id>
 			<properties>
-				<financial.uri>http://orderprocess-tomash.rhcloud.com/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</financial.uri>
+				<financial.uri>https://orderprocess-tomash.rhcloud.com/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations</financial.uri>
 			</properties>
 		</profile>
 	</profiles>

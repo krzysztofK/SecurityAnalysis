@@ -26,7 +26,7 @@ public class AuthenticateWorkItemHandler implements WorkItemHandler {
 	private static final String STS_SERVICE_NAME = "PicketLinkSTS";
 	private static final String STS_PORT = "PicketLinkSTSPort";
 	private static final String STS_ENDPOINT_URI = "http://sts.security.agh.edu.pl:8080/picketlink-sts/PicketLinkSTS";
-	private static final String STS_ENDPOINT_URI_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/picketlink-sts/PicketLinkSTS";
+	private static final String STS_ENDPOINT_URI_OPENSHIFT = "https://orderprocess-tomash.rhcloud.com/picketlink-sts/PicketLinkSTS";
 
 	@Override
 	public void abortWorkItem(WorkItem arg0, WorkItemManager arg1) {

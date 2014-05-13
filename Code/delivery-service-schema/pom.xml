@@ -43,10 +43,10 @@
                             <bindingIncludes>
                                 <include>bindings.xjb</include>
                             </bindingIncludes>
-                            <extension>true</extension>
+                            <!--<extension>true</extension>
                             <args>
                                 <arg>-Xcollection-setter-injector</arg>
-                            </args>
+                            </args>  -->
                             <schemaDirectory>src/main/resources/xsd</schemaDirectory>
                             <schemaIncludes>
                                 <include>DeliveryService_v.1.0.0.xsd</include>
@@ -55,13 +55,13 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
+                <!--<dependencies>
                     <dependency>
                         <groupId>org.jvnet.jaxb2_commons</groupId>
                         <artifactId>collection-setter-injector</artifactId>
                         <version>${jaxb2.commons.collection-setter-injector}</version>
                     </dependency>
-                </dependencies>
+                </dependencies>  -->
             </plugin>
 		</plugins>
 	</build>

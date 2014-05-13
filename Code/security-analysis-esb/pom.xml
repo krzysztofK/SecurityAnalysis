@@ -67,8 +67,9 @@
 			<id>openshift</id>
 			<properties>
 				<financial.wsdl>http://orderprocess-tomash.rhcloud.com/financial-dep-service-0.0.1-SNAPSHOT/FinancialOperationsService/FinancialOperations?wsdl</financial.wsdl>
-				<state.address>http://orderprocess-tomash.rhcloud.com</state.address>
-				<delivery.address>http://orderprocess-tomash.rhcloud.com</delivery.address>
+				<warehouse.wsdl>http://orderprocess-tomash.rhcloud.com/warehouse-service-0.0.1-SNAPSHOT/WarehouseService/Warehouse?wsdl</warehouse.wsdl>
+				<state.address>https://orderprocess-tomash.rhcloud.com</state.address>
+				<delivery.address>https://websso-tomash.rhcloud.com</delivery.address>
 			</properties>
 		</profile>
 	</profiles>

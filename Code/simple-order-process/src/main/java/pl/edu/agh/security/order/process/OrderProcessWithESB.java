@@ -19,14 +19,17 @@ import org.w3c.dom.Element;
 import pl.edu.agh.security.common.Utils;
 import pl.edu.agh.security.delivery.pojos.DeliveryRequest;
 import pl.edu.agh.security.delivery.pojos.Priority;
-import pl.edu.agh.security.store.state.service.client.IDeliveryService;
 import pl.edu.agh.security.financial.dep.service.client.IFinancialService;
 import pl.edu.agh.security.financial.dep.service.client.Product;
 import pl.edu.agh.security.financial.dep.service.client.TransactionRequest;
 import pl.edu.agh.security.financial.dep.service.client.TransactionResponse;
+import pl.edu.agh.security.store.state.service.client.IDeliveryService;
 import pl.edu.agh.security.store.state.service.client.IStoreState;
 import pl.edu.agh.security.store.state.service.client.Store;
 import pl.edu.agh.security.store.state.service.client.StoreStateRequest;
+import pl.edu.agh.security.warehouse.client.IWarehouseService;
+import pl.edu.agh.security.warehouse.client.WarehouseRequest;
+import pl.edu.agh.security.warehouse.client.WarehouseResponse;
 
 public class OrderProcessWithESB {
     
@@ -37,6 +40,8 @@ public class OrderProcessWithESB {
 	private static final String DELIVERY_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-delivery-binding";
 	private static final String FINANCE_REQUEST_PATH_LOCAL = "http://esb.security.agh.edu.pl:8080/rest-binding/financial-service";
 	private static final String FINANCE_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-binding/financial-service";
+	private static final String WAREHOUSE_REQUEST_PATH_LOCAL = "http://esb.security.agh.edu.pl:8080/rest-binding/warehouse-service";
+	private static final String WAREHOUSE_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-binding/warehouse-service";
 
 	private static final String DELIVERY_HOST_LOCAL = "delivery.security.agh.edu.pl";
 	private static final String DELIVERY_HOST_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com";
@@ -60,6 +65,7 @@ public class OrderProcessWithESB {
 	private final String storesUrl;
     private final String deliveryUrl;
     private final String financeUrl;
+    private final String warehouseUrl;
     private final String stsUrl;
     //private final String storesHost;
     private final String deliveryHost;
@@ -77,6 +83,7 @@ public class OrderProcessWithESB {
 		this.storesUrl = openshift ? STORES_REQUEST_PATH_OPENSHIFT : STORES_REQUEST_PATH_LOCAL;
         this.deliveryUrl = openshift ? DELIVERY_REQUEST_PATH_OPENSHIFT : DELIVERY_REQUEST_PATH_LOCAL;
         this.financeUrl = openshift ? FINANCE_REQUEST_PATH_OPENSHIFT : FINANCE_REQUEST_PATH_LOCAL;
+        this.warehouseUrl = openshift ? WAREHOUSE_REQUEST_PATH_OPENSHIFT : WAREHOUSE_REQUEST_PATH_LOCAL;
         this.stsUrl = openshift ? STS_ENDPOINT_URI_OPENSHIFT : STS_ENDPOINT_URI_LOCAL;
         //this.storesHost = openshift ? STORES_HOST_OPENSHIFT : STORES_HOST_LOCAL;
         this.deliveryHost = openshift ? DELIVERY_HOST_OPENSHIFT : DELIVERY_HOST_LOCAL;
@@ -121,6 +128,13 @@ public class OrderProcessWithESB {
 
 			TransactionResponse transactionResponse = financialOperations
 					.registerTransaction(transactionRequest);
+			
+			IWarehouseService warehouse = prepareWarehouseServiceClient();
+			WarehouseRequest warehouseRequest = new WarehouseRequest();
+			warehouseRequest.setCount(count);
+			warehouseRequest.setProduct(orderedProduct);
+			WarehouseResponse warehouseResponse = warehouse.registerTransaction(warehouseRequest);
+			
 			if (transactionResponse != null) {
 			    LOGGER.info("Transaction successful. Due date: "
                         + transactionResponse.getDueDate()
@@ -128,7 +142,8 @@ public class OrderProcessWithESB {
                         + deliveryId
                         + ", invoice number: "
                         + transactionResponse.getInvoiceIdentifier()
-                        + ", store: " + store.getLocation());
+                        + ", store: " + store.getLocation()
+                        + ", warehouse response: " + warehouseResponse);
 			}
 		} else {
 			System.out.println("Requested count of the product not available");
@@ -214,6 +229,27 @@ public class OrderProcessWithESB {
 
 		return ProxyFactory.create(IFinancialService.class,
 				financeUrl, executor);
+	}
+	
+	public IWarehouseService prepareWarehouseServiceClient() {
+		DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+		ApacheHttpClient4Executor executor = new ApacheHttpClient4Executor(
+				defaultHttpClient) {
+
+			@SuppressWarnings("rawtypes")
+			@Override
+			public ClientResponse execute(ClientRequest request)
+					throws Exception {
+				request.header("samlAssertion", samlAssertionString);
+				return super.execute(request);
+			}
+		};
+
+		// This initialization only needs to be done once per VM
+		RegisterBuiltin.register(ResteasyProviderFactory.getInstance());
+
+		return ProxyFactory.create(IWarehouseService.class,
+				warehouseUrl, executor);
 	}
 
 }

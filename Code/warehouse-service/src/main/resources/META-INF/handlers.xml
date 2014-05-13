@@ -10,7 +10,8 @@
 	<handler-chain>
 		<handler>
 			<handler-name>SAML2Handler</handler-name>
-			<handler-class>org.picketlink.trust.jbossws.handler.SAML2Handler</handler-class>
+			<handler-class>pl.edu.agh.security.handlers.SAMLHandlerModified
+			</handler-class>
 		</handler>
 	</handler-chain>
 

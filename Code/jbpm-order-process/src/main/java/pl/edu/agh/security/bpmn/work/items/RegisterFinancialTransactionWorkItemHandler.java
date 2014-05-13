@@ -27,7 +27,7 @@ public class RegisterFinancialTransactionWorkItemHandler implements
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterFinancialTransactionWorkItemHandler.class);
 	private static final String INVOICE_REQUESTED_PARAMETER = "InvoiceRequested";
 	private static final String FINANCE_REQUEST_PATH = "http://esb.security.agh.edu.pl:8080/rest-binding/financial-service";
-	private static final String FINANCE_REQUEST_PATH_OPENSHIFT = "http://orderprocess-tomash.rhcloud.com/rest-binding/financial-service";
+	private static final String FINANCE_REQUEST_PATH_OPENSHIFT = "https://orderprocess-tomash.rhcloud.com/rest-binding/financial-service";
 
 	public static final String INVOICE_IDENTIFIER_PARAMTETER = "InvoiceIdentifier";
 	public static final String DUE_DATE_PARAMETER = "DueDate";

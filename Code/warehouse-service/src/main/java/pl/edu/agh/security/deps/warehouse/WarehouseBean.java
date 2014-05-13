@@ -11,7 +11,7 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import org.jboss.ejb3.annotation.SecurityDomain;
 
 @Stateless
-@WebService(name = "Warehouse", serviceName = "WarehouseService")
+@WebService(name = "Warehouse", serviceName = "WarehouseService", targetNamespace = "")
 @SOAPBinding(parameterStyle = ParameterStyle.BARE)
 @SecurityDomain("ws-ldap-saml")
 @HandlerChain(file = "/META-INF/handlers.xml")
