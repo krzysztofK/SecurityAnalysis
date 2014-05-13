@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -z "$(ps -ef | grep 'ssh -o' | grep -v grep)" ]
+then
+    echo `date +'%T,%3N'` "SSH port forwarding is already stopped"
+else
+	echo `date +'%T,%3N'` "Trying to kill SSH port forwarding"
+    kill `ps -ef | grep 'ssh -o' | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+	echo `date +'%T,%3N'` "SSH port forwarding has been stopped"
+fi

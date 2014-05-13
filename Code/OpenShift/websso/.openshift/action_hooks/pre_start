@@ -1,0 +1,8 @@
+#!/bin/bash
+export JAVA_OPTS_EXT="-Dopenshift.jbossas.ip=$OPENSHIFT_JBOSSAS_IP -Dopenshift.jbossas.port=$OPENSHIFT_JBOSSAS_HTTP_PORT $JAVA_OPTS"
+echo `date +'%T,%3N'` "Modifed JAVA_OPTS_EXT: $JAVA_OPTS_EXT"
+REMOTE_APP="51f045455973cad3de000167@apacheds-tomash.rhcloud.com"	
+REMOTE_GEAR_IP=$(ssh -q -o 'StrictHostKeyChecking no' -i ~/app-root/data/custom_id_rsa $REMOTE_APP 'printenv OPENSHIFT_DIY_IP')    
+echo `date +'%T,%3N'` "Starting forwarding LDAP port from $REMOTE_GEAR_IP to $OPENSHIFT_JBOSSAS_IP"
+nohup ssh -o 'StrictHostKeyChecking no' -i ~/app-root/data/custom_id_rsa  -N -L $OPENSHIFT_JBOSSAS_IP:30389:$REMOTE_GEAR_IP:20389 $REMOTE_APP > $OPENSHIFT_JBOSSAS_LOG_DIR/sshportforward.log 2>&1 &
+echo `date +'%T,%3N'` "SSH Forwarding in progress"

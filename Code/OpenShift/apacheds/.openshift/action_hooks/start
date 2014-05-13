@@ -1,0 +1,14 @@
+#!/bin/bash
+# The logic to start up your application should be put in this
+# script. The application will work only if it binds to
+# $OPENSHIFT_DIY_IP:8080
+# nohup $OPENSHIFT_REPO_DIR/diy/testrubyserver.rb $OPENSHIFT_DIY_IP $OPENSHIFT_REPO_DIR/diy > $OPENSHIFT_DIY_DIR/logs/server.log 2>&1 &
+
+#Copy config files without overwriting
+cp -Rnv $OPENSHIFT_REPO_DIR/apacheds-2.0.0-M14/instances $OPENSHIFT_DATA_DIR
+
+#Change bind address
+sed -i -e "s/ADDRESS_TO_CHANGE_SED/$OPENSHIFT_DIY_IP/" $OPENSHIFT_DATA_DIR/instances/default/conf/config.ldif
+
+#Run service
+nohup $OPENSHIFT_REPO_DIR/apacheds-2.0.0-M14/bin/apacheds.sh > $OPENSHIFT_DIY_DIR/logs/apacheds.log 2>&1 &
